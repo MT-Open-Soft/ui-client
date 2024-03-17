@@ -3,6 +3,7 @@ import logo from './logo.svg';
 // import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     <Route path="/abc" element={<Home />} />
    
    </Routes>
+   <Footer/>
    </BrowserRouter>
   );
 }
