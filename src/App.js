@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import Footer from './components/Footer';
+import MovieDetail from './pages/MovieDetail';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
    <Navbar/>
    <Routes>
     <Route path="/" element={<Home />} />
-   
+    <Route path="/streaming" element={<MovieDetail />} />
    </Routes>
    <Footer/>
    </BrowserRouter>
