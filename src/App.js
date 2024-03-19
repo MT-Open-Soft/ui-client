@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import Footer from './components/Footer';
+import Video from './pages/Video';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
    <Navbar/>
    <Routes>
     <Route path="/" element={<Home />} />
-   
+    <Route path="/video" element={<Video />}
+/>
    </Routes>
    <Footer/>
    </BrowserRouter>
