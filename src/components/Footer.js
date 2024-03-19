@@ -5,7 +5,7 @@ function Footer() {
     <>
     
 
-<footer className="bg-white dark:bg-gray-900 
+<footer className=" bg-[#0e182b] dark:bg-gray-900 
 ">
     <div class="mx-auto p-4 py-6 lg:py-8 max-w-screen-xl w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-7/12">
         <div class="md:flex md:justify-between flex-col">
