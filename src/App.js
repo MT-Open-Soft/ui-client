@@ -6,6 +6,10 @@ import Footer from './components/Footer';
 import MoviePreview from './pages/MoviePreview';
 import Sidebar from './components/SideBar';
 import Dashboard from './pages/Dashboard';
+import Search from './components/Search';
+import Video from './pages/Video';
+
+
 
 function App() {
   return (
@@ -20,6 +24,8 @@ function App() {
             <Dashboard />
           </>
         } /> */}
+    {/* <Route path="/video" element={<Video />} */}
+/>
    </Routes>
    <Footer/>
    </BrowserRouter>

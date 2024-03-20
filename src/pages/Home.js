@@ -1,11 +1,11 @@
 import React from "react";
-
+import Search from "../components/Search";
+import ActiveSlider from "./Video";
 function Home() {
   return (
-    <div>
-      <div className="bg-blue-500 text-white p-4">
-        This is a Tailwind CSS styled component.
-      </div>
+    <div className="bg-[#152238]">
+      <Search/>
+      <ActiveSlider/>
     </div>
   );
 }
