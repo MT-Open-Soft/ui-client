@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import Search from './components/Search';
 import Video from './pages/Video';
+import Profile from './components/Profile';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
    <Navbar/>
    <Routes>
     <Route path="/" element={<Home />} />
-    {/* <Route path="/video" element={<Video />} */}
+    <Route path="/video" element={<Video />}/>
+    <Route path="/profile" element={<Profile />}
 />
    </Routes>
    <Footer/>

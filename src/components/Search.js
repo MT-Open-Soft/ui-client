@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import axios from 'axios';
+const apiURL="https://0f33-203-110-242-44.ngrok-free.app/api/v1/search/suggestions"
 
 const Search = () =>{
   const [searchQuery, setSearchQuery] = useState('');
@@ -9,16 +10,14 @@ const Search = () =>{
   const handleSearch = (query) => {
     setSearchQuery(query);
   
-    if (query !== '') {
-      axios.get(`https://jsonplaceholder.typicode.com/posts`)
-        .then(response => {
-          setSearchResults(response.data.slice(0, 4)); 
-        console.log(response.data.slice(0, 4));
-          console.log(response.data)
-        })
-        .catch(error => {
-          console.error('Error fetching search results:', error);
-        });
+    if ((query) !== '') {
+      fetch(apiURL)
+  .then(data => data.text())
+  .then((text) => {
+    console.log('request succeeded with JSON response', text)
+  }).catch(function (error) {
+    console.log('request failed', error)
+  });
     } else {
       setSearchResults([]);
     }

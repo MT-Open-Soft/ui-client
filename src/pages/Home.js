@@ -6,6 +6,7 @@ function Home() {
     <div className="bg-[#152238]">
       <Search/>
       <ActiveSlider/>
+      
     </div>
   );
 }
