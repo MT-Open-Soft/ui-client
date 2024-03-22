@@ -1,9 +1,12 @@
 import Navbar from './components/Navbar';
-import logo from './logo.svg';
-// import './App.css';
+import React from "react";
+//import logo from './logo.svg';
+import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
-import Footer from './components/Footer';
+import Movies from './pages/Movies';
+import Plans from './pages/Plans';
+import Subs from './pages/Subs';
 
 function App() {
   return (
@@ -11,9 +14,10 @@ function App() {
    <Navbar/>
    <Routes>
     <Route path="/" element={<Home />} />
-   
-   </Routes>
-   <Footer/>
+    <Route path="/movies" element={<Movies />} />  
+    <Route path="/plans" element={<Plans />} />    
+    <Route path="/subs" element={<Subs />} />
+    </Routes>
    </BrowserRouter>
   );
 }

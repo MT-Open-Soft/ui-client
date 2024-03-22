@@ -1,11 +1,15 @@
 import React from "react";
 
+
 function Home() {
+  
+
   return (
     <div>
-      <div className="bg-blue-500 text-white p-4">
-        This is a Tailwind CSS styled component.
-      </div>
+      <h1>Home</h1>
+      <p className="bg-sky-500/100" >
+        This is tailwind
+      </p>
     </div>
   );
 }
