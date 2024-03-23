@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { CgTrashEmpty} from 'react-icons/cg';
-import { IoEyeOutline, IoPencil } from 'react-icons/io5';
+import {  IoPencil } from 'react-icons/io5';
 import { GoSearch } from 'react-icons/go';
-import { CiStar } from 'react-icons/ci';
 import { IoIosLock } from 'react-icons/io';
+import { CgProfile } from "react-icons/cg";
 
 const Catalog = () => {
   const [sortBy, setSortBy] = useState('date'); // Default sorting option
   const [showOptions, setShowOptions] = useState(false); // State to track if options should be shown
 
   const handleSortBy = (option) => {
-    if (option === 'rating') {
-      // Sort by rating in increasing order
-      setCatalogData([...catalogData.sort((a, b) => a.rating - b.rating)]);
+    if (option === 'pricing plan') {
+      // Sort by pricing plan in increasing order
+      setCatalogData([...catalogData.sort((a, b) => a['pricing plan'] - b['pricing plan'])]);
     } else {
       // Sort by other options
       setCatalogData([...catalogData.sort((a, b) => (a[option] > b[option]) ? 1 : -1)]);
@@ -20,6 +20,7 @@ const Catalog = () => {
     setSortBy(option);
     setShowOptions(false); // Close the options after selecting one
   };
+  
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -28,41 +29,66 @@ const Catalog = () => {
   const [catalogData, setCatalogData] = useState([
     {
       id: 23,
-      title: 'Blindspotting',
-      rating: 7.9,
-      category: 'Movie',
-      views: 1392,
-      status: 'Visible',
-      createdDate: '23 Oct 2021'
-    },
-    {
-      id: 24,
-      title: 'Benched',
-      rating: 7.1,
-      category: 'Movie',
-      views: 1093,
-      status: 'Hidden',
-      createdDate: '20 Oct 2021'
-    },
-    {
-      id: 25,
-      title: 'Whitney',
-      rating: 6.3,
-      category: 'TV Show',
-      views: 723,
-      status: 'Visible',
+      basicInfo: 'John Doe',
+      username: 'email@email.com',
+      pricingPlan: 'Premium',
+      comments: '0',
+      reviews: 13,
+      status: 'Approved',
       createdDate: '24 Oct 2021'
     },
     {
-      id: 26,
-      title: 'BlindSpotting',
-      rating: 7.9,
-      category: 'Movie',
-      views: 1392,
-      status: 'Hidden',
-      createdDate: '14 Oct 2021'
+      id: 23,
+      basicInfo: 'John Doe',
+      username: 'email@email.com',
+      pricingPlan: 'Premium',
+      comments: '23',
+      reviews: 1,
+      status: 'Approved',
+      createdDate: '24 Oct 2021'
+    },
+    {
+      id: 23,
+      basicInfo: 'John Doe',
+      username: 'email@email.com',
+      pricingPlan: 'Premium',
+      comments: '9',
+      reviews: 6,
+      status: 'Approved',
+      createdDate: '24 Oct 2021'
+    },
+    {
+      id: 23,
+      basicInfo: 'John Doe',
+      username: 'email@email.com',
+      pricingPlan: 'Premium',
+      comments: '8',
+      reviews: 11,
+      status: 'Banned',
+      createdDate: '24 Oct 2021'
+    },
+    {
+      id: 23,
+      basicInfo: 'John Doe',
+      username: 'email@email.com',
+      pricingPlan: 'Premium',
+      comments: '23',
+      reviews: 0,
+      status: 'Approved',
+      createdDate: '24 Oct 2021'
+    },
+    {
+      id: 23,
+      basicInfo: 'John Doe',
+      username: 'email@email.com',
+      pricingPlan: 'Premium',
+      comments: '18',
+      reviews: 2,
+      status: 'Approved',
+      createdDate: '24 Oct 2021'
     },
   ]);
+
 
   const [searchQuery, setSearchQuery] = useState(''); // State to track the search query
   const [searchResults, setSearchResults] = useState([]); // State to store search results
@@ -81,11 +107,11 @@ const Catalog = () => {
   return (
     <div className="bg-[#212529] text-white relative">
       <div className="flex justify-between items-center px-6 py-4">
-        <h1 className="text-3xl font-bold" style={{ fontFamily: 'Rubik, sans-serif' }}>Catalog</h1>
+        <h1 className="text-3xl font-bold" style={{ fontFamily: 'Rubik, sans-serif' }}>Users</h1>
         <div className="relative">
           <span className="text-sm text-white mr-2">Sort By:</span>
           <button className="text-sm text-white hover:text-gray-300" onClick={toggleOptions}>
-            {sortBy === 'date' ? 'Date' : (sortBy === 'rating' ? 'Rating' : 'Views')}
+            {sortBy === 'date' ? 'Date' : (sortBy === 'pricing plan' ? 'Pricing plan' : 'Status')}
           </button>
           {showOptions && (
             <div className="absolute mt-2 right-0">
@@ -94,12 +120,12 @@ const Catalog = () => {
                 Date
               </button>
               <button className="block px-4 py-2 text-white bg-[#212529] hover:bg-gray-600 w-full text-sm text-left"
-                onClick={() => handleSortBy('rating')}>
-                Rating
+                onClick={() => handleSortBy('pricing plan')}>
+                Pricing plan
               </button>
               <button className="block px-4 py-2 text-white bg-[#212529] hover:bg-gray-600 w-full text-sm text-left"
-                onClick={() => handleSortBy('views')}>
-                Views
+                onClick={() => handleSortBy('status')}>
+                Status
               </button>
             </div>
           )}
@@ -117,11 +143,12 @@ const Catalog = () => {
       </div>
       <div className="container mx-auto">
         <div className="grid grid-cols-8 bg-[#151f30] rounded-lg p-4 mb-4">
-          <div>ID</div>
-          <div>TITLE</div>
-          <div>RATING</div>
-          <div>CATEGORY</div>
-          <div>VIEWS</div>
+        <div>ID</div>
+          <div>BASIC INFO</div>
+          {/* <div>USERNAME</div> */}
+          <div>PRICING PLAN</div>
+          <div>COMMENTS</div>
+          <div>REVIEWS</div>
           <div>STATUS</div>
           <div>CREATED DATE</div>
           <div>ACTIONS</div>
@@ -129,16 +156,21 @@ const Catalog = () => {
         {(searchQuery.trim() !== '' ? searchResults : catalogData).map((item) => (
           <div key={item.id} className="grid grid-cols-8 bg-[#151f30] rounded-lg p-4 my-4">
             <div>{item.id}</div>
-            <div>{item.title}</div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>{item.rating} <CiStar style={{ color: 'gold', marginLeft: '5px' }} /></div>
-            <div>{item.category}</div>
-            <div>{item.views}</div>
-            <div style={{ color: item.status === 'Visible' ? 'green' : 'red' }}>{item.status}</div>
+            <div style={{ display: 'flex' }}>
+    <CgProfile style={{ color: 'blue', marginRight: '10px', fontSize: '2em' }} /> 
+    <div style={{ marginLeft: '2px' }}>
+      {item.basicInfo} <br />
+      {item.username}
+    </div>
+  </div>
+            <div>{item.pricingPlan}</div>
+            <div>{item.comments}</div>
+            <div>{item.reviews}</div>
+            <div style={{ color: item.status === 'Approved' ? 'green' : item.status === 'Banned' ? 'red' : 'inherit' }}>{item.status}</div>
             <div>{item.createdDate}</div>
             <div style={{ verticalAlign: 'middle' }}>
-            <IoIosLock style={{ color: 'green', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
+              <IoIosLock style={{ color: 'green', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
               <CgTrashEmpty style={{ color: 'red', cursor: 'pointer', display: 'inline-block' }} />
-              <IoEyeOutline style={{ color: 'yellow', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
               <IoPencil style={{ color: 'blue', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
             </div>
           </div>
