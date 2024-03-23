@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Favorites from "./Favorites";
+import Settings from "./Settings";
 function Profile() {
     const UserData = 
         {
@@ -170,6 +171,8 @@ function Profile() {
         
         </span>
       </div>
+      <Favorites/>
+      <Settings/>
     </div>
   );
 }
