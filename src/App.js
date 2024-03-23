@@ -7,6 +7,7 @@ import MoviePreview from './pages/MoviePreview';
 import Search from './components/Search';
 import Video from './pages/Video';
 import Catalog from './pages/Catalog';
+import Users from './pages/Users';
 
 
 
@@ -26,6 +27,8 @@ function App() {
     {/* <Route path="/video" element={<Video />} */}
 {/* /> */}
 <Route path="/catalog" element={<Catalog />}/>
+<Route path="/users" element={<Users />}/>
+
    </Routes>
    <Footer/>
    </BrowserRouter>
