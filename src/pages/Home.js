@@ -1,15 +1,14 @@
 import React from "react";
-
-
+import Search from "../components/Search";
+import ActiveSlider from "./Video";
 function Home() {
   
 
   return (
-    <div>
-      <h1>Home</h1>
-      <p className="bg-sky-500/100" >
-        This is tailwind
-      </p>
+    <div className="bg-[#152238]">
+      <Search/>
+      <ActiveSlider/>
+      
     </div>
   );
 }
