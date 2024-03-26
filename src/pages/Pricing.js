@@ -1,10 +1,21 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Pricing() {
   const [selectedCell, setSelectedCell] = useState(null);
   const handleCellClick = (e) => {
     setSelectedCell(e.target.textContent);
   };
+
+  /*function handleSubmit() {
+    axios
+      .post("http://localhost:8080/api/v1/subscribe/createorder", {
+        ,
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  }*/
   return (
     <div
       style={{ backgroundColor: "#010B13" ,padding:"40px" }}
@@ -284,7 +295,7 @@ function Pricing() {
                   <tr style={{ height: "60px" }}>
                     <td style={{ width: "25%" }}></td>
                     <td>
-                      <button className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300">
+                      <button className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300" >
                         Select Plan
                       </button>
                     </td>
