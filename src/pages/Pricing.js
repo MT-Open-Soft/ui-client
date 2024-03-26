@@ -8,26 +8,89 @@ import axios from "axios";
 //   };
 function Pricing() {
   const [selectedCell, setSelectedCell] = useState(null);
-  // const [selectedSubscription, setSelectedSubscription] = useState(null);
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+  
+  
   const handleCellClick = (e) => {
     setSelectedCell(e.target.textContent);
   };
-  const handleButtonClick = (subscriptionId,subscriptionName) => {
-    // Here, you can use the selectedSubscription and selectedCell values
+  const handleButtonClick = async(subscriptionId,subscriptionName) => {
+   
     console.log("Selected Subscription ID:", subscriptionId);
     console.log("Selected Subscription Item Name:", subscriptionName);
-    // Redirect or perform any other action as needed
+    const response= await axios.post('http://localhost:8080/api/v1/subscribe/createorder', { subscriptionid: subscriptionId ,item_name: subscriptionName, item_description:'abcd',username:'abc', emailid: 'abc@gmail.com'});
+    
+      console.log(response.data);
+      console.log(response.data);
+      if (response.data.success === true || response.data.msg === "Order Created") {
+        console.log("Order created successfully");
+        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+        if (!res) {
+          alert("Razorpay SDK failed to load. Are you online?");
+          return;
+        }
+        
+
+        if (res) {
+          alert("Razorpay SDK loaded");
+        const razorpayOptions = {
+          "key": response.data.key_id,
+          "amount": response.data.amount,
+          "currency": "INR",
+          "name": response.data.product_name,
+          "description": response.data.description,
+          "image": "https://dummyimage.com/600x400/000/fff",
+          "order_id": response.data.order_id,
+          "handler": function (response) {
+              alert("Payment Succeeded");
+              console.log(response.razorpay_payment_id);
+              console.log(response.razorpay_order_id);
+              console.log(response.razorpay_signature);
+              // You may perform additional actions after payment success
+          },
+          "prefill": {
+              "contact": response.data.contact,
+              "name": response.data.name,
+              "email": response.data.email
+          },
+          "notes": {
+              "description": response.data.description
+          },
+          "theme": {
+              "color": "#2300a3"
+          }
+      };
+      //<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      console.log("Razorpay Options:", razorpayOptions);
+
+      const razorpayObject = new window.Razorpay(razorpayOptions);
+      razorpayObject.on('payment.failed', function (response) {
+          alert("Payment Failed");
+      });
+      razorpayObject.open();
+      }
+    }
+
+    
+    
+    
   };
 
-  /*function handleSubmit() {
-    axios
-      .post("http://localhost:8080/api/v1/subscribe/createorder", {
-        ,
-      })
-      .then((response) => {
-        console.log(response);
-      });
-  }*/
+
+  
   return (
     <div
       style={{ backgroundColor: "#010B13", padding: "40px" }}
