@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// function Pricing() {
+//   const [selectedCell, setSelectedCell] = useState(null);
+//   const handleCellClick = (e) => {
+//     setSelectedCell(e.target.textContent);
+//   };
 function Pricing() {
   const [selectedCell, setSelectedCell] = useState(null);
+  // const [selectedSubscription, setSelectedSubscription] = useState(null);
   const handleCellClick = (e) => {
     setSelectedCell(e.target.textContent);
+  };
+  const handleButtonClick = (subscriptionId,subscriptionName) => {
+    // Here, you can use the selectedSubscription and selectedCell values
+    console.log("Selected Subscription ID:", subscriptionId);
+    console.log("Selected Subscription Item Name:", subscriptionName);
+    // Redirect or perform any other action as needed
   };
 
   /*function handleSubmit() {
@@ -18,12 +30,12 @@ function Pricing() {
   }*/
   return (
     <div
-      style={{ backgroundColor: "#010B13" ,padding:"40px" }}
+      style={{ backgroundColor: "#010B13", padding: "40px" }}
       className="text-white py-8 min-h-screen flex"
     >
       <div className="container mx-auto mb-8 flex-1">
         <h1 className="text-5xl font-bold text-left mb-11 ">Pricing Plans</h1>
-        
+
         <div className="text-left mb-8">
           <p className="text-base font-medium mb-4">
             Many desktop publishing packages and{" "}
@@ -53,34 +65,47 @@ function Pricing() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {/* Box 1 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🚀 Choose Your Plan 1</h2>
-              <p className="text-base font-medium">It to make a type specimen book. It has 
-                survived not only five centuries, but 
-                also the leap into electronic 
-                typesetting, remaining</p>
+              <h2 className="text-lg font-semibold mb-2">
+                🚀 Choose Your Plan 1
+              </h2>
+              <p className="text-base font-medium">
+                It to make a type specimen book. It has survived not only five
+                centuries, but also the leap into electronic typesetting,
+                remaining
+              </p>
             </div>
             {/* Box 2 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🌟 Choose Your Plan 2</h2>
-              <p className="text-base font-medium">If you are going to use a passage of Lorem
-                 Ipsum, you need to be sure there isn't 
-                 anything embarrassing hidden in the 
-                 middle of text</p>
+              <h2 className="text-lg font-semibold mb-2">
+                🌟 Choose Your Plan 2
+              </h2>
+              <p className="text-base font-medium">
+                If you are going to use a passage of Lorem Ipsum, you need to be
+                sure there isn't anything embarrassing hidden in the middle of
+                text
+              </p>
             </div>
             {/* Box 3 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">💼 Choose Your Plan 3</h2>
-              <p className="text-base font-medium"> It to make a type specimen book. It has 
-                survived not only five centuries, but also
-                the leap into electronic typesetting, 
-                remaining essentially</p>
+              <h2 className="text-lg font-semibold mb-2">
+                💼 Choose Your Plan 3
+              </h2>
+              <p className="text-base font-medium">
+                {" "}
+                It to make a type specimen book. It has survived not only five
+                centuries, but also the leap into electronic typesetting,
+                remaining essentially
+              </p>
             </div>
             {/* Box 4 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🔥 Choose Your Plan 4</h2>
-              <p className="text-base font-medium">Various versions have evolved over the
-                 years, sometimes by accident, sometimes on
-                  purpose</p>
+              <h2 className="text-lg font-semibold mb-2">
+                🔥 Choose Your Plan 4
+              </h2>
+              <p className="text-base font-medium">
+                Various versions have evolved over the years, sometimes by
+                accident, sometimes on purpose
+              </p>
             </div>
           </div>
 
@@ -100,7 +125,7 @@ function Pricing() {
                       className={`text-blue-500 ${
                         selectedCell === "REGULAR" && "bg-white text-black"
                       }`}
-                      style={{ width: "25%" , fontSize: "140%"}}
+                      style={{ width: "25%", fontSize: "140%" }}
                     >
                       REGULAR
                     </td>
@@ -109,7 +134,7 @@ function Pricing() {
                       className={`text-blue-500 ${
                         selectedCell === "PREMIUM" && "bg-white text-black"
                       }`}
-                      style={{ width: "25%" , fontSize: "140%" }}
+                      style={{ width: "25%", fontSize: "140%" }}
                     >
                       PREMIUM
                     </td>
@@ -127,9 +152,15 @@ function Pricing() {
                   </tr>
                   <tr>
                     <td style={{ width: "25%" }}></td>
-                    <td style={{  fontSize: "120%" }} className="text-white">$11.99</td>
-                    <td style={{  fontSize: "120%" }} className="text-white">$34.99</td>
-                    <td style={{  fontSize: "120%" }} className="text-white">$49.99</td>
+                    <td style={{ fontSize: "120%" }} className="text-white">
+                      $11.99
+                    </td>
+                    <td style={{ fontSize: "120%" }} className="text-white">
+                      $34.99
+                    </td>
+                    <td style={{ fontSize: "120%" }} className="text-white">
+                      $49.99
+                    </td>
                   </tr>
                   <tr>
                     <td style={{ width: "25%" }}></td>
@@ -295,17 +326,28 @@ function Pricing() {
                   <tr style={{ height: "60px" }}>
                     <td style={{ width: "25%" }}></td>
                     <td>
-                      <button className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300" >
+                      <button
+                        onClick={() => handleButtonClick(1, "REGULAR")}
+                        className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300"
+                      >
                         Select Plan
                       </button>
                     </td>
                     <td>
-                      <button className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300">
+                      <button
+                        onClick={() => handleButtonClick(2, "PREMIUM")}
+                        className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300"
+                      >
                         Select Plan
                       </button>
                     </td>
                     <td>
-                      <button className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300">
+                      <button
+                        onClick={() =>
+                          handleButtonClick(3, "PREMIUM+TV CHANNELS")
+                        }
+                        className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300"
+                      >
                         Select Plan
                       </button>
                     </td>
