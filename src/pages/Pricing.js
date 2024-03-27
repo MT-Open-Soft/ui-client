@@ -27,11 +27,12 @@ function Pricing() {
   const handleCellClick = (e) => {
     setSelectedCell(e.target.textContent);
   };
-  const handleButtonClick = async(subscriptionId,subscriptionName) => {
+  const handleButtonClick = async(amount,subscriptionName) => {
    
-    console.log("Selected Subscription ID:", subscriptionId);
+    console.log("Selected Subscription ID:", amount);
     console.log("Selected Subscription Item Name:", subscriptionName);
-    const response= await axios.post('http://localhost:8080/api/v1/subscribe/createorder', { subscriptionid: subscriptionId ,item_name: subscriptionName, item_description:'abcd',username:'abc', emailid: 'abc@gmail.com'});
+    if(amount!=0){
+    const response= await axios.post('http://localhost:8080/api/v1/subscribe/createorder', { amount: amount ,item_name: 'Test User', item_description: subscriptionName ,username:'Test User', emailid: 'abc5@test.com'});
     
       console.log(response.data);
       console.log(response.data);
@@ -62,7 +63,7 @@ function Pricing() {
               // You may perform additional actions after payment success
           },
           "prefill": {
-              "contact": response.data.contact,
+              "contact": "8777872871",
               "name": response.data.name,
               "email": response.data.email
           },
@@ -81,8 +82,13 @@ function Pricing() {
           alert("Payment Failed");
       });
       razorpayObject.open();
+    
       }
     }
+  }
+  else{
+    alert("You are subscribed to free plan")
+  }
 
     
     
@@ -390,7 +396,7 @@ function Pricing() {
                     <td style={{ width: "25%" }}></td>
                     <td>
                       <button
-                        onClick={() => handleButtonClick(1, "REGULAR")}
+                        onClick={() => handleButtonClick(0, "REGULAR")}
                         className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300"
                       >
                         Select Plan
@@ -398,7 +404,7 @@ function Pricing() {
                     </td>
                     <td>
                       <button
-                        onClick={() => handleButtonClick(2, "PREMIUM")}
+                        onClick={() => handleButtonClick(200, "PREMIUM")}
                         className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300"
                       >
                         Select Plan
@@ -407,7 +413,7 @@ function Pricing() {
                     <td>
                       <button
                         onClick={() =>
-                          handleButtonClick(3, "PREMIUM+TV CHANNELS")
+                          handleButtonClick(400, "PREMIUM+TV CHANNELS")
                         }
                         className="btn rounded-full   py-4 px-9 bg-blue-900 hover:text-black transition duration-300 hover:bg-white transition duration-300"
                       >
