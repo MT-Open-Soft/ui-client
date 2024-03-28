@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 import MoviePreview from './pages/MoviePreview';
 import Search from './components/Search';
 import Video from './pages/Video';
-import Profile from './components/Profile';
+import UserProfile from './components/UserProfile';
 import Catalog from './pages/Catalog';
 import Users from './pages/Users';
 
@@ -29,7 +29,7 @@ function App() {
     <Route path="/plans" element={<Plans />} />    
     <Route path="/subs" element={<Subs />} />
     <Route path="/video" element={<Video />}/>
-    <Route path="/profile" element={<Profile />}/>
+    <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
     {/* <Route path="/dashboard" element={
           <>
