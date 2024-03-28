@@ -15,6 +15,7 @@ import Video from './pages/Video';
 import Profile from './components/Profile';
 import Catalog from './pages/Catalog';
 import Users from './pages/Users';
+import Modal from './components/Modal';
 
 
 
@@ -30,6 +31,7 @@ function App() {
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<Profile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
+    <Route path="/modal" element={<Modal />} />
     {/* <Route path="/dashboard" element={
           <>
             <Sidebar />
