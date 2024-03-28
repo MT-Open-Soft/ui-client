@@ -18,6 +18,7 @@ import Users from './pages/Users';
 
 
 import Pricing from './pages/Pricing';
+import VideoBitrate from './pages/VideoBitrate';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
 <Route path="/users" element={<Users />}/>
      <Route path="/Pricing" element={<Pricing />}/>
      
+     <Route path="/vidbit" element={<VideoBitrate/>}/>
    </Routes>
    <Footer/>
    </BrowserRouter>

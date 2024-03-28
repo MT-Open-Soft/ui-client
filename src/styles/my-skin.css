@@ -1,0 +1,12 @@
+.replay-controls-bar, .replay-selector-items, .replay-exit-button, .replay-playback-monitor-close-button, .replay-buffering-indicator, .replay-goto-live-button.replay-toggled-on:hover {
+    color: rgb(152, 151, 226);
+}
+
+.replay-slider-handle {
+    background-color: rgb(152, 151, 226);
+}
+.replay-volume{
+    flex: 1 2;
+    max-width: 150px;
+    min-width: 20px;
+}

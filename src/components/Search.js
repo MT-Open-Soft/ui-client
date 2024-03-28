@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
 import { CgDropOpacity, CgClose } from "react-icons/cg";
-
 
 const apiURL ="http://localhost:8080/api/v1/search/suggestions";
 
@@ -43,57 +41,68 @@ const Search = () => {
   };
 
   return (
-<div className="h-screen/4 flex flex-col justify-end pb-16" style={{
-  backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-}} >
-      <div className=" h-14"  ></div>
-    <div className="w-full max-w-xl mx-auto " >
-      <input
-        className="appearance-none block w-full bg-transparent text-white border border-gray-200 rounded-full py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-500 content-center"
-        type="text"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={handleInputChange}
-      />
-      {searchResults.length > 0 && (
-        <div className="relative grid items-center w-md ">
-          <button
-            type="button"
-            className="block mx-auto py-1 px-2 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] mt-2 w-auto max-w-xs"
-          >
-            Search Results
-          </button>
-          <div className="relative right-0 mt-2 w-full bg-red rounded-lg shadow-md max-h-70 overflow-y-auto">
-            <div className="mb-5">
-              {searchResults.map((result) => (
-                <button
-                  key={result.id}
-                  className="block px-4 py-2 text-slate-200 bg-transparent  hover:bg-[#00102a] hover:text-gray-800 w-full text-left backdrop-blur"
-                  onClick={() => handleSelectResult(result)}
-                >
-  <div class="grid grid-cols-10 items-start  ">
-    <div className="md:shrink-0 md:mr-0 col-span-1" style={{display:"inline-block"}}><img  className="object-cover rounded-md" src={result.poster} style={{width:"50%",height:"50%"}}></img></div>
-    <div className="text-left md:ml-0 col-span-9">
-        <div className="text-left text-md font-body text-xs font-semibold">{result.title}</div>
-        <div className="grid grid-cols-12 text-left md:ml-0 text-gray-400" style={{fontSize:"0.65rem"}}>
-        <div className="col-span-1">{result.type === 'movie' ? 'Movie' : result.type === 'tv show' ? 'TV Show' : result.type}</div>
-            <div className="col-span-1 ">★ {result.imdb.rating}</div>
-            <div className="col-span-1">• {result.year}</div>
+    <div className="h-screen/4 flex flex-col justify-end pb-16" style={{
+      backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
+      <div className="h-14" />
+      <div className="w-full max-w-xl mx-auto relative">
+        <div className="flex items-center border bg-gray-800 border-gray-200 rounded-full focus:bg-gray-700 ">
+          <input
+            className="appearance-none block w-full bg-gray-800 text-white rounded-full py-2 px-4 leading-tight focus:outline-none focus:border-gray-500"
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          
+            <button
+              className="text-white focus:outline-none ml-2 justify-end pr-6"
+              onClick={handleClearSearch}
+            >
+              
+              <CgClose className="w-5 h-5" />
+            </button>
+        
         </div>
-    </div>
-</div>
-                 
-                </button>
-              ))}
-
+        {searchResults.length > 0 && (
+          <div className="relative grid items-center w-md">
+            <button
+              type="button"
+              className="block mx-auto py-1 px-2 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] mt-2 w-auto max-w-xs"
+            >
+              Search Results
+            </button>
+            <div className="mt-2 w-full text-white rounded-lg shadow-md max-h-70 overflow-y-auto">
+              <div className="bg-[#152238]">
+                {searchResults.map((result) => (
+                  <button
+                    key={result.id}
+                    className="block px-4 py-2 w-full text-left hover:bg-[#00102a]"
+                    onClick={() => handleSelectResult(result)}
+                  >
+                    <div class="grid grid-cols-10 items-start">
+                      <div className="md:shrink-0 md:mr-0 col-span-1" style={{ display: "inline-block" }}>
+                        <img className="object-cover rounded-md" src={result.poster} style={{ width: "50%", height: "50%" }} alt="poster" />
+                      </div>
+                      <div className="text-left md:ml-0 col-span-9">
+                        <div className="text-left text-md font-body text-xs font-semibold">{result.title}</div>
+                        <div className="grid grid-cols-12 text-left md:ml-0 text-gray-400" style={{ fontSize: "0.65rem" }}>
+                          <div className="col-span-1">{result.type === 'movie' ? 'Movie' : result.type === 'tv show' ? 'TV Show' : result.type}</div>
+                          <div className="col-span-1">★ {result.rating}</div>
+                          <div className="col-span-1">• {result.year}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         )}
       </div>
     </div>
-  </div>
   );
 };
 
