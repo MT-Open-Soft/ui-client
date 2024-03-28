@@ -15,23 +15,10 @@ function Pricing() {
         
         <div className="text-left mb-8">
           <p className="text-base font-medium mb-4">
-            Many desktop publishing packages and{" "}
-            <a href="https://example.com" style={{ color: "darkblue" }}>
-              web page
-            </a>
-            editors now use Lorem Ipsum as their default model text, and a
-            search for 'lorem ipsum' will uncover many web sites still in their
-            infancy. Various versions have evolved over the years, sometimes by
-            accident, sometimes on purpose (injected humour and the like).
+          Experience unlimited access to movies and TV shows with our Regular Membership, available at ₹999 per year, ₹199 per month, or ₹499 for 3 months. Elevate your entertainment with our Premium Membership, offering exclusive content and additional features for ₹1499 per year, ₹299 per month, or ₹599 for 3 months. For the ultimate entertainment experience, opt for our Premium+TV Channels membership at ₹1999 per year or ₹399 per month, providing access to premium content and TV channels. Unlock a world of entertainment today!
           </p>
           <p className="text-base font-medium mb-4">
-            All the Lorem Ipsum generators on the Internet tend to repeat
-            predefined chunks as necessary, making this the first true generator
-            on the Internet. It uses a dictionary of over 200 Latin words,
-            combined with a handful of model sentence structures, to generate
-            Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is
-            therefore always free from repetition, injected humour, or
-            non-characteristic words etc.
+          To sign up for FlixTv Premium membership anytime in the future:
           </p>
         </div>
         {/* </div> */}
@@ -42,34 +29,23 @@ function Pricing() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {/* Box 1 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🚀 Choose Your Plan 1</h2>
-              <p className="text-base font-medium">It to make a type specimen book. It has 
-                survived not only five centuries, but 
-                also the leap into electronic 
-                typesetting, remaining</p>
+              <h2 className="text-lg font-semibold mb-2">🚀 Step 1</h2>
+              <p className="text-base font-medium">Visit our website.</p>
             </div>
             {/* Box 2 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🌟 Choose Your Plan 2</h2>
-              <p className="text-base font-medium">If you are going to use a passage of Lorem
-                 Ipsum, you need to be sure there isn't 
-                 anything embarrassing hidden in the 
-                 middle of text</p>
+              <h2 className="text-lg font-semibold mb-2">🌟 Step 2</h2>
+              <p className="text-base font-medium">Choose your desired membership plan.</p>
             </div>
             {/* Box 3 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">💼 Choose Your Plan 3</h2>
-              <p className="text-base font-medium"> It to make a type specimen book. It has 
-                survived not only five centuries, but also
-                the leap into electronic typesetting, 
-                remaining essentially</p>
+              <h2 className="text-lg font-semibold mb-2">💼 Step 3</h2>
+              <p className="text-base font-medium"> Click or tap on the sign-up button.</p>
             </div>
             {/* Box 4 */}
             <div className="border border-white rounded p-4 hover:bg-white hover:text-black transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🔥 Choose Your Plan 4</h2>
-              <p className="text-base font-medium">Various versions have evolved over the
-                 years, sometimes by accident, sometimes on
-                  purpose</p>
+              <h2 className="text-lg font-semibold mb-2">🔥 Step 4</h2>
+              <p className="text-base font-medium">Follow the on-screen instructions to complete the payment and enjoy unlimited entertainment.</p>
             </div>
           </div>
 

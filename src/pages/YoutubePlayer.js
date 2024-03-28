@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 
 const MovieDetail = ({ movie }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -37,7 +37,7 @@ const MovieDetail = ({ movie }) => {
           >
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="absolute inset-0 flex justify-center items-center">
-              <FontAwesomeIcon icon={faPlayCircle} size="3x" className="text-white cursor-pointer hover:text-gray-300 transition duration-300 ease-in-out" onClick={handlePlayClick} />
+              {/* <FontAwesomeIcon icon={faPlayCircle} size="3x" className="text-white cursor-pointer hover:text-gray-300 transition duration-300 ease-in-out" onClick={handlePlayClick} /> */}
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 
 const MovieDetail = () => {
   // Static movie data for demonstration
@@ -29,7 +29,7 @@ const MovieDetail = () => {
       {/* Content */}
       <div className="relative p-8">
         <div className="mt-8 flex items-center">
-          <FontAwesomeIcon icon={faPlayCircle} size="3x" className="text-white-600 hover:text-white-700 transition duration-300 ease-in-out" />
+          {/* <FontAwesomeIcon icon={faPlayCircle} size="3x" className="text-white-600 hover:text-white-700 transition duration-300 ease-in-out" /> */}
           <span className="ml-2 text-xl">Watch Movie</span>
         </div>
         <br></br>

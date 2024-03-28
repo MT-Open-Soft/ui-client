@@ -18,23 +18,21 @@ const Cards = () => {
             <h2 className="text-2xl my-2 font-semibold">Regular</h2>
             <hr class="h-px my-5 bg-slate-700 border-0"></hr>
             <p className="flex flex-row my-2 ">
-              <GoCheck className="mr-2 mt-1" color="green" /> FlixTV Originals
+              <GoCheck className="mr-2 mt-1" color="green" /> Ai Power Search
             </p>
             <p className="flex flex-row my-2">
-              <GoCheck className="mr-2 mt-1" color="green" /> Switch Plans or
-              cancel anytime
+              <GoCheck className="mr-2 mt-1" color="green" /> Adaptive Streaming upto 480p
             </p>
             <p className="flex flex-row my-2">
-              <GoX className="mr-2 mt-1" color="red" /> Stream 65+ top live
+              <GoX className="mr-2 mt-1" color="red" /> Premium Movies
             </p>
-            <p className="flex flex-row my-2">
-              <GoX className="mr-2 mt-1" color="red" /> TV channels
-            </p>
-            <hr class="h-px my-5 bg-slate-700 border-0"></hr>
-            <div className="flex flex-row">
-              <h2 className="text-4xl font-bold">$11.99</h2>
-              <p className="mt-4">/month</p>
-            </div>
+
+            <hr className="h-px my-5 bg-slate-700 border-0" />
+<div className="flex flex-row items-center justify-center"> {/* Center align price and month */}
+  <h2 className="text-4xl font-bold">&#8377;0</h2>
+  <p className="text-white mt-4 ml-2">/month</p> {/* Add ml-2 to create space */}
+</div>
+
             <button className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[50px] my-[25px]">
               SELECT PLAN
             </button>
@@ -46,25 +44,22 @@ const Cards = () => {
             <h2 className="text-2xl my-2 font-semibold">Premium</h2>
             <hr class="h-px my-5 bg-slate-700 border-0"></hr>
             <p className="flex flex-row my-2">
-              <GoCheck className="mr-2 mt-1" color="green" /> FlixTV Originals
+              <GoCheck className="mr-2 mt-1" color="green" /> Ai Power Search
             </p>
             <p className="flex flex-row my-2">
               <GoCheck className="mr-2 mt-1" color="green" />
-              Switch Plans or cancel anytime
+              Adaptive Streaming upto 720p
             </p>
             <p className="flex flex-row my-2">
               <GoCheck className="mr-2 mt-1" color="green" />
-              Stream 65+ top live
+              Premium Movies
             </p>
-            <p className="flex flex-row my-2">
-              <GoX className="mr-2 mt-1" color="red" />
-              TV channels
-            </p>
-            <hr class="h-px my-5 bg-slate-700 border-0"></hr>
-            <div className="flex flex-row">
-              <h2 className="text-4xl font-bold">$34.99</h2>
-              <p className="mt-4">/month</p>
-            </div>
+            
+            <hr className="h-px my-5 bg-slate-700 border-0" />
+<div className="flex flex-row items-center justify-center"> {/* Center align price and month */}
+  <h2 className="text-4xl font-bold">&#8377;199.99</h2>
+  <p className="text-white mt-4 ml-2">/month</p> {/* Add ml-2 to create space */}
+</div>
             <button className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[50px] my-[25px]">
               SELECT PLAN
             </button>
@@ -79,25 +74,25 @@ const Cards = () => {
             <hr class="h-px my-5 bg-slate-700 border-0"></hr>
             <p className="flex flex-row my-2">
               <GoCheck className="mr-2 mt-1" color="green" />
-              FlixTV Originals
+              Ai Power Search
             </p>
             <p className="flex flex-row my-2">
               <GoCheck className="mr-2 mt-1" color="green" />
-              Switch Plans or cancel anytime
+              Adaptive Streaming upto 1080p
             </p>
             <p className="flex flex-row my-2">
               <GoCheck className="mr-2 mt-1" color="green" />
-              Stream 65+ top live
+              Premium Movies
             </p>
-            <p className="flex flex-row my-2">
+            {/* <p className="flex flex-row my-2">
               <GoCheck className="mr-2 mt-1" color="green" />
               TV channels
-            </p>
-            <hr class="h-px my-5 bg-slate-700 border-0"></hr>
-            <div className="flex flex-row">
-              <h2 className="text-4xl font-bold">$44.99</h2>
-              <p className="mt-4">/month</p>
-            </div>
+            </p> */}
+            <hr className="h-px my-5 bg-slate-700 border-0" />
+<div className="flex flex-row items-center justify-center"> {/* Center align price and month */}
+  <h2 className="text-4xl font-bold">&#8377;399.99</h2>
+  <p className="text-white mt-4 ml-2">/month</p> {/* Add ml-2 to create space */}
+</div>
             <button className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[50px] my-[25px]">
               SELECT PLAN
             </button>

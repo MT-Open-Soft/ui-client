@@ -10,16 +10,21 @@ const Catalog = () => {
   const [showOptions, setShowOptions] = useState(false); // State to track if options should be shown
 
   const handleSortBy = (option) => {
-    if (option === 'pricing plan') {
-      // Sort by pricing plan in increasing order
-      setCatalogData([...catalogData.sort((a, b) => a['pricing plan'] - b['pricing plan'])]);
+    let sortedData = [...catalogData];
+    if (option === 'date') {
+      sortedData.sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate));
+    } else if (option === 'pricingPlan') {
+      const planOrder = { 'Premium': 0, 'Basic': 1, 'Free': 2 };
+      sortedData.sort((a, b) => planOrder[a[option]] - planOrder[b[option]]);
     } else {
-      // Sort by other options
-      setCatalogData([...catalogData.sort((a, b) => (a[option] > b[option]) ? 1 : -1)]);
+      sortedData.sort((a, b) => (a[option] > b[option]) ? 1 : -1);
     }
+    setCatalogData(sortedData);
     setSortBy(option);
     setShowOptions(false); // Close the options after selecting one
   };
+  
+  
   
 
   const toggleOptions = () => {
@@ -39,7 +44,7 @@ const Catalog = () => {
     },
     {
       id: 23,
-      basicInfo: 'John Doe',
+      basicInfo: 'Bohn Doe',
       username: 'email@email.com',
       pricingPlan: 'Premium',
       comments: '23',
@@ -49,9 +54,9 @@ const Catalog = () => {
     },
     {
       id: 23,
-      basicInfo: 'John Doe',
+      basicInfo: 'Chhn Doe',
       username: 'email@email.com',
-      pricingPlan: 'Premium',
+      pricingPlan: 'Basic',
       comments: '9',
       reviews: 6,
       status: 'Approved',
@@ -65,13 +70,13 @@ const Catalog = () => {
       comments: '8',
       reviews: 11,
       status: 'Banned',
-      createdDate: '24 Oct 2021'
+      createdDate: '14 Oct 2021'
     },
     {
       id: 23,
       basicInfo: 'John Doe',
       username: 'email@email.com',
-      pricingPlan: 'Premium',
+      pricingPlan: 'Free',
       comments: '23',
       reviews: 0,
       status: 'Approved',
@@ -85,7 +90,7 @@ const Catalog = () => {
       comments: '18',
       reviews: 2,
       status: 'Approved',
-      createdDate: '24 Oct 2021'
+      createdDate: '28 Oct 2021'
     },
   ]);
 
@@ -94,15 +99,30 @@ const Catalog = () => {
   const [searchResults, setSearchResults] = useState([]); // State to store search results
 
   const handleSearch = (e) => {
-    const query = e.target.value.toLowerCase();
+    const query = e.target.value.toLowerCase().trim(); // Convert input to lowercase and remove leading/trailing spaces
     setSearchQuery(query);
-    if (!query.trim()) {
+  
+    if (!query) {
+      // If the search query is empty, reset search results to empty array
       setSearchResults([]);
       return;
     }
-    const results = catalogData.filter(item => item.title.toLowerCase().includes(query));
+  
+    // Filter catalogData based on the search query
+    const results = catalogData.filter((item) => {
+      // Convert relevant item properties to lowercase for case-insensitive comparison
+      const basicInfo = item.basicInfo.toLowerCase();
+      const username = item.username.toLowerCase();
+  
+      // Check if either basicInfo or username contains the search query
+      return basicInfo.includes(query) || username.includes(query);
+    });
+  
+    // Set the search results to the filtered items
     setSearchResults(results);
   };
+  
+  
 
   return (
     <div className="bg-[#212529] text-white relative">
@@ -134,7 +154,7 @@ const Catalog = () => {
           <input
             type="text"
             className="bg-[#151f30] text-white border-none pl-8 pr-4 py-2 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            placeholder="Find movies/TV series"
+            placeholder="Find users.."
             value={searchQuery}
             onChange={handleSearch}
           />
