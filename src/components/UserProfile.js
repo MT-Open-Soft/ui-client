@@ -69,16 +69,16 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
 
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-[#152238] z-50" style= {{
+    <div className="relative flex flex-col items-center min-h-screen bg-[#152238]" style= {{
           position: 'absolute',
           width: '100%',
           height: '100%',
           backgroundImage:  "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(bg.webp)", 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          zIndex: 0
+          zIndex: -1
           }}>
-      <div className="bg-[#091121] p-5 rounded-lg shadow-md mb-5 mt-16 w-[500px] h-auto">
+      <div className="bg-[#091121] p-5 rounded-lg shadow-md mb-5 mt-16 w-[500px] h-auto z-50">
         <img
           src={userData.src}
           alt="Profile"
