@@ -42,6 +42,7 @@ function App() {
 <Route path="/catalog" element={<Catalog />}/>
 <Route path="/users" element={<Users />}/>
      <Route path="/Pricing" element={<Pricing />}/>
+     
    </Routes>
    <Footer/>
    </BrowserRouter>
