@@ -17,6 +17,7 @@ import Catalog from './pages/Catalog';
 import Users from './pages/Users';
 
 
+import Pricing from './pages/Pricing';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
 {/* /> */}
 <Route path="/catalog" element={<Catalog />}/>
 <Route path="/users" element={<Users />}/>
+     <Route path="/Pricing" element={<Pricing />}/>
    </Routes>
    <Footer/>
    </BrowserRouter>
