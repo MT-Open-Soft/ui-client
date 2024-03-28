@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { GoCheck, GoX } from "react-icons/go";
 import axios from "axios";
+import Modal from "../components/Modal";
+
+
 
 const loadScript = (src) => {
   return new Promise((resolve) => {
@@ -16,13 +19,15 @@ const loadScript = (src) => {
   });
 };
 
-
-const handleButtonClick = async(amount,subscriptionName) => {
+const Cards = () => {
+  const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] = useState(false);
+  const [subscriptionName, setSubscriptionName] = useState(""); 
+  const handleButtonClick = async(amount,subscriptionName) => {
    
   console.log("Selected Subscription ID:", amount);
   console.log("Selected Subscription Item Name:", subscriptionName);
   if(amount!=0){
-  const response= await axios.post('https://aceb-2409-40e1-1078-63af-4cd-1fae-408f-4354.ngrok-free.app/api/v1/subscribe/createorder', { amount: amount ,item_name: 'Test User', item_description: subscriptionName ,username:'Test User', emailid: 'abc5@test.com'});
+  const response= await axios.post('http://localhost:8080/api/v1/subscribe/createorder', { amount: amount ,item_name: 'Test User', item_description: subscriptionName ,username:'Test User', emailid: 'abc5@test.com'});
   
     console.log(response.data);
     console.log(response.data);
@@ -46,11 +51,13 @@ const handleButtonClick = async(amount,subscriptionName) => {
         "image": "https://dummyimage.com/600x400/000/fff",
         "order_id": response.data.order_id,
         "handler": function (response) {
-            alert("Payment Succeeded");
+            console.log("Payment Succeeded");
             console.log(response.razorpay_payment_id);
             console.log(response.razorpay_order_id);
             console.log(response.razorpay_signature);
             // You may perform additional actions after payment success
+
+            setIsPaymentSuccessModalOpen(true);
         },
         "prefill": {
             "contact": "8777872871",
@@ -80,14 +87,15 @@ else{
   alert("You are subscribed to free plan")
 }
 
-  
+    setSubscriptionName(subscriptionName);
+    // setIsPaymentSuccessModalOpen(true);
   
   
 };
 
 
+  
 
-const Cards = () => {
   return (
     <div style={{ backgroundColor: "#131720", padding: "30px 0", minHeight: "100vh", textAlign: "center" }}>
   <h2 className="text-white text-4xl font-semibold">
@@ -193,6 +201,12 @@ const Cards = () => {
         </button>
       </div>
     </div>
+    <Modal isOpen={isPaymentSuccessModalOpen} onClose={() => setIsPaymentSuccessModalOpen(false)} subscriptionName={subscriptionName}>
+        <div>
+          <h2>Payment Successful</h2>
+          <p>You have subscribed to {subscriptionName}.</p>
+        </div>
+      </Modal>
   </div>
 
 

@@ -19,6 +19,7 @@ import Users from './pages/Users';
 
 import Pricing from './pages/Pricing';
 
+
 function App() {
   return (
    <BrowserRouter>
@@ -41,7 +42,7 @@ function App() {
 {/* /> */}
 <Route path="/catalog" element={<Catalog />}/>
 <Route path="/users" element={<Users />}/>
-     <Route path="/Pricing" element={<Pricing />}/>
+    
    </Routes>
    <Footer/>
    </BrowserRouter>

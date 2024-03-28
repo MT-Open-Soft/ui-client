@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Modal from "../components/Modal";
 
 // function Pricing() {
 //   const [selectedCell, setSelectedCell] = useState(null);
@@ -8,6 +9,8 @@ import axios from "axios";
 //   };
 function Pricing() {
   const [selectedCell, setSelectedCell] = useState(null);
+  const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] = useState(false);
+  const [subscriptionName, setSubscriptionName] = useState("");
 
   const loadScript = (src) => {
     return new Promise((resolve) => {
@@ -91,8 +94,8 @@ function Pricing() {
   }
 
     
-    
-    
+  setIsPaymentSuccessModalOpen(true);
+  setSubscriptionName(subscriptionName);
   };
 
 
@@ -427,6 +430,12 @@ function Pricing() {
           </div>
         </div>
       </div>
+      <Modal isOpen={isPaymentSuccessModalOpen} onClose={() => setIsPaymentSuccessModalOpen(false)} subscriptionName={subscriptionName}>
+        <div className="p-8 bg-white rounded-lg max-w-md">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900">Payment Successful!</h2>
+          <p className="text-lg text-gray-700">Your payment was successful. Thank you for subscribing!</p>
+        </div>
+      </Modal>
     </div>
   );
 }
