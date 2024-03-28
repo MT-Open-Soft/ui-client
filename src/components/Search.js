@@ -38,7 +38,7 @@ const Search = () => {
   return (
     <div className="w-full max-w-3xl mx-auto">
       <input
-        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        className="appearance-none block w-full bg-transparent text-white border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-gray-500"
         type="text"
         placeholder="Search..."
         value={searchQuery}
@@ -52,12 +52,12 @@ const Search = () => {
           >
             Search Results
           </button>
-          <div className="absolute right-0 mt-2 w-full bg-white rounded-lg shadow-md max-h-70 overflow-y-auto">
-            <div className="py-1">
+          <div className="relative right-0 mt-2 w-full bg-red rounded-lg shadow-md max-h-70 overflow-y-auto">
+            <div className="mb-5">
               {searchResults.map((result) => (
                 <button
                   key={result.id}
-                  className="block px-4 py-2 text-gray-800 bg-slate-300 hover:bg-gray-000 w-full text-left"
+                  className="block px-4 py-2 text-slate-200 bg-transparent hover:bg-slate-200 hover:text-gray-800 w-full text-left backdrop-blur"
                   onClick={() => handleSelectResult(result)}
                 >
                   
