@@ -1,22 +1,42 @@
-import React, { useState } from 'react';
-import { CgTrashEmpty} from 'react-icons/cg';
-import { IoEyeOutline, IoPencil } from 'react-icons/io5';
+import React, { useState, useEffect } from 'react';
+import { CgTrashEmpty } from 'react-icons/cg';
+import { IoPencil } from 'react-icons/io5';
 import { GoSearch } from 'react-icons/go';
 import { CiStar } from 'react-icons/ci';
 import { IoIosLock } from 'react-icons/io';
+import axios from 'axios';
 
 const Catalog = () => {
-  const [sortBy, setSortBy] = useState('date'); // Default sorting option
-  const [showOptions, setShowOptions] = useState(false); // State to track if options should be shown
+  const [sortBy, setSortBy] = useState('date'); 
+  const [showOptions, setShowOptions] = useState(false); 
+  const [catalogData, setCatalogData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/movies?page=1&pageSize=20');
+        if (Array.isArray(response.data)) {
+          setCatalogData(response.data);
+        } else {
+          console.error('Fetched data is not an array:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const handleSortBy = (option) => {
+    let sortedData;
     if (option === 'rating') {
       // Sort by rating in increasing order
-      setCatalogData([...catalogData.sort((a, b) => a.rating - b.rating)]);
+      sortedData = [...catalogData.sort((a, b) => a.rating - b.rating)];
     } else {
       // Sort by other options
-      setCatalogData([...catalogData.sort((a, b) => (a[option] > b[option]) ? 1 : -1)]);
+      sortedData = [...catalogData.sort((a, b) => (a[option] > b[option]) ? 1 : -1)];
     }
+    setCatalogData(sortedData);
     setSortBy(option);
     setShowOptions(false); // Close the options after selecting one
   };
@@ -25,47 +45,8 @@ const Catalog = () => {
     setShowOptions(!showOptions);
   };
 
-  const [catalogData, setCatalogData] = useState([
-    {
-      id: 23,
-      title: 'Blindspotting',
-      rating: 7.9,
-      category: 'Movie',
-      views: 1392,
-      status: 'Visible',
-      createdDate: '23 Oct 2021'
-    },
-    {
-      id: 24,
-      title: 'Benched',
-      rating: 7.1,
-      category: 'Movie',
-      views: 1093,
-      status: 'Hidden',
-      createdDate: '20 Oct 2021'
-    },
-    {
-      id: 25,
-      title: 'Whitney',
-      rating: 6.3,
-      category: 'TV Show',
-      views: 723,
-      status: 'Visible',
-      createdDate: '24 Oct 2021'
-    },
-    {
-      id: 26,
-      title: 'BlindSpotting',
-      rating: 7.9,
-      category: 'Movie',
-      views: 1392,
-      status: 'Hidden',
-      createdDate: '14 Oct 2021'
-    },
-  ]);
-
-  const [searchQuery, setSearchQuery] = useState(''); // State to track the search query
-  const [searchResults, setSearchResults] = useState([]); // State to store search results
+  const [searchQuery, setSearchQuery] = useState(''); 
+  const [searchResults, setSearchResults] = useState([]); 
 
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
@@ -117,29 +98,29 @@ const Catalog = () => {
       </div>
       <div className="container mx-auto">
         <div className="grid grid-cols-8 bg-[#151f30] rounded-lg p-4 mb-4">
-          <div>ID</div>
+          <div className="ml-4">TYPE</div>
           <div>TITLE</div>
-          <div>RATING</div>
-          <div>CATEGORY</div>
-          <div>VIEWS</div>
+          <div>IMDb RATING</div>
+          <div>RELEASE YEAR</div>
+          <div>RUNTIME</div>
+          <div>LANGUAGES</div>
           <div>STATUS</div>
-          <div>CREATED DATE</div>
           <div>ACTIONS</div>
         </div>
         {(searchQuery.trim() !== '' ? searchResults : catalogData).map((item) => (
           <div key={item.id} className="grid grid-cols-8 bg-[#151f30] rounded-lg p-4 my-4">
-            <div>{item.id}</div>
+            <div className="ml-4">{item.type}</div>
             <div>{item.title}</div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>{item.rating} <CiStar style={{ color: 'gold', marginLeft: '5px' }} /></div>
-            <div>{item.category}</div>
-            <div>{item.views}</div>
-            <div style={{ color: item.status === 'Visible' ? 'green' : 'red' }}>{item.status}</div>
-            <div>{item.createdDate}</div>
+            <div className="flex items-center" ><CiStar style={{ color: 'gold', marginRight: '10px'}} /> {item.imdbRating} </div>
+            <div>{item.releaseYear}</div>
+            <div>{item.runtime}</div>
+            <div>{item.languages}</div>
+            <div>{item.status}</div>
             <div style={{ verticalAlign: 'middle' }}>
-            <IoIosLock style={{ color: 'green', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
-              <CgTrashEmpty style={{ color: 'red', cursor: 'pointer', display: 'inline-block' }} />
-              <IoEyeOutline style={{ color: 'yellow', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
-              <IoPencil style={{ color: 'blue', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} />
+              <IoIosLock style={{ color: 'green', cursor: 'pointer', display: 'inline-block' }} />
+              <CgTrashEmpty style={{ color: 'red', cursor: 'pointer', display: 'inline-block', marginLeft: '15px' }} />
+              {/* <IoEyeOutline style={{ color: 'yellow', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} /> */}
+              <IoPencil style={{ color: 'blue', cursor: 'pointer', display: 'inline-block', marginLeft: '15px' }} />
             </div>
           </div>
         ))}
