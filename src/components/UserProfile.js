@@ -61,6 +61,7 @@ const ProfilePage = () => {
   return (
     <div className="flex flex-col items-center min-h-screen bg-[#152238]">
       <div className="bg-[#091121] w-full h-40 flex items-center  text-white justify-center">
+
       <img
         src={newProfilePhoto}
         alt="Profile"
@@ -69,6 +70,7 @@ const ProfilePage = () => {
       </div>
       <div className="bg-[#091121] p-4 mt-4 rounded-lg shadow-md w-96" >
         <div className='bg-[#293b5e] rounded-lg shadow-md my-6 py-4 px-4 text-white text-semibold'>
+
             <div className='my-2'><FaUser className='inline-flex mr-4' />{userData.username}</div>
             <div className='my-2'><FaEnvelope className='inline-flex mr-4'  /> {userData.email}</div>
             <div className='my-2'>
@@ -112,6 +114,7 @@ const ProfilePage = () => {
           </div>
           {isEditingPassword && (
             <div className="mb-2">
+
               
               <input
                 id="newPassword"
@@ -123,7 +126,17 @@ const ProfilePage = () => {
             Save Changes
           </button>
             </div>
-          )}
+
+          ):(<div className="flex items-center justify-center"> {/* Container */}
+          <button
+            type="button"
+            onClick={() => setIsEditingPassword(true)}
+            className="bg-[#152238] text-white rounded flex items-center justify-center my-3 mx-3 py-2 px-4"
+          >
+            Edit Password
+          </button>
+        </div>)}
+
           
         </form>
       </div>

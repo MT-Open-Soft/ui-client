@@ -5,6 +5,8 @@ import axios from 'axios';
 import { FaUser } from 'react-icons/fa';
 import SignUp from './SignUp.js';
 import SignIn from './SignIn.js';
+import { CgDropOpacity, CgClose } from "react-icons/cg";
+
 
 const apiURL =
   "http://localhost:8080/api/v1/search/suggestions";
@@ -46,7 +48,7 @@ function Navbar() {
       axios.get(`${apiURL}?query=${query}`)
         .then((res) => {
           console.log(res.data)
-          setSearchResults(res.data); // Assuming the response is an array of results
+          setSearchResults(res.data);
         })
         .catch((error) => {
           console.error("Request failed:", error);
@@ -89,6 +91,12 @@ function Navbar() {
     setIsSignupModalOpen(false);
     document.body.style.overflow = 'auto'; // Allow scrolling on the background
   };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setSearchResults([]);
+  };
+  
 
   const path = useLocation().pathname.substring(1);
 
@@ -164,7 +172,7 @@ function Navbar() {
               name="search"
               placeholder="Search"
             />
-            <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
+            <button type="submit" className="absolute right-0 top-0 mt-3 mr-2" >
               <svg className="text-gray-600 h-16 w-16 fill-current">
                 <path d="./images/search-icon.webp" />
               </svg>
@@ -172,23 +180,33 @@ function Navbar() {
           </div>
         ) : (
           <div className={`relative mx-auto text-gray-600 z-10 ${isLoginModalOpen || isSignupModalOpen ? 'blur' : ''}`}>
-            <input
-              className="border-2 border-gray-300 bg-gray-800 text-white h-8 pl-2 pr-8 rounded-full text-sm focus:outline-none w-64"
-              type="search"
-              name="search"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
-            {(searchQuery==='')?(<><div className="py-1 absolute right-0 mt-2 w-full bg-transparent rounded-lg z-100 shadow-md max-h-70 overflow-y-auto backdrop-blur-md">
+
+            <div className='bg-gray-800 border-gray-200 rounded-full focus:bg-gray-700 flex items-center border-2 pl-4 ml-4 border-gray-300'><input
+            className=" bg-gray-800 text-white h-8 pr-8 rounded-full text-sm focus:outline-none w-64"
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          
+            <button
+              className="text-white hover:text-gray-400 ml-2 pr-4"
+              onClick={handleClearSearch}
+            >
+              
+              <CgClose className="w-5 h-5"/>
+            </button>
+            </div> 
+            {(searchQuery==='')?(<><div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 shadow-md max-h-70 overflow-y-auto">
               {searchResults.map((result) => (
                 <button
                   key={result.id}
-                  className="block px-4 py-2 text-slate-200 hover:bg-slate-200 hover:text-gray-800 w-full text-left"
+                  className="block pl-2 px-4 py-2 w-full text-left"
                   onClick={() => handleSelectResult(result)}
                 >
                   
                  
+
                  
                 </button>
               ))}
@@ -201,7 +219,6 @@ function Navbar() {
                   onClick={() => handleSelectResult(result)}
                 >
                   
-                 
                   <div class="grid grid-cols-4 items-start text-white  ">
     <div className="md:shrink-0 md:mr-0 col-span-1" style={{display:"inline-block"}}><img  className="object-cover rounded-md" src={result.poster} style={{width:"50%",height:"50%"}}></img></div>
     <div className="text-left md:ml-0 col-span-3">
@@ -217,11 +234,6 @@ function Navbar() {
                 </button>
               ))}
             </div>)}
-            <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
-              <svg className="text-gray-600 h-16 w-16 fill-current">
-                <path d="./images/search-icon.webp" />
-              </svg>
-            </button>
           </div>
         )}
 

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { CgDropOpacity } from "react-icons/cg";
+
+import { CgDropOpacity, CgClose } from "react-icons/cg";
+
 
 const apiURL ="http://localhost:8080/api/v1/search/suggestions";
 
@@ -32,6 +34,11 @@ const Search = () => {
 
   const handleSelectResult = (result) => {
     setSearchQuery(result.title);
+    setSearchResults([]);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
     setSearchResults([]);
   };
 
@@ -80,10 +87,11 @@ const Search = () => {
                  
                 </button>
               ))}
+
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   </div>
   );
