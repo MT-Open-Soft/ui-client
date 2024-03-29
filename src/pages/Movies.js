@@ -52,8 +52,9 @@ function Movies() {
   return (
     
 
-    <>
+    <div>
     {/* {handleSearch} */}
+    {movies.length > 0 ? (
       <div className="bg-[#131720]">
       <h1 className="text-white text-4xl py-4 px-8 flex mt-4 justify-right ">Movies In "Action"</h1>
         <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly">
@@ -84,7 +85,10 @@ function Movies() {
           </button>
         </div>
       </div>
-    </>
+       ) : (
+        <h1>Loading...</h1>
+      )}
+    </div>
   );
 
   //return <Carousel slides={movies} />;
