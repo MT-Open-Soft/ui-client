@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
+import { useLocation, Link,useNavigate } from 'react-router-dom'; // Import Link from react-router-dom for navigation
 import axios from 'axios';
-
+import { FaUser } from 'react-icons/fa';
+import SignUp from './SignUp.js';
+import SignIn from './SignIn.js';
+import { CgDropOpacity, CgClose } from "react-icons/cg";
 const apiURL = "http://localhost:8080/api/v1/search/suggestions";
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    // Perform login logic
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    // Perform logout logic
+    setIsLoggedIn(false);
+  };
+
+  const navigate = useNavigate();
+
+  const handleClickProfile = () => {
+    // Redirect to the desired page
+    navigate('/profile');
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -63,6 +84,11 @@ function Navbar() {
     setIsSignupModalOpen(false);
     document.body.style.overflow = 'auto'; // Allow scrolling on the background
   };
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setSearchResults([]);
+  };
+
 
   const path = useLocation().pathname.substring(1);
 
@@ -157,7 +183,22 @@ function Navbar() {
               value={searchQuery}
               onChange={handleInputChange}
             />
-            {(searchQuery === '') ? (<></>) : (<div className="py-1 absolute right-0 mt-2 w-full bg-white rounded-lg shadow-md max-h-70 overflow-y-auto">
+            {(searchQuery === '') ? (<>
+              <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 shadow-md max-h-70 overflow-y-auto">
+              {searchResults.map((result) => (
+                <button
+                  key={result.id}
+                  className="block pl-2 px-4 py-2 w-full text-left"
+                  onClick={() => handleSelectResult(result)}
+                >
+                  
+                 
+                 
+                </button>
+              ))}
+            </div>
+            
+            </>) : (<div className="py-1 absolute right-0 mt-2 w-full bg-white rounded-lg shadow-md max-h-70 overflow-y-auto">
               {searchResults.map((result) => (
                 <button
                   key={result.id}
@@ -166,63 +207,63 @@ function Navbar() {
                 >
 
 
-                  <div class="grid grid-cols-2 gap-4">
-                    <div>{result.title}</div>
-                    <div>{result.year}</div>
-                  </div>
+<div class="grid grid-cols-4 items-start text-white  ">
+    <div className="md:shrink-0 md:mr-0 col-span-1" style={{display:"inline-block"}}><img  className="object-cover rounded-md" src={result.poster} style={{width:"50%",height:"50%"}}></img></div>
+    <div className="text-left md:ml-0 col-span-3">
+        <div className="text-left text-md font-body text-xs ">{result.title}</div>
+        <div className="grid grid-cols-3 text-xxs text-left md:ml-0 text-gray-400" style={{ fontSize: '0.65rem' }}>
+        <div className="col-span-1">{result.type === 'movie' ? 'Movie' : result.type === 'tv show' ? 'TV Show' : result.type}</div>
+            <div className="col-span-1">★ {result.imdb.rating}</div>
+            <div className="col-span-1">• {result.year}</div>
+        </div>
+    </div>
+</div>
 
                 </button>
               ))}
-            </div>)}
-            <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
-              <svg className="text-gray-600 h-16 w-16 fill-current">
-                <path d="./images/search-icon.webp" />
-              </svg>
-            </button>
-          </div>
-        )}
-
-        <div className="flex">
-          <a
-            href="#"
-            onClick={openSignupModal}
-            className="block text-md px-4 py-2 rounded text-blue-300 ml-2 font-bold hover:text-white mt-4 hover:bg-gray-900 lg:mt-0 text-lg"
-          >
-            Sign up
-          </a>
-          <a
-            href="#"
-            onClick={openLoginModal}
-            className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-gray-900 lg:mt-0 text-lg"
-          >
-            Login
-          </a>
-        </div>
-      </div>
-
-      {isLoginModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg">
-            <h2 className="text-lg font-bold mb-4">Login</h2>
-            {/* Add your login form here */}
-            <button className="bg-blue-800 text-white px-4 py-2 rounded-lg" onClick={closeLoginModal}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {isSignupModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg">
-            <h2 className="text-lg font-bold mb-4 text-left">FlixTV</h2>
-
-            {/* Add your sign up form here */}
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={closeSignupModal}>Sign Up</button>
+              </div>)}
+            </div>
+          )}
+  
+          <div>
+            {isLoggedIn?(
+            <>
+            <button
+        onClick={handleClickProfile()}
+        className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        <FaUser className="w-5 h-5 mr-2" />
+        Profile
+      </button>
+            </>):(<div className="flex">
+            <a
+              href="#"
+              onClick={openSignupModal}
+              className="block text-md px-4 py-2 rounded text-blue-300 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
+            >
+              Sign up
+            </a>
+            <a
+              href="#"
+              onClick={
+                ()=>{
+                  openLoginModal()
+                  
+                }           
+              }
+              className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
+            >
+              Login
+            </a>
+          </div>)}
           </div>
         </div>
-      )}
-
-    </nav>
-  );
-}
-
-export default Navbar;
+  
+        {isLoginModalOpen && <SignIn closeLoginModal={() => setIsLoginModalOpen(false)} />}
+        {isSignupModalOpen && <SignUp closeSignupModal={() => setIsSignupModalOpen(false)} />}
+        
+            </nav>
+          );
+        }
+        
+        export default Navbar;

@@ -58,6 +58,7 @@ function LanguageMovies() {
 
     <>
     {/* {handleSearch} */}
+    {movies.length > 0 ? (
       <div className="bg-[#131720]">
       <h1 className="text-white text-4xl py-4 px-8 flex mt-4 justify-right ">Movies In {language}</h1>
         <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly">
@@ -88,6 +89,9 @@ function LanguageMovies() {
           </button>
         </div>
       </div>
+       ) : (
+        <h1>Loading...</h1>
+      )}
     </>
   );
 

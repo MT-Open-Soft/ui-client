@@ -34,11 +34,8 @@ function App() {
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
-<<<<<<< HEAD
     <Route path="/language/:language" element={<LanguageMovies/>} />
-=======
     <Route path="/modal" element={<Modal />} />
->>>>>>> 021be03665975373055a888e6a517cb9d961d92a
     {/* <Route path="/dashboard" element={
           <>
             <Sidebar />
