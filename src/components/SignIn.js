@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+
+import React, { useState } from 'react';
+
+=======
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
+>>>>>>> 021be03665975373055a888e6a517cb9d961d92a
 function SignIn({ closeLoginModal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +49,12 @@ function SignIn({ closeLoginModal }) {
     
     
 
+<<<<<<< HEAD
+    localStorage.setItem('password', password);
+    localStorage.setItem('email', email);
+=======
     
+>>>>>>> 021be03665975373055a888e6a517cb9d961d92a
 
   };
 

@@ -12,8 +12,17 @@ function SignUp({ closeSignupModal }) {
   const handleSignUp = async() => {
     console.log (username)
     console.log (email)
+<<<<<<< HEAD
+    console.log(password)
+
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
+    localStorage.setItem('email', email);
+
+=======
     console.log(password)    
     
+>>>>>>> 021be03665975373055a888e6a517cb9d961d92a
     if (!username) {
       setUsernameError('This field is required');
     } else {

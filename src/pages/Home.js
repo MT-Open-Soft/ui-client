@@ -12,12 +12,16 @@ function Home() {
   return (
     <div className="bg-[#152238]">
       <Search/>
+<<<<<<< HEAD
+      
+=======
+>>>>>>> 021be03665975373055a888e6a517cb9d961d92a
       <ActiveSlider/>
       <ActionMovies/>
       <ComedyMovies />
       <RomanceMovies />
       <Language/>
-
+      
       
     </div>
   );
