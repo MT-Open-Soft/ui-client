@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function SignUp({ closeSignupModal }) {
   const [username, setUsername] = useState('');
@@ -8,15 +9,20 @@ function SignUp({ closeSignupModal }) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async() => {
     console.log (username)
     console.log (email)
+<<<<<<< HEAD
     console.log(password)
 
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
     localStorage.setItem('email', email);
 
+=======
+    console.log(password)    
+    
+>>>>>>> 021be03665975373055a888e6a517cb9d961d92a
     if (!username) {
       setUsernameError('This field is required');
     } else {
@@ -36,8 +42,9 @@ function SignUp({ closeSignupModal }) {
     }
 
     if (username && email && password) {
-      // Perform sign-up logic here
-      // For now, just close the modal
+      const response = await axios.post('http://localhost:8080/api/v1/auth/signup',{'name':username,'email':email,'password':password})
+      console.log(response)
+      localStorage.setItem('token', response.data.token);
       closeSignupModal();
     }
   };

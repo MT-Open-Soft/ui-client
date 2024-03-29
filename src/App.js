@@ -4,7 +4,7 @@ import React from "react";
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
-import Movies from './pages/Movies';
+// import Movies from './pages/Movies';
 import Plans from './pages/Plans';
 import Subs from './pages/Subs';
 // import './App.css';
@@ -15,6 +15,7 @@ import Video from './pages/Video';
 import UserProfile from './components/UserProfile';
 import Catalog from './pages/Catalog';
 import Users from './pages/Users';
+import Modal from './components/Modal';
 
 
 import Pricing from './pages/Pricing';
@@ -27,13 +28,17 @@ function App() {
    <Navbar/>
    <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/movies" element={<Movies />} />  
+    {/* <Route path="/movies" element={<Movies />} />   */}
     <Route path="/plans" element={<Plans />} />    
     <Route path="/subs" element={<Subs />} />
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
+<<<<<<< HEAD
     <Route path="/language/:language" element={<LanguageMovies/>} />
+=======
+    <Route path="/modal" element={<Modal />} />
+>>>>>>> 021be03665975373055a888e6a517cb9d961d92a
     {/* <Route path="/dashboard" element={
           <>
             <Sidebar />
