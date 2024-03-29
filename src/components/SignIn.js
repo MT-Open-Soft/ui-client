@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react';
-
+import axios from 'axios';
 function SignIn({ closeLoginModal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -7,7 +7,9 @@ function SignIn({ closeLoginModal }) {
   const [passwordError, setPasswordError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async() => {
+    console.log (email)
+    console.log(password)
     if (!email) {
       setEmailError('This field is required');
     } else {
@@ -21,18 +23,27 @@ function SignIn({ closeLoginModal }) {
     }
 
     if (email && password) {
-      // Perform sign-in logic here
-      // For now, just close the modal
+      try{
+      const response = await axios.post('http://localhost:8080/api/v1/auth/signin', { email, password });
+      if (response.status === 200){
+      console.log(response)
+      localStorage.setItem('token', response.data.token);
+      }
+      
+      
       setIsLoggedIn(true);
       closeLoginModal();
+    }catch(err){
+      const mssg = err.response.data.error.message
+      setPassword("")
+      
+      alert(mssg)
     }
+  }
     
-    console.log (email)
-    console.log(password)
+    
 
-    localStorage.setItem('password', password);
-    localStorage.setItem('email', email);
-    closeLoginModal();
+    
 
   };
 
@@ -105,12 +116,7 @@ function SignIn({ closeLoginModal }) {
             Sign In
           </button>
         </div>
-        {console.log(localStorage.getItem('username'))
-         }
-         {console.log(localStorage.getItem('email'))
-         }
-         {console.log(localStorage.getItem('password'))
-         }
+        
 
       </div>
     </div>
