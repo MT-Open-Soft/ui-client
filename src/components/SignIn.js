@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 
 function SignIn({ closeLoginModal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSignIn = () => {
     if (!email) {
@@ -22,10 +23,21 @@ function SignIn({ closeLoginModal }) {
     if (email && password) {
       // Perform sign-in logic here
       // For now, just close the modal
+      setIsLoggedIn(true);
       closeLoginModal();
     }
+    
+    console.log (email)
+    console.log(password)
+
+    localStorage.setItem('password', password);
+    localStorage.setItem('email', email);
+    closeLoginModal();
+
   };
 
+  
+ 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm mx-auto mt-20 w-full relative">
@@ -93,6 +105,13 @@ function SignIn({ closeLoginModal }) {
             Sign In
           </button>
         </div>
+        {console.log(localStorage.getItem('username'))
+         }
+         {console.log(localStorage.getItem('email'))
+         }
+         {console.log(localStorage.getItem('password'))
+         }
+
       </div>
     </div>
   );

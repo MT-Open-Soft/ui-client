@@ -9,6 +9,15 @@ function SignUp({ closeSignupModal }) {
   const [passwordError, setPasswordError] = useState('');
 
   const handleSignUp = () => {
+    console.log (username)
+    console.log (email)
+    console.log(password)
+
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
+    localStorage.setItem('email', email);
+    closeSignupModal();
+
     if (!username) {
       setUsernameError('This field is required');
     } else {
@@ -34,6 +43,21 @@ function SignUp({ closeSignupModal }) {
     }
   };
 
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+ 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto mt-20 w-full relative">
