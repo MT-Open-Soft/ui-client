@@ -18,6 +18,8 @@ import Users from './pages/Users';
 
 
 import Pricing from './pages/Pricing';
+import VideoBitrate from './pages/VideoBitrate';
+import LanguageMovies from './components/LanguageMovies';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
+    <Route path="/language/:language" element={<LanguageMovies/>} />
     {/* <Route path="/dashboard" element={
           <>
             <Sidebar />
@@ -42,6 +45,8 @@ function App() {
 <Route path="/catalog" element={<Catalog />}/>
 <Route path="/users" element={<Users />}/>
      <Route path="/Pricing" element={<Pricing />}/>
+     
+     <Route path="/vidbit" element={<VideoBitrate/>}/>
    </Routes>
    <Footer/>
    </BrowserRouter>

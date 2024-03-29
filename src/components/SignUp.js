@@ -16,7 +16,6 @@ function SignUp({ closeSignupModal }) {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
     localStorage.setItem('email', email);
-    closeSignupModal();
 
     if (!username) {
       setUsernameError('This field is required');

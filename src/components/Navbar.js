@@ -180,6 +180,7 @@ function Navbar() {
           </div>
         ) : (
           <div className={`relative mx-auto text-gray-600 z-10 ${isLoginModalOpen || isSignupModalOpen ? 'blur' : ''}`}>
+
             <div className='bg-gray-800 border-gray-200 rounded-full focus:bg-gray-700 flex items-center border-2 pl-4 ml-4 border-gray-300'><input
             className=" bg-gray-800 text-white h-8 pr-8 rounded-full text-sm focus:outline-none w-64"
             type="text"
@@ -205,6 +206,7 @@ function Navbar() {
                 >
                   
                  
+
                  
                 </button>
               ))}
@@ -217,14 +219,13 @@ function Navbar() {
                   onClick={() => handleSelectResult(result)}
                 >
                   
-                 
                   <div class="grid grid-cols-4 items-start text-white  ">
     <div className="md:shrink-0 md:mr-0 col-span-1" style={{display:"inline-block"}}><img  className="object-cover rounded-md" src={result.poster} style={{width:"50%",height:"50%"}}></img></div>
     <div className="text-left md:ml-0 col-span-3">
         <div className="text-left text-md font-body text-xs ">{result.title}</div>
         <div className="grid grid-cols-3 text-xxs text-left md:ml-0 text-gray-400" style={{ fontSize: '0.65rem' }}>
         <div className="col-span-1">{result.type === 'movie' ? 'Movie' : result.type === 'tv show' ? 'TV Show' : result.type}</div>
-            <div className="col-span-1">★ {result.imdb.rating}</div>
+            <div className="col-span-1">★ {result.rating}</div>
             <div className="col-span-1">• {result.year}</div>
         </div>
     </div>

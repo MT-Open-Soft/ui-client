@@ -1,4 +1,5 @@
-import React, { useState ,useEffect} from 'react';
+
+import React, { useState } from 'react';
 
 function SignIn({ closeLoginModal }) {
   const [email, setEmail] = useState('');
@@ -32,7 +33,6 @@ function SignIn({ closeLoginModal }) {
 
     localStorage.setItem('password', password);
     localStorage.setItem('email', email);
-    closeLoginModal();
 
   };
 

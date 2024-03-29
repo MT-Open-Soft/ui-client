@@ -52,8 +52,8 @@ const ActiveSlider = () => {
   ];
 
   return (
-    <div className="flex items-center justify-center flex-col h-[700px] bg-[#152238]">
-      <h1 className="text-5xl font-medium mb-4">
+    <div className="flex items-center justify-center flex-col h-[500px] bg-[#152238]">
+      <h1 className="text-5xl font-medium mb-4 mt-5">
         <span className="text-blue-500">Flix</span>
         <span className="text-white ">Tv Originals</span>
       </h1>

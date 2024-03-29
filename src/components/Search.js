@@ -90,7 +90,7 @@ const Search = () => {
                         <div className="text-left text-md font-body text-xs font-semibold">{result.title}</div>
                         <div className="grid grid-cols-12 text-left md:ml-0 text-gray-400" style={{ fontSize: "0.65rem" }}>
                           <div className="col-span-1">{result.type === 'movie' ? 'Movie' : result.type === 'tv show' ? 'TV Show' : result.type}</div>
-                          <div className="col-span-1">★ {result.imdb.rating}</div>
+                          <div className="col-span-1">★ {result.rating}</div>
                           <div className="col-span-1">• {result.year}</div>
                         </div>
                       </div>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { CgPlayButtonO } from "react-icons/cg";
 
 
@@ -11,7 +10,7 @@ const FavoriteMovies = ({ movies }) => {
           <img
             src={movie.poster}
             alt={movie.name}
-            className="w-40 h-auto cursor-pointer transition-transform transform hover:scale-105 hover:blur-sm w-full h-full object-cover rounded-lg"
+            className="cursor-pointer transition-transform transform hover:scale-105 hover:blur-sm w-full h-full object-cover rounded-lg"
           />
           <button className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 text-white font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300">
           <CgPlayButtonO  className="absolute bottom-5 left-5 w-[35px] h-[35px] text-white group-hover:text-blue-500 duration-100" />
