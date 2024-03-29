@@ -127,7 +127,7 @@ function Navbar() {
             <ul className="absolute hidden text-gray-700 pt-1 group-hover:block w-32">
               <li><Link to="/drama" className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Drama</Link></li>
               <li><Link to="/comedy" className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Comedy</Link></li>
-              <li><Link to="/drama" className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Romance</Link></li>
+              <li><Link to="/romance" className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Romance</Link></li>
               <li><Link to="/crime" className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Crime</Link></li>
               <li><Link to="/action" className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Action</Link></li>
               <li><Link to="/adventure" className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap">Adventure</Link></li>
@@ -218,7 +218,7 @@ function Navbar() {
 
 
 <div class="grid grid-cols-4 items-start text-white  ">
-    <div className="md:shrink-0 md:mr-0 col-span-1" style={{display:"inline-block"}}><img  className="object-cover rounded-md" src={result.poster} style={{width:"50%",height:"50%"}}></img></div>
+    <div className="md:shrink-0 md:mr-0 col-span-1" style={{display:"inline-block"}}><img  className="object-cover rounded-md" src={result.poster ? result.poster : 'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg'} style={{width:"50%",height:"50%"}}></img></div>
     <div className="text-left md:ml-0 col-span-3">
         <div className="text-left text-md font-body text-xs ">{result.title}</div>
         <div className="grid grid-cols-3 text-xxs text-left md:ml-0 text-gray-400" style={{ fontSize: '0.65rem' }}>

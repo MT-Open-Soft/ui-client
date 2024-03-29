@@ -84,7 +84,7 @@ const Search = () => {
                   >
                     <div class="grid grid-cols-10 items-start">
                       <div className="md:shrink-0 md:mr-0 col-span-1" style={{ display: "inline-block" }}>
-                        <img className="object-cover rounded-md" src={result.poster} style={{ width: "50%", height: "50%" }} alt="poster" />
+                        <img className="object-cover rounded-md" src={result.poster ? result.poster : 'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg'} style={{ width: "50%", height: "50%" }} alt="poster" />
                       </div>
                       <div className="text-left md:ml-0 col-span-9">
                         <div className="text-left text-md font-body text-xs font-semibold">{result.title}</div>
