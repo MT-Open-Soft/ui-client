@@ -1,9 +1,12 @@
 import React, { useState,useEffect } from "react";
 import Card from "./Card";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
+import { IoIosArrowForward } from "react-icons/io";
+
 //import Carousel from "./Carousel";
 import axios from 'axios';
 const apiURL="http://localhost:8080/api/v1/movies"
+
 
 function ActionMovies() {
     const [movies, setData] = useState([]);
@@ -53,21 +56,29 @@ function ActionMovies() {
   return (
     
 
-    <div>
+    <div id="genres-section">
     {/* {handleSearch} */}
     {movies.length > 0 ? (
       <div className="bg-[#152238]">
-      <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
-        Movies In&nbsp; <span className="font-bold text-yellow-500"> Action</span>
-      </h1>
+        <div className="flex items-center space-x-10 px-8 py-4 ml-5">
+            <h1 className="text-white text-3xl flex items-center">
+                Movies In&nbsp; <span className="font-bold text-yellow-500">Action</span>
+            </h1>
+            <a href="#" className="text-white text-xl flex items-center pt-1">
+                See more
+                <span className=" text-2xl pt-1"><IoIosArrowForward className="text-white" /></span>
+            </a>
+        </div>
         <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'hidden'}}>
-          <button
-            onClick={handlePrev}
-            disabled={startIndex === 0}
-            className="text-white text-2xl"
-          >
-            <SlArrowLeftCircle />
-          </button>
+        {startIndex !==0 && (
+                <button
+                onClick={handlePrev}
+                disabled={startIndex === 0}
+                className="text-white text-2xl"
+              >
+                <SlArrowLeftCircle />
+              </button>
+            )}
           {visibleMovies.map((card) => (
             <Card
             key={card.id}
@@ -78,13 +89,15 @@ function ActionMovies() {
             status={card.premium}
           />
           ))}
-          <button
+         {startIndex < movies.length - 5 && (
+            <button
             onClick={handleNext}
             disabled={startIndex >= movies.length - 6}
             className="text-white text-2xl"
           >
             <SlArrowRightCircle />
           </button>
+          )}
         </div>
       </div>
        ) : (

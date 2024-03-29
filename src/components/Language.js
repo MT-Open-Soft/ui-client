@@ -45,7 +45,7 @@ const ActiveSlider = () => {
 
 
   return (
-    <div className="flex items-center justify-center flex-col h-screen bg-[#152238] text-white">
+    <div className="flex items-center justify-center flex-col h-screen bg-[#152238] text-white" id="language-section">
 
       <p className="text-white mb-10">
         Language.

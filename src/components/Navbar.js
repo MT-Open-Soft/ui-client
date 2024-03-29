@@ -9,23 +9,25 @@ const apiURL = "http://localhost:8080/api/v1/search/suggestions";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
 
-  const handleLogin = () => {
-    // Perform login logic
+  const handleLogin = (name) => {
     setIsLoggedIn(true);
+    setUserName(name);
   };
 
   const handleLogout = () => {
-    // Perform logout logic
     setIsLoggedIn(false);
+    setUserName("");
   };
 
   const navigate = useNavigate();
 
-  const handleClickProfile = () => {
-    // Redirect to the desired page
-    navigate("/profile");
-  };
+  // const handleClickProfile = () => {
+  //   // Redirect to the desired page
+  //   navigate("/profile");
+  // };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -388,15 +390,20 @@ function Navbar() {
 
         <div>
           {isLoggedIn ? (
-            <>
-              <button
-                onClick={handleClickProfile()}
-                className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
+            <div className="flex items-center">
+            <a href="/profile">
+              <button className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <FaUser className="w-5 h-5 mr-2" />
-                Profile
+                {userName}
               </button>
-            </>
+            </a>
+            <button
+              onClick={handleLogout}
+              className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-red-700 ml-2"
+            >
+              Logout
+            </button>
+          </div>
           ) : (
             <div className="flex">
               <a
@@ -421,7 +428,7 @@ function Navbar() {
       </div>
 
       {isLoginModalOpen && (
-        <SignIn closeLoginModal={() => setIsLoginModalOpen(false)} />
+        <SignIn closeLoginModal={() => setIsLoginModalOpen(false)}  handleLogin={handleLogin}/>
       )}
       {isSignupModalOpen && (
         <SignUp closeSignupModal={() => setIsSignupModalOpen(false)} />
