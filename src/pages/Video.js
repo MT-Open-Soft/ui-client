@@ -35,7 +35,7 @@ const ActiveSlider = () => {
   }, []);
   
   return (
-    <div className="flex items-center justify-center flex-col h-[700px] bg-[#152238]">
+    <div className="flex items-center justify-center flex-col bg-[#152238]">
       <h1 className="text-5xl font-medium mb-4 text-white">
         <span className="text-yellow-500">Top-Rated</span>&nbsp;Movies
       </h1>
@@ -46,11 +46,11 @@ const ActiveSlider = () => {
       <Swiper
         breakpoints={{
           340: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 15,
           },
           700: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 15,
           },
         }}
@@ -66,7 +66,7 @@ const ActiveSlider = () => {
 
           disableOnInteraction: false
          }}
-        className="max-w-[90%] lg:max-w-[80%]"
+        className="max-w-[90%] lg:max-w-[90%]"
       >
         {serviceData.map((item) => (
           <SwiperSlide key={item.title}>

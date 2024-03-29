@@ -148,7 +148,7 @@ function Navbar() {
           </div>
 
           <a
-            href="pricing"
+            href="plans"
             onClick={() => {
               toggleMenu();
               setIsSearchVisible(true);
