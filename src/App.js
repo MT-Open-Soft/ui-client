@@ -21,7 +21,7 @@ import Modal from './components/Modal';
 import Pricing from './pages/Pricing';
 import VideoBitrate from './pages/VideoBitrate';
 import LanguageMovies from './components/LanguageMovies';
-
+import GenreMovies from './components/GenreMovies';
 function App() {
   return (
    <BrowserRouter>
@@ -34,7 +34,9 @@ function App() {
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
-    <Route path="/language/:language" element={<LanguageMovies/>} />
+    <Route path="/:language" element={<LanguageMovies/>} />
+    <Route path="/:genre" element={<GenreMovies/>} />
+
     <Route path="/modal" element={<Modal />} />
     {/* <Route path="/dashboard" element={
           <>
