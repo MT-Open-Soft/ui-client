@@ -34,12 +34,12 @@ function LanguageMovies() {
     const [startIndex, setStartIndex] = useState(0);
 // 
   const handleNext = () => {
-    const newIndex = (startIndex + 6) % movies.length;
+    const newIndex = (startIndex + 5) % movies.length;
     setStartIndex(newIndex);
   };
 
   const handlePrev = () => {
-    const newIndex = (startIndex - 6 + movies.length) % movies.length;
+    const newIndex = (startIndex - 5 + movies.length) % movies.length;
     setStartIndex(newIndex);
   };
 
@@ -57,36 +57,33 @@ function LanguageMovies() {
     
 
     <>
-    {/* {handleSearch} */}
     {movies.length > 0 ? (
-      <div className="bg-[#131720]">
-      <h1 className="text-white text-4xl py-4 px-8 flex mt-4 justify-right ">Movies In {language}</h1>
-        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly">
-          <button
-            onClick={handlePrev}
-            disabled={startIndex === 0}
-            className="text-white"
-          >
-            <SlArrowLeftCircle />
-          </button>
-          {visibleMovies.map((card) => (
-            <Card
+      <div className="bg-[#152238] justify-center">
+          <div className="h-screen/4 flex flex-col justify-end pb-16" style={{
+      backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
+            <h1 className="text-white text-5xl mt-10 flex justify-center ml-20 "> Movies In&nbsp; <span className=" text-yellow-500"> {language}</span></h1>
+
+    </div>
+        <div className='flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center'>
+        <div className=" grid grid-cols-5 items-center mt-5 justify-center gap-12">
+          
+          {movies.map((card) => (
+            <div>
+              <Card
               key={card.id}
               image={card.poster}
               title={card.title}
-              genre={card.genre}
-              rating={card.rating}
-              year={card.year}
-              status={card.status}
+              rating={card.imdbRating}
+              year={card.releaseYear}
+              status={card.premium}
             />
+            </div>
           ))}
-          <button
-            onClick={handleNext}
-            disabled={startIndex >= movies.length - 6}
-            className="text-white"
-          >
-            <SlArrowRightCircle />
-          </button>
+          
+        </div>
         </div>
       </div>
        ) : (

@@ -32,7 +32,8 @@ const Card = ({ image, title, rating, year, status }) => {
 </div>
           <div className="flex flex-row justify-start gap-x-3 ">
            <p className="text-slate-200 text-xs">{status ? "Premium" : "Free"}</p>
-           <p className="text-slate-200 text-xs">{year}</p>
+           <p className="text-slate-200 text-xs">• {year}</p>
+           <p className="text-slate-200 text-xs">★ {rating}</p>
           </div>          
         </div>
       

@@ -160,7 +160,7 @@ function Navbar() {
         </div>
 
         {path === '' ? (
-          <div className={`relative mx-auto text-gray-600 lg:hidden ${isLoginModalOpen || isSignupModalOpen ? 'blur' : ''}`}>
+          <div className={`relative mx-auto max-w-2xl w-96 min-w-2xl text-gray-600 lg:hidden ${isLoginModalOpen || isSignupModalOpen ? 'blur' : ''}`}>
             <input
               className="border-2 border-gray-300 bg-gray-800 text-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
               type="search"
@@ -174,17 +174,27 @@ function Navbar() {
             </button>
           </div>
         ) : (
-          <div className={`relative mx-auto text-gray-600 z-10 ${isLoginModalOpen || isSignupModalOpen ? 'blur' : ''}`}>
-            <input
-              className="border-2 border-gray-300 bg-gray-800 text-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
-              type="search"
-              name="search"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
+          <div className={`relative mx-auto min-w-lg w-96 text-gray-600 z-10 ${isLoginModalOpen || isSignupModalOpen ? 'blur' : ''}`}>
+            <div className="flex items-center border bg-gray-800 border-gray-200 rounded-full focus:bg-gray-700 ">
+          <input
+            className="appearance-none block w-full bg-gray-800 text-white rounded-full py-1 px-4 leading-tight focus:outline-none focus:border-gray-500"
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          
+            <button
+              className="text-white focus:outline-none ml-2 justify-end pr-6 hover:text-gray-500"
+              onClick={handleClearSearch}
+            >
+              
+              <CgClose className="w-5 h-5" />
+            </button>
+        
+        </div>
             {(searchQuery === '') ? (<>
-              <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 shadow-md max-h-70 overflow-y-auto">
+              <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 max-h-70 overflow-y-auto">
               {searchResults.map((result) => (
                 <button
                   key={result.id}
@@ -198,11 +208,11 @@ function Navbar() {
               ))}
             </div>
             
-            </>) : (<div className="py-1 absolute right-0 mt-2 w-full bg-white rounded-lg shadow-md max-h-70 overflow-y-auto">
+            </>) : (<div className="py-1 absolute right-0 mt-2 text-white w-full bg-[#152238] rounded-lg shadow-md max-h-70 overflow-y-auto">
               {searchResults.map((result) => (
                 <button
                   key={result.id}
-                  className="block px-4 py-2 text-gray-800hover:bg-gray-000 w-full text-left"
+                  className="block px-4 py-2 text-gray-800hover:bg-gray-000 w-full hover:bg-[#00102a] text-left"
                   onClick={() => handleSelectResult(result)}
                 >
 
@@ -213,7 +223,7 @@ function Navbar() {
         <div className="text-left text-md font-body text-xs ">{result.title}</div>
         <div className="grid grid-cols-3 text-xxs text-left md:ml-0 text-gray-400" style={{ fontSize: '0.65rem' }}>
         <div className="col-span-1">{result.type === 'movie' ? 'Movie' : result.type === 'tv show' ? 'TV Show' : result.type}</div>
-            <div className="col-span-1">★ {result.imdb.rating}</div>
+            <div className="col-span-1">★ {result.rating}</div>
             <div className="col-span-1">• {result.year}</div>
         </div>
     </div>
