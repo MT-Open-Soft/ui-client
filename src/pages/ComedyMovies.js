@@ -4,14 +4,15 @@ import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 //import Carousel from "./Carousel";
 import axios from 'axios';
 const apiURL="http://localhost:8080/api/v1/movies"
-function Movies() {
+
+function ComedyMovies() {
     const [movies, setData] = useState([]);
 
     useEffect(() => {
       const fetchMovies = async () => {
         try {
           const num_response=10;
-          const genre="Action";
+          const genre="Comedy";
           const response = await axios.get(`http://localhost:8080/api/v1/movies?page=1&pageSize=${num_response}&genres=${genre}`);
           console.log(response.data)
           setData(response.data.movies); // Assuming the response has a 'movies' property containing the movie data
@@ -55,13 +56,13 @@ function Movies() {
     <div>
     {/* {handleSearch} */}
     {movies.length > 0 ? (
-      <div className="bg-[#131720]">
-      <h1 className="text-white text-4xl py-4 px-8 flex mt-4 justify-right ">Movies In "Action"</h1>
-        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly">
+      <div className="bg-[#152238] ">
+      <h1 className="text-white text-4xl py-8 px-8 flex justify-right ">Movies In "Comedy"</h1>
+        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'hidden'}}>
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}
-            className="text-white"
+            className="text-white text-2xl"
           >
             <SlArrowLeftCircle />
           </button>
@@ -70,16 +71,15 @@ function Movies() {
               key={card.id}
               image={card.poster}
               title={card.title}
-              genre={card.genre}
-              rating={card.rating}
-              year={card.year}
-              status={card.status}
+              rating={card.imdbRating}
+              year={card.releaseYear}
+              status={card.premium}
             />
           ))}
           <button
             onClick={handleNext}
             disabled={startIndex >= movies.length - 6}
-            className="text-white"
+            className="text-white text-2xl"
           >
             <SlArrowRightCircle />
           </button>
@@ -94,4 +94,5 @@ function Movies() {
   //return <Carousel slides={movies} />;
 }
 
-export default Movies;
+export default ComedyMovies;
+

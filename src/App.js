@@ -4,7 +4,7 @@ import React from "react";
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
-import Movies from './pages/Movies';
+// import Movies from './pages/Movies';
 import Plans from './pages/Plans';
 import Subs from './pages/Subs';
 // import './App.css';
@@ -26,7 +26,7 @@ function App() {
    <Navbar/>
    <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/movies" element={<Movies />} />  
+    {/* <Route path="/movies" element={<Movies />} />   */}
     <Route path="/plans" element={<Plans />} />    
     <Route path="/subs" element={<Subs />} />
     <Route path="/video" element={<Video />}/>
