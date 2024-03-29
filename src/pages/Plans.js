@@ -166,7 +166,7 @@ else{
   <h2 className="text-4xl font-bold">&#8377;199.99</h2>
   <p className="text-white mt-4 ml-2">/month</p> {/* Add ml-2 to create space */}
 </div>
-            <button onClick={() => handleButtonClick(39999, "GOLD")}
+            <button onClick={() => handleButtonClick(19999, "GOLD")}
             className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[2px] my-[25px]">
               SELECT PLAN
             </button>
@@ -191,11 +191,11 @@ else{
 
         <hr className="h-px my-5 bg-slate-700 border-0" />
         <div className="flex flex-row items-center justify-center"> {/* Center align price and month */}
-          <h2 className="text-4xl font-bold">&#8377;0</h2>
+          <h2 className="text-4xl font-bold">&#8377;99.99</h2>
           <p className="text-white mt-4 ml-2">/month</p> {/* Add ml-2 to create space */}
         </div>
 
-        <button onClick={() => handleButtonClick(0, "FREE")}
+        <button onClick={() => handleButtonClick(9999, "SILVER")}
           className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[2px] mt-2"> {/* Adjust mt-4 for margin-top */}
           SELECT PLAN
         </button>
