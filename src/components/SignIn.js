@@ -1,11 +1,15 @@
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
+
 function SignIn({ closeLoginModal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   const handleSignIn = async() => {
     console.log (email)
@@ -36,14 +40,18 @@ function SignIn({ closeLoginModal }) {
     }catch(err){
       const mssg = err.response.data.error.message
       setPassword("")
+      setIsButtonDisabled(true);
+      setErrorMessage('Invalid username or password');
+      setTimeout(() => {
+        setErrorMessage('');
+        setIsButtonDisabled(false);
+      }, 3000);
       
       alert(mssg)
     }
   }
     
-    
 
-    
 
   };
 
@@ -111,7 +119,7 @@ function SignIn({ closeLoginModal }) {
           <button
             className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
-            onClick={handleSignIn}
+            onClick={handleSignIn} disabled={isButtonDisabled}
           >
             Sign In
           </button>
