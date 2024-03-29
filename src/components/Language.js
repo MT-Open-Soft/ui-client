@@ -65,7 +65,7 @@ const ActiveSlider = () => {
       >
         {ServiceData.map((item) => (
           <SwiperSlide key={item.title}>
-            <Link to={`/language/${item.title}`} >
+            <Link to={`/${item.title}`} >
             <div className="flex flex-col items-center justify-center gap-6 mb-20 group relative rounded-xl p-4 h-[180px] w-[140px] lg:h-[200px] lg:w-[240px] overflow-hidden cursor-pointer" style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.1), -5px 0 15px rgba(0, 0, 0, 0.1)' }}>
               <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50" />
               <div className="relative flex flex-col items-center gap-3">

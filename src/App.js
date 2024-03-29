@@ -34,7 +34,7 @@ function App() {
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
-    <Route path="/:language" element={<LanguageMovies/>} />
+    <Route path="/lang/:language" element={<LanguageMovies/>} />
     <Route path="/:genre" element={<GenreMovies/>} />
 
     <Route path="/modal" element={<Modal />} />

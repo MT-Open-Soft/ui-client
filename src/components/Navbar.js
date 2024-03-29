@@ -304,7 +304,7 @@ function Navbar() {
           </div>
         ) : (
           <div
-            className={`relative mx-auto min-w-lg w-96 text-gray-600 z-10 ${
+            className={`relative mx-auto min-w-md w-80 text-gray-600 z-10 ${
               isLoginModalOpen || isSignupModalOpen ? "blur" : ""
             }`}
           >
@@ -364,7 +364,7 @@ function Navbar() {
                           {result.title}
                         </div>
                         <div
-                          className="grid grid-cols-3 text-xxs text-left md:ml-0 text-gray-400"
+                          className="grid grid-cols-5 text-xxs text-left md:ml-0 text-gray-400"
                           style={{ fontSize: "0.65rem" }}
                         >
                           <div className="col-span-1">
