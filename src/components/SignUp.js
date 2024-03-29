@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function SignUp({ closeSignupModal }) {
   const [username, setUsername] = useState('');
@@ -8,7 +9,11 @@ function SignUp({ closeSignupModal }) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async() => {
+    console.log (username)
+    console.log (email)
+    console.log(password)    
+    
     if (!username) {
       setUsernameError('This field is required');
     } else {
@@ -28,12 +33,28 @@ function SignUp({ closeSignupModal }) {
     }
 
     if (username && email && password) {
-      // Perform sign-up logic here
-      // For now, just close the modal
+      const response = await axios.post('http://localhost:8080/api/v1/auth/signup',{'name':username,'email':email,'password':password})
+      console.log(response)
+      localStorage.setItem('token', response.data.token);
       closeSignupModal();
     }
   };
 
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+ 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto mt-20 w-full relative">

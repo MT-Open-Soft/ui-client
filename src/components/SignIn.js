@@ -1,13 +1,15 @@
-
-import React, { useState } from 'react';
-
+import React, { useState ,useEffect} from 'react';
+import axios from 'axios';
 function SignIn({ closeLoginModal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async() => {
+    console.log (email)
+    console.log(password)
     if (!email) {
       setEmailError('This field is required');
     } else {
@@ -21,12 +23,32 @@ function SignIn({ closeLoginModal }) {
     }
 
     if (email && password) {
-      // Perform sign-in logic here
-      // For now, just close the modal
+      try{
+      const response = await axios.post('http://localhost:8080/api/v1/auth/signin', { email, password });
+      if (response.status === 200){
+      console.log(response)
+      localStorage.setItem('token', response.data.token);
+      }
+      
+      
+      setIsLoggedIn(true);
       closeLoginModal();
+    }catch(err){
+      const mssg = err.response.data.error.message
+      setPassword("")
+      
+      alert(mssg)
     }
+  }
+    
+    
+
+    
+
   };
 
+  
+ 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm mx-auto mt-20 w-full relative">
@@ -94,6 +116,8 @@ function SignIn({ closeLoginModal }) {
             Sign In
           </button>
         </div>
+        
+
       </div>
     </div>
   );

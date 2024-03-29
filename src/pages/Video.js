@@ -36,12 +36,11 @@ const ActiveSlider = () => {
   
   return (
     <div className="flex items-center justify-center flex-col h-[700px] bg-[#152238]">
-      <h1 className="text-5xl font-medium mb-4">
-        <span className="text-blue-500">Flix</span>
-        <span className="text-white ">Tv Originals</span>
+      <h1 className="text-5xl font-medium mb-4 text-white">
+        <span className="text-yellow-500">Top-Rated</span>&nbsp;Movies
       </h1>
       <p className="text-white mb-10">
-        Celebrity interviews, trending entertainment stories, and expert analysis.
+        Experience the Best: Dive into Our Top-Rated Movie Selection!
       </p>
 
       <Swiper
