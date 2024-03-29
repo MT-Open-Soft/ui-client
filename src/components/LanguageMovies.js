@@ -9,8 +9,8 @@ const apiURL ="http://localhost:8080/api/v1/movies";
 function LanguageMovies() {
     const location = useLocation();
     const pathname = location.pathname;
-    const language = pathname.substring(1); 
-
+    const language = pathname.substring(6); 
+  console.log(language)
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     let langMovies=[]
@@ -87,7 +87,7 @@ function LanguageMovies() {
         </div>
       </div>
        ) : (
-        <h1>Loading...</h1>
+        <h1 className='bg-[#152238] text-white'>Loading...</h1>
       )}
     </>
   );
