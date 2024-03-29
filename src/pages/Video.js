@@ -23,6 +23,8 @@ const ActiveSlider = () => {
           title: movie.title,
           content: movie.overview,
           backgroundImage: movie.poster,
+          type:movie.premium,
+          rating:movie.imdbrating,
           icon: () => {}
         }));
         setServiceData(movies);
