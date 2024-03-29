@@ -79,9 +79,7 @@ const Catalog = () => {
     try {
       const updatedCatalogData = catalogData.map((movie) => {
         if (movie._id === item._id) {
-          // Toggle premium status
           const updatedMovie = { ...movie, premium: !movie.premium };
-          // Update the UI
           return updatedMovie;
         }
         return movie;
