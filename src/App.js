@@ -20,6 +20,7 @@ import Modal from './components/Modal';
 
 import Pricing from './pages/Pricing';
 import VideoBitrate from './pages/VideoBitrate';
+import LanguageMovies from './components/LanguageMovies';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
     <Route path="/video" element={<Video />}/>
     <Route path="/profile" element={<UserProfile />}/>
     <Route path="/streaming" element={<MoviePreview />} />
+    <Route path="/language/:language" element={<LanguageMovies/>} />
     <Route path="/modal" element={<Modal />} />
     {/* <Route path="/dashboard" element={
           <>

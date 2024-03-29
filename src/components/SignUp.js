@@ -10,9 +10,6 @@ function SignUp({ closeSignupModal }) {
   const [passwordError, setPasswordError] = useState('');
 
   const handleSignUp = async() => {
-    console.log (username)
-    console.log (email)
-    console.log(password)    
     
     if (!username) {
       setUsernameError('This field is required');

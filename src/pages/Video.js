@@ -35,7 +35,7 @@ const ActiveSlider = () => {
   }, []);
   
   return (
-    <div className="flex items-center justify-center flex-col h-[700px] bg-[#152238]">
+    <div className="flex items-center justify-center flex-col h-[700px] bg-[#152238]" id="top-rated">
       <h1 className="text-5xl font-medium mb-4 text-white">
         <span className="text-yellow-500">Top-Rated</span>&nbsp;Movies
       </h1>

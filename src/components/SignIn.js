@@ -1,62 +1,56 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-function SignIn({ closeLoginModal }) {
+function SignIn({ closeLoginModal, handleLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const handleSignIn = async () => {
+    // Reset error messages
+    setEmailError('');
+    setPasswordError('');
+    setErrorMessage('');
 
-  const handleSignIn = async() => {
-    console.log (email)
-    console.log(password)
+    // Validate email and password
     if (!email) {
       setEmailError('This field is required');
-    } else {
-      setEmailError('');
+      return;
     }
-
     if (!password) {
       setPasswordError('This field is required');
-    } else {
-      setPasswordError('');
+      return;
     }
 
-    if (email && password) {
-      try{
+    try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/signin', { email, password });
-      if (response.status === 200){
       console.log(response)
-      localStorage.setItem('token', response.data.token);
+      // Check if response is successful
+      if (response.status === 200) {
+        // Check if response contains a token
+        if (response.data && response.data.token) {
+          // Store token in localStorage
+          localStorage.setItem('token', response.data.token);
+
+          const name = response.data.name;
+          handleLogin(name);
+
+          // Close the login modal
+          closeLoginModal();
+        } else {
+          // If response doesn't contain a token, show error
+          setErrorMessage('Invalid response from server');
+        }
       }
-      
-      
-      setIsLoggedIn(true);
-      closeLoginModal();
-    }catch(err){
-      const mssg = err.response.data.error.message
-      setPassword("")
-      setIsButtonDisabled(true);
+    } catch (err) {
+      // If there's an error response from the server, show error
+      console.error(err);
       setErrorMessage('Invalid username or password');
-      setTimeout(() => {
-        setErrorMessage('');
-        setIsButtonDisabled(false);
-      }, 3000);
-      
-      alert(mssg)
     }
-  }
-    
-
-
   };
 
-  
- 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm mx-auto mt-20 w-full relative">
@@ -86,7 +80,7 @@ function SignIn({ closeLoginModal }) {
             Email
           </label>
           <input
-            className="appearance-auto  w-full  text-white mb-3  focus:outline-none  bg-slate-800"
+            className="appearance-auto w-full text-white mb-3 focus:outline-none bg-slate-800"
             style={{ borderBottom: '1px solid #cbd5e0' }}
             id="email"
             type="email"
@@ -103,7 +97,7 @@ function SignIn({ closeLoginModal }) {
             Password
           </label>
           <input
-            className="appearance-auto  w-full text-white mb-3  focus:outline-none  bg-slate-800"
+            className="appearance-auto w-full text-white mb-3 focus:outline-none bg-slate-800"
             style={{ borderBottom: '1px solid #cbd5e0' }}
             id="password"
             type="password"
@@ -115,17 +109,19 @@ function SignIn({ closeLoginModal }) {
           {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
         </div>
 
+        {errorMessage && (
+          <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>
+        )}
+
         <div className="flex items-center justify-between block">
           <button
             className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
-            onClick={handleSignIn} disabled={isButtonDisabled}
+            onClick={handleSignIn}
           >
             Sign In
           </button>
         </div>
-        
-
       </div>
     </div>
   );

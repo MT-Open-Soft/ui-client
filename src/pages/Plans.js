@@ -3,7 +3,7 @@ import { GoCheck, GoX } from "react-icons/go";
 
 const Cards = () => {
   return (
-    <div className="bg-[#131720] my-4">
+    <div className="bg-[#131720] my-4" id="plans-page">
       <h2 className="text-white text-4xl ml-20 font-semibold">
         {" "}
         Select Your Plan
