@@ -10,15 +10,18 @@ function GenreMovies() {
     const location = useLocation();
     const pathname = location.pathname;
     const genre = pathname.substring(1); 
-
+  
+    
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
-    let genreMovies=[]
     useEffect(() => {
       const fetchMovies = async () => {
         try {
+          console.log(genre)
           const response = await axios.get(`${apiURL}?pageSize=${20}&genres=${genre}`);
-          genreMovies=response.data.movies;
+          console.log("hello")
+          console.log(response.data.movies)
+          const genreMovies=response.data.movies;
           console.log(genreMovies)
           setMovies(genreMovies);
           setLoading(false);
@@ -85,7 +88,7 @@ function GenreMovies() {
 
       </div>
        ) : (
-        <h1>Loading...</h1>
+        <h1 className='bg-[#152238] text-white'>Loading...</h1>
       )}
     </>
   );
