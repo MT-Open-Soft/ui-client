@@ -79,7 +79,9 @@ const Catalog = () => {
     try {
       const updatedCatalogData = catalogData.map((movie) => {
         if (movie._id === item._id) {
+          // Toggle premium status
           const updatedMovie = { ...movie, premium: !movie.premium };
+          // Update the UI
           return updatedMovie;
         }
         return movie;
@@ -101,7 +103,7 @@ const Catalog = () => {
           Catalog
         </h1>
         
-        {/* <div className="relative">
+        <div className="relative">
           <span className="text-sm text-white mr-2">Sort By:</span>
           <button
             className="text-sm text-white hover:text-gray-300"
@@ -135,7 +137,7 @@ const Catalog = () => {
               </button>
             </div>
           )}
-        </div> */}
+        </div>
         <div className="relative">
           <input
             type="text"

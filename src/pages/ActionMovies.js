@@ -58,7 +58,7 @@ function ActionMovies() {
     {movies.length > 0 ? (
       <div className="bg-[#152238]">
       <h1 className="text-white text-4xl py-8 px-8 flex mt-4 justify-right ">Movies In "Action"</h1>
-        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center">
+        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'hidden'}}>
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}
