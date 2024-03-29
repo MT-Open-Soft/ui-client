@@ -57,7 +57,9 @@ function ComedyMovies() {
     {/* {handleSearch} */}
     {movies.length > 0 ? (
       <div className="bg-[#152238] ">
-      <h1 className="text-white text-4xl py-8 px-8 flex justify-right ">Movies In "Comedy"</h1>
+      <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
+        Movies In&nbsp; <span className="font-bold text-yellow-500"> Comedy</span>
+      </h1>
         <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'hidden'}}>
           <button
             onClick={handlePrev}

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { CgTrashEmpty } from "react-icons/cg";
-import { IoPencil } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
 import { CiStar } from "react-icons/ci";
-import { FaLock } from "react-icons/fa6";
-import { FaLockOpen } from "react-icons/fa6";
+import { FaLock, FaLockOpen } from "react-icons/fa";
 import axios from "axios";
 
 const Catalog = () => {
-  const [sortBy, setSortBy] = useState("date");
+  const [sortBy, setSortBy] = useState("year"); // Set default sorting by year
   const [showOptions, setShowOptions] = useState(false);
   const [catalogData, setCatalogData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,19 +35,25 @@ const Catalog = () => {
 
   const handleSortBy = (option) => {
     let sortedData;
-    if (option === "rating") {
-      // Sort by rating in increasing order
-      sortedData = [...catalogData.sort((a, b) => a.rating - b.rating)];
-    } else {
-      // Sort by other options
-      sortedData = [
-        ...catalogData.sort((a, b) => (a[option] > b[option] ? 1 : -1)),
-      ];
+    switch (option) {
+      case "rating":
+      case "runtime":
+      case "year":
+        sortedData = [...catalogData.sort((a, b) => a[option] - b[option])];
+        break;
+      case "premium":
+        sortedData = [...catalogData.sort((a, b) => a[option] - b[option])];
+        break;
+      default:
+        // Default sorting by year
+        sortedData = [...catalogData.sort((a, b) => a.year - b.year)];
+        break;
     }
     setCatalogData(sortedData);
     setSortBy(option);
     setShowOptions(false);
   };
+  
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -79,9 +83,7 @@ const Catalog = () => {
     try {
       const updatedCatalogData = catalogData.map((movie) => {
         if (movie._id === item._id) {
-          // Toggle premium status
           const updatedMovie = { ...movie, premium: !movie.premium };
-          // Update the UI
           return updatedMovie;
         }
         return movie;
@@ -96,44 +98,37 @@ const Catalog = () => {
   return (
     <div className="bg-[#131720] text-white relative py-2">
       <div className="flex justify-between items-center px-6 py-4">
-        <h1
-          className="text-3xl font-bold"
-          style={{ fontFamily: "Rubik, sans-serif" }}
-        >
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "Rubik, sans-serif" }}>
           Catalog
         </h1>
         
         <div className="relative">
           <span className="text-sm text-white mr-2">Sort By:</span>
-          <button
-            className="text-sm text-white hover:text-gray-300"
-            onClick={toggleOptions}
-          >
+          <button className="text-sm text-white hover:text-gray-300" onClick={toggleOptions}>
             {sortBy === "date"
               ? "Date"
               : sortBy === "rating"
               ? "Rating"
-              : "Views"}
+              : sortBy === "runtime"
+              ? "Runtime"
+              : "Year"}
           </button>
           {showOptions && (
             <div className="absolute mt-2 right-0">
-              <button
-                className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left"
-                onClick={() => handleSortBy("date")}
-              >
+              <button className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left" onClick={() => handleSortBy("date")}>
                 Date
               </button>
-              <button
-                className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left"
-                onClick={() => handleSortBy("rating")}
-              >
+              <button className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left" onClick={() => handleSortBy("rating")}>
                 Rating
               </button>
-              <button
-                className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left"
-                onClick={() => handleSortBy("views")}
-              >
-                Views
+              <button className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left" onClick={() => handleSortBy("runtime")}>
+                Runtime
+              </button>
+              <button className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left" onClick={() => handleSortBy("year")}>
+                Year
+              </button>
+              <button className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left" onClick={() => handleSortBy("premium")}>
+                Premium
               </button>
             </div>
           )}
@@ -149,53 +144,37 @@ const Catalog = () => {
           <GoSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
       </div>
-      <hr class="h-[1px] w-5/6 mx-auto my-8 bg-white border-0 dark:bg-gray-700"></hr>
-
+      <hr className="h-[1px] w-5/6 mx-auto my-8 bg-white border-0 dark:bg-gray-700" />
       <div className="container mx-auto bg-[#131720]">
-        <div className="grid grid-cols-8 text-xs p-4 mb-4">
+        <div className="grid grid-cols-7 text-xs p-4 mb-4">
           <div className="ml-4">TYPE</div>
           <div className="col-span-2">TITLE</div>
           <div>IMDb RATING</div>
           <div>RELEASE YEAR</div>
           <div>RUNTIME</div>
-          <div>LANGUAGES</div>
-          {/* <div>STATUS</div> */}
           <div>ACTIONS</div>
         </div>
-        {(searchQuery.trim() !== "" ? searchResults : catalogData).map(
-          (item) => (
-            <div
-              key={item.id}
-              className="grid grid-cols-8 bg-[#151f30] rounded-lg p-4 my-4"
-            >
-              <div className="ml-4">{item.type}</div>
-              <div className="col-span-2">{item.title}</div>
-              <div className="flex items-center">
-                <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} />{" "}
-                {item.imdbRating}{" "}
-              </div>
-              <div>{item.releaseYear}</div>
-              <div>{item.runtimeInMinutes} m</div>
-              <div>{item.languages.join(", ")}</div>
-              {/* <div>{item.premium}</div> */}
-              <div style={{ verticalAlign: "middle" }}>
-                {item.premium ? (
-                  <FaLock style={{color: "green", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{color: "red", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)}/>)}
-                <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }}/>
-                {/* <IoEyeOutline style={{ color: 'yellow', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} /> */}
-                {/* <IoPencil style={{color:"blue", cursor: "pointer", display: "inline-block", marginLeft: "15px"}} /> */}
-              </div>
+        {(searchQuery.trim() !== "" ? searchResults : catalogData).map((item) => (
+          <div key={item.id} className="grid grid-cols-7 bg-[#151f30] rounded-lg p-4 my-4">
+            <div className="ml-4">{item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+            <div className="col-span-2">{item.title}</div>
+            <div className="flex items-center">
+              <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} /> {item.imdbRating} 
             </div>
-          )
-        )}
-
+            <div>{item.releaseYear}</div>
+            <div>{item.runtimeInMinutes} m</div>
+            <div style={{ verticalAlign: "middle" }}>
+              {item.premium ? (
+                <FaLock style={{color: "green", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{color: "red", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)}/>)}
+              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }}/>
+            </div>
+          </div>
+        ))}
         <div className="flex justify-center mt-4">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${
-              currentPage === 1
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-blue-500"
+              currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-500"
             }`}
             disabled={currentPage === 1}
           >
