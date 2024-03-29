@@ -35,6 +35,7 @@ function SignIn({ closeLoginModal, handleLogin }) {
           localStorage.setItem('token', response.data.token);
 
           const name = response.data.name;
+          console.log(name);
           handleLogin(name);
 
           // Close the login modal

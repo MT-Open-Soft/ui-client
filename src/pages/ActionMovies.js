@@ -14,7 +14,7 @@ function ActionMovies() {
     useEffect(() => {
       const fetchMovies = async () => {
         try {
-          const num_response=10;
+          const num_response=15;
           const genre="Action";
           const response = await axios.get(`http://localhost:8080/api/v1/movies?page=1&pageSize=${num_response}&genres=${genre}`);
           console.log(response.data)

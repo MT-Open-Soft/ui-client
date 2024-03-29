@@ -6,21 +6,21 @@ import Card from '../pages/Card.js';
 import { SlArrowRightCircle,SlArrowLeftCircle } from 'react-icons/sl';
 const apiURL ="http://localhost:8080/api/v1/movies";
 
-function LanguageMovies() {
+function GenreMovies() {
     const location = useLocation();
     const pathname = location.pathname;
-    const language = pathname.substring(1); 
+    const genre = pathname.substring(1); 
 
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
-    let langMovies=[]
+    let genreMovies=[]
     useEffect(() => {
       const fetchMovies = async () => {
         try {
-          const response = await axios.get(`${apiURL}?pageSize=${20}&languages=${language}`);
-          langMovies=response.data.movies;
-          console.log(langMovies)
-          setMovies(langMovies);
+          const response = await axios.get(`${apiURL}?pageSize=${20}&genres=${genre}`);
+          genreMovies=response.data.movies;
+          console.log(genreMovies)
+          setMovies(genreMovies);
           setLoading(false);
         } catch (error) {
           console.error('Error fetching movies:', error);
@@ -29,7 +29,7 @@ function LanguageMovies() {
       };
   
       fetchMovies();
-    }, [language]);
+    }, [genre]);
   
     const [startIndex, setStartIndex] = useState(0);
 // 
@@ -64,27 +64,25 @@ function LanguageMovies() {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}>
-            <h1 className="text-white text-5xl mt-10 flex justify-center ml-20 "> Movies In&nbsp; <span className=" text-yellow-500"> {language.charAt(0).toUpperCase() + language.slice(1)} </span></h1>
+            <h1 className="text-white text-5xl mt-10 flex justify-center ml-20 "> Movies in&nbsp; <span className=" text-yellow-500"> {genre.charAt(0).toUpperCase() + genre.slice(1)}</span></h1>
 
     </div>
-        <div className='flex mt-4 justify-evenly pb-10'>
-        <div className=" grid grid-cols-5 mt-5 justify-center gap-12">
-          
-          {movies.map((card) => (
-            <div>
-              <Card
-              key={card.id}
-              image={card.poster ? card.poster : 'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg'}
-              title={card.title}
-              rating={card.imdbRating}
-              year={card.releaseYear}
-              status={card.premium}
-            />
-            </div>
-          ))}
-          
-        </div>
-        </div>
+    <div className='flex mt-4 justify-evenly pb-10'>
+  <div className="grid grid-cols-5 mt-5 justify-center gap-12">
+    {movies.map((card) => (
+      <div key={card.id}>
+        <Card
+          image={card.poster ? card.poster : 'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg'}
+          title={card.title}
+          rating={card.imdbRating}
+          year={card.releaseYear}
+          status={card.premium}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
       </div>
        ) : (
         <h1>Loading...</h1>
@@ -95,4 +93,4 @@ function LanguageMovies() {
   //return <Carousel slides={movies} />;
 }
 
-export default LanguageMovies;
+export default GenreMovies;

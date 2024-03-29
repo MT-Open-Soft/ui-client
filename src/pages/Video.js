@@ -23,6 +23,8 @@ const ActiveSlider = () => {
           title: movie.title,
           content: movie.overview,
           backgroundImage: movie.poster,
+          type:movie.premium,
+          rating:movie.imdbrating,
           icon: () => {}
         }));
         setServiceData(movies);
@@ -46,11 +48,11 @@ const ActiveSlider = () => {
       <Swiper
         breakpoints={{
           340: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 15,
           },
           700: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 15,
           },
         }}
@@ -66,7 +68,7 @@ const ActiveSlider = () => {
 
           disableOnInteraction: false
          }}
-        className="max-w-[90%] lg:max-w-[80%]"
+        className="max-w-[90%] lg:max-w-[90%]"
       >
         {serviceData.map((item) => (
           <SwiperSlide key={item.title}>

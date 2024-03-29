@@ -11,7 +11,7 @@ function ComedyMovies() {
     useEffect(() => {
       const fetchMovies = async () => {
         try {
-          const num_response=10;
+          const num_response=15;
           const genre="Comedy";
           const response = await axios.get(`http://localhost:8080/api/v1/movies?page=1&pageSize=${num_response}&genres=${genre}`);
           console.log(response.data)
@@ -78,7 +78,7 @@ function ComedyMovies() {
           {visibleMovies.map((card) => (
             <Card
               key={card.id}
-              image={card.poster}
+              image={card.poster ? card.poster: "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg"}
               title={card.title}
               rating={card.imdbRating}
               year={card.releaseYear}

@@ -23,10 +23,11 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  const handleClickProfile = () => {
-    // Redirect to the desired page
-    navigate("/profile");
-  };
+  // const handleClickProfile = () => {
+  //   // Redirect to the desired page
+  //   navigate("/profile");
+  // };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -152,7 +153,7 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/drama"
+                  to="/romance"
                   className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
                 >
                   Romance
@@ -274,7 +275,7 @@ function Navbar() {
           </div>
 
           <a
-            href="pricing"
+            href="plans"
             onClick={() => {
               toggleMenu();
               setIsSearchVisible(true);
@@ -287,7 +288,7 @@ function Navbar() {
 
         {path === "" ? (
           <div
-            className={`relative mx-auto text-gray-600 lg:hidden ${
+            className={`relative mx-auto max-w-2xl w-96 min-w-2xl text-gray-600 lg:hidden ${
               isLoginModalOpen || isSignupModalOpen ? "blur" : ""
             }`}
           >
@@ -305,21 +306,29 @@ function Navbar() {
           </div>
         ) : (
           <div
-            className={`relative mx-auto text-gray-600 z-10 ${
+            className={`relative mx-auto min-w-lg w-96 text-gray-600 z-10 ${
               isLoginModalOpen || isSignupModalOpen ? "blur" : ""
             }`}
           >
-            <input
-              className="border-2 border-gray-300 bg-gray-800 text-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
-              type="search"
-              name="search"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
+            <div className="flex items-center border bg-gray-800 border-gray-200 rounded-full focus:bg-gray-700 ">
+              <input
+                className="appearance-none block w-full bg-gray-800 text-white rounded-full py-1 px-4 leading-tight focus:outline-none focus:border-gray-500"
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleInputChange}
+              />
+
+              <button
+                className="text-white focus:outline-none ml-2 justify-end pr-6 hover:text-gray-500"
+                onClick={handleClearSearch}
+              >
+                <CgClose className="w-5 h-5" />
+              </button>
+            </div>
             {searchQuery === "" ? (
               <>
-                <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 shadow-md max-h-70 overflow-y-auto">
+                <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 max-h-70 overflow-y-auto">
                   {searchResults.map((result) => (
                     <button
                       key={result.id}
@@ -330,11 +339,11 @@ function Navbar() {
                 </div>
               </>
             ) : (
-              <div className="py-1 absolute right-0 mt-2 w-full bg-white rounded-lg shadow-md max-h-70 overflow-y-auto">
+              <div className="py-1 absolute right-0 mt-2 text-white w-full bg-[#152238] rounded-lg shadow-md max-h-70 overflow-y-auto">
                 {searchResults.map((result) => (
                   <button
                     key={result.id}
-                    className="block px-4 py-2 text-gray-800hover:bg-gray-000 w-full text-left"
+                    className="block px-4 py-2 text-gray-800hover:bg-gray-000 w-full hover:bg-[#00102a] text-left"
                     onClick={() => handleSelectResult(result)}
                   >
                     <div class="grid grid-cols-4 items-start text-white  ">
@@ -344,7 +353,11 @@ function Navbar() {
                       >
                         <img
                           className="object-cover rounded-md"
-                          src={result.poster}
+                          src={
+                            result.poster
+                              ? result.poster
+                              : "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg"
+                          }
                           style={{ width: "50%", height: "50%" }}
                         ></img>
                       </div>
@@ -363,9 +376,7 @@ function Navbar() {
                               ? "TV Show"
                               : result.type}
                           </div>
-                          <div className="col-span-1">
-                            ★ {result.imdb.rating}
-                          </div>
+                          <div className="col-span-1">★ {result.rating}</div>
                           <div className="col-span-1">• {result.year}</div>
                         </div>
                       </div>
@@ -380,20 +391,19 @@ function Navbar() {
         <div>
           {isLoggedIn ? (
             <div className="flex items-center">
-              <button
-                onClick={handleClickProfile}
-                className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
+            <a href="/profile">
+              <button className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <FaUser className="w-5 h-5 mr-2" />
                 {userName}
               </button>
-              <button
-                onClick={handleLogout}
-                className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
-              >
-                Logout
-              </button>
-            </div>
+            </a>
+            <button
+              onClick={handleLogout}
+              className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-red-700 ml-2"
+            >
+              Logout
+            </button>
+          </div>
           ) : (
             <div className="flex">
               <a
@@ -405,7 +415,9 @@ function Navbar() {
               </a>
               <a
                 href="#"
-                onClick={openLoginModal}
+                onClick={() => {
+                  openLoginModal();
+                }}
                 className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
               >
                 Login
@@ -416,7 +428,7 @@ function Navbar() {
       </div>
 
       {isLoginModalOpen && (
-        <SignIn closeLoginModal={() => setIsLoginModalOpen(false)} handleLogin={handleLogin} />
+        <SignIn closeLoginModal={() => setIsLoginModalOpen(false)}  handleLogin={handleLogin}/>
       )}
       {isSignupModalOpen && (
         <SignUp closeSignupModal={() => setIsSignupModalOpen(false)} />
