@@ -18,7 +18,7 @@ const Catalog = () => {
         if (Array.isArray(response.data)) {
           setCatalogData(response.data);
         } else {
-          console.error('Fetched data is not an array:', response.data);
+          console.error('Fetched data is not an array:', response.data.movies);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -29,16 +29,14 @@ const Catalog = () => {
   }, []);
   const handleSortBy = (option) => {
     let sortedData;
-    if (option === 'rating') {
-      // Sort by rating in increasing order
+    if (option === 'rating') {     
       sortedData = [...catalogData.sort((a, b) => a.rating - b.rating)];
     } else {
-      // Sort by other options
       sortedData = [...catalogData.sort((a, b) => (a[option] > b[option]) ? 1 : -1)];
     }
     setCatalogData(sortedData);
     setSortBy(option);
-    setShowOptions(false); // Close the options after selecting one
+    setShowOptions(false); 
   };
 
   const toggleOptions = () => {
@@ -117,10 +115,10 @@ const Catalog = () => {
             <div>{item.languages}</div>
             <div>{item.status}</div>
             <div style={{ verticalAlign: 'middle' }}>
-              <IoIosLock style={{ color: 'green', cursor: 'pointer', display: 'inline-block' }} />
-              <CgTrashEmpty style={{ color: 'red', cursor: 'pointer', display: 'inline-block', marginLeft: '15px' }} />
+              <IoIosLock className="bg-green-300 rounded" style={{ color: 'green', cursor: 'pointer', display: 'inline-block' }} />
+              <CgTrashEmpty className="bg-red-300 rounded" style={{ color: 'red', cursor: 'pointer', display: 'inline-block', marginLeft: '15px' }} />
               {/* <IoEyeOutline style={{ color: 'yellow', cursor: 'pointer', display: 'inline-block', marginLeft: '5px' }} /> */}
-              <IoPencil style={{ color: 'blue', cursor: 'pointer', display: 'inline-block', marginLeft: '15px' }} />
+              <IoPencil className="bg-blue-300 rounded" style={{ color: 'blue', cursor: 'pointer', display: 'inline-block', marginLeft: '15px' }} />
             </div>
           </div>
         ))}
