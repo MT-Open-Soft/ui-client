@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const apiURL =
   "http://localhost:8080/api/v1/search/suggestions";
@@ -7,6 +8,7 @@ const apiURL =
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -23,6 +25,10 @@ const Search = () => {
     } else {
       setSearchResults([]);
     }
+  };
+
+  const redirectToSearchResults = () => {
+    navigate(`/search-results/${searchQuery}`); // Adjust the path as necessary based on your routing setup
   };
 
   const handleInputChange = (e) => {
@@ -49,6 +55,7 @@ const Search = () => {
           <button
             type="button"
             className="inline-block w-full py-2 px-4 text-white bg-blue-800 rounded-full shadow-md focus:bg-blue-200"
+            onClick={redirectToSearchResults}
           >
             Search Results
           </button>

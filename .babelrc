@@ -6,5 +6,7 @@
           "throwIfNamespace": false
         }
       ]
-    ]
+      
+    ],
+    "plugins": ["@babel/plugin-transform-runtime"]
   }
