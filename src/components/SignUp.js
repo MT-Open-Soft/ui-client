@@ -35,7 +35,8 @@ function SignUp() {
     }
 
     if (username && email && password) {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { 'name': username, 'email': email, 'password': password })
+      console.log(username,email,password)
+      const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
       closeSignupModal();
