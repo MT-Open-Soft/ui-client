@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -8,10 +9,12 @@ function SignIn() {
   const [passwordError, setPasswordError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(true);
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const closeLoginModal = () => {
     setIsLoginModalOpen(false);
-    document.body.style.overflow = "auto"; // Allow scrolling on the background
+    // document.body.style.overflow = "auto"; // Allow scrolling on the background
+    window.location.href = '/';
   };
 
   const handleSignIn = async () => {
@@ -22,6 +25,12 @@ function SignIn() {
     } else {
       setEmailError('');
     }
+    
+    if(!emailPattern.test(email)){
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
 
     if (!password) {
       setPasswordError('This field is required');
@@ -29,7 +38,13 @@ function SignIn() {
       setPasswordError('');
     }
 
-    if (email && password) {
+    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!strongPasswordPattern.test(password)) {
+    setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character');
+    return; // Stop execution if password is not strong
+  }
+
+    if (email && password && emailPattern.test(email) && strongPasswordPattern.test(password)) {
       try {
         const response = await axios.post('http://localhost:8080/api/v1/auth/signin', { email, password });
         if (response.status === 200) {
@@ -38,24 +53,44 @@ function SignIn() {
         }
 
         setIsLoggedIn(true);
-        closeLoginModal();
+        if(response.status===200){
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Successful!',
+            text: 'You are now logged in.',
+          });
+          closeLoginModal();
+        }
       } catch (err) {
-        const mssg = err.response.data.error.message;
+        const mssg = err.response.status;
         setPassword('');
-        alert(mssg);
+        if(err.response.status===401){
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid Password',
+            text: 'Please enter a valid password.',
+          });
+        }
+        else if(err.response.status===400){
+          Swal.fire({
+            icon: 'error',
+            title: 'User Not Found',
+            text: 'The username you entered was not found. Please try again.',
+          });
+        }
       }
     }
-
-    localStorage.setItem('password', password);
-    localStorage.setItem('email', email);
-
   };
 
   return (
     <>
       {isLoginModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm mx-auto mt-20 w-full relative">
+        <div className="relative inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 h-[100vh]" style={{
+          backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+          <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-6 mb-20 max-w-sm mx-auto mt-20 w-full relative">
             <button
               onClick={closeLoginModal}
               className="absolute top-0 right-0 mt-2 mr-2 text-white hover:text-gray-400 focus:outline-none"
@@ -106,7 +141,7 @@ function SignIn() {
               {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
             </div>
 
-            <div className="flex items-center justify-between block">
+            <div className="flex items-center justify-between">
               <button
                 className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"

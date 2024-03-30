@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function SignUp() {
   const [username, setUsername] = useState('');
@@ -9,10 +10,11 @@ function SignUp() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(true);
-
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const closeSignupModal = () => {
     setIsSignupModalOpen(false);
-    document.body.style.overflow = "auto"; // Allow scrolling on the background
+    // document.body.style.overflow = "auto"; // Allow scrolling on the background
+    window.location.href = '/';
   };
 
   const handleSignUp = async () => {
@@ -28,26 +30,58 @@ function SignUp() {
       setEmailError('');
     }
 
+    if(!emailPattern.test(email)){
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+
     if (!password) {
       setPasswordError('This field is required');
     } else {
       setPasswordError('');
     }
 
-    if (username && email && password) {
+    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!strongPasswordPattern.test(password)) {
+    setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character');
+    return; // Stop execution if password is not strong
+  }
+
+    if (username && email && password && emailPattern.test(email) && strongPasswordPattern.test(password)) 
+    try{{
       console.log(username,email,password)
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+      Swal.fire({
+        icon: 'success',
+        title: 'Signup Successful!',
+        text: 'You have successfully signed up.',
+      });
       closeSignupModal();
+    }}catch (err) {
+      const mssg = err.response.status;
+      setPassword('');
+      if(err.response.status===400){
+        Swal.fire({
+          icon: 'error',
+          title: 'User Already Exists',
+          text: 'The username you entered already exists. Please enter a different username.',
+        });
+      }
     }
   };
 
   return (
     <>
       {isSignupModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto mt-20 w-full relative">
+        <div className="relative inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 h-[100vh]" style={{
+          backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+          <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-6 mb-20 max-w-md mx-auto mt-20 w-full relative">
             <button
               onClick={closeSignupModal}
               className="absolute top-0 right-0 mt-2 mr-2 text-white hover:text-gray-400 focus:outline-none"
@@ -118,7 +152,7 @@ function SignUp() {
             </div>
             <div className="flex items-center justify-between">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={handleSignUp}
               >

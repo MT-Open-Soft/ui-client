@@ -95,6 +95,11 @@ const Catalog = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    const updatedCatalogData = catalogData.filter((item) => item._id !== id);
+    setCatalogData(updatedCatalogData);
+  };
+
   return (
     <div className="bg-[#131720] text-white relative py-2">
       <div className="flex justify-between items-center px-6 py-4">
@@ -166,7 +171,7 @@ const Catalog = () => {
             <div style={{ verticalAlign: "middle" }}>
               {item.premium ? (
                 <FaLock style={{color: "green", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{color: "red", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)}/>)}
-              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }}/>
+              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }} onClick={() => handleDelete(item._id)}/>
             </div>
           </div>
         ))}
