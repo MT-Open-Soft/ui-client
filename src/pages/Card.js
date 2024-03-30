@@ -67,6 +67,7 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
         </div>
 
         <div className="px-2 ">
+     : title} */}
           <div className="text-white text-bold text-lg mb-2">
             {" "}
             {title.split(" ").length > 3

@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 //import Carousel from "./Carousel";
+import axios from 'axios';
+const apiURL="http://localhost:8080/api/v1/movies"
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
 import { IoIosArrowForward } from "react-icons/io";
-import axios from "axios";
 import { Link } from "react-router-dom";
-const apiURL = "http://localhost:8080/api/v1/movies";
+
 
 function ActionMovies() {
   const [movies, setData] = useState([]);
@@ -31,6 +38,7 @@ function ActionMovies() {
   const [startIndex, setStartIndex] = useState(0);
   //
   const handleNext = () => {
+
     setStartIndex((prevIndex) => (prevIndex + 1) % movies.length);
   };
 
@@ -47,6 +55,7 @@ function ActionMovies() {
   ];
 
   return (
+
     <div>
       {/* {handleSearch} */}
       {movies.length > 0 ? (
@@ -95,8 +104,10 @@ function ActionMovies() {
             </button>
           </div>
         </div>
-      ) : (
-        <h1>Loading...</h1>
+      </div>
+       ) : (
+        <LoadingSpinner />
+
       )}
     </div>
   );

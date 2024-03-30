@@ -5,6 +5,7 @@ import { FaUser } from "react-icons/fa";
 import SignUp from "./SignUp.js";
 import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
+
 import Swal from "sweetalert2";
 
 const apiURL = "http://localhost:8080/api/v1/search/suggestions"; 
@@ -117,11 +118,14 @@ function Navbar() {
 
   const openSignupModal = () => {
     setIsSignupModalOpen(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling on the background
+    document.body.style.overflow = "hidden"; 
   };
 
-  // 
-  
+  const closeSignupModal = () => {
+    setIsSignupModalOpen(false);
+    document.body.style.overflow = "auto"; 
+  };
+
   const handleClearSearch = () => {
     setSearchQuery("");
     setSearchResults([]);

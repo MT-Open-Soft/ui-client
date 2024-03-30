@@ -49,11 +49,14 @@ function SignUp() {
   }
 
     if (username && email && password && emailPattern.test(email) && strongPasswordPattern.test(password)) 
+
     try{
+
       console.log(username,email,password)
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+
       document.getElementById("overlay").style.display = "block";
       Swal.fire({
         icon: 'success',

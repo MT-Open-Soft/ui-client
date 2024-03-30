@@ -7,6 +7,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 const apiURL = "http://localhost:8080/api/v1/movies";
 
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
 function RomanceMovies() {
   const [movies, setData] = useState([]);
   const genre = "Romance";
@@ -48,6 +54,7 @@ function RomanceMovies() {
   ];
 
   return (
+
     <div>
       {/* {handleSearch} */}
       {movies.length > 0 ? (
@@ -96,8 +103,10 @@ function RomanceMovies() {
             </button>
           </div>
         </div>
-      ) : (
-        <h1>Loading...</h1>
+      </div>
+       ) : (
+        <LoadingSpinner />
+
       )}
     </div>
   );

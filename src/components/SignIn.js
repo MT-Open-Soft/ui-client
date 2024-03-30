@@ -38,19 +38,17 @@ function SignIn() {
       setPasswordError('');
     }
 
-    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  if (!strongPasswordPattern.test(password)) {
-    setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character');
-    return; // Stop execution if password is not strong
-  }
+ 
 
-    if (email && password && emailPattern.test(email) && strongPasswordPattern.test(password)) {
+    if (email && password && emailPattern.test(email)) {
+
       try {
         const response = await axios.post('http://localhost:8080/api/v1/auth/signin', { email, password });
         if (response.status === 200) {
           console.log(response);
           localStorage.setItem('token', response.data.token);
         }
+
 
         setIsLoggedIn(true);
         if(response.status===200){
@@ -70,6 +68,7 @@ function SignIn() {
       } catch (err) {
         const mssg = err.response.status;
         setPassword('');
+
         if(err.response.status===400 || err.response.status===404){
           document.getElementById("overlay").style.display = "block";
           Swal.fire({
