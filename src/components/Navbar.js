@@ -68,12 +68,12 @@ function Navbar() {
 
   const openSignupModal = () => {
     setIsSignupModalOpen(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling on the background
+    document.body.style.overflow = "hidden"; 
   };
 
   const closeSignupModal = () => {
     setIsSignupModalOpen(false);
-    document.body.style.overflow = "auto"; // Allow scrolling on the background
+    document.body.style.overflow = "auto"; 
   };
   const handleClearSearch = () => {
     setSearchQuery("");
