@@ -24,6 +24,8 @@ import Pricing from './pages/Pricing';
 import VideoBitrate from './pages/VideoBitrate';
 import LanguageMovies from './components/LanguageMovies';
 import GenreMovies from './components/GenreMovies';
+import Player from './pages/Player';
+
 function App() {
   return (
    <BrowserRouter>
@@ -54,8 +56,8 @@ function App() {
 {/* /> */}
 <Route path="/catalog" element={<Catalog />}/>
 <Route path="/users" element={<Users />}/>
-     <Route path="/Pricing" element={<Pricing />}/>
-     
+     <Route path="/pricing" element={<Pricing />}/>
+     <Route path='/player' element={<Player/>}/>
      <Route path="/vidbit" element={<VideoBitrate/>}/>
      <Route path="/movie/:id" element={<Preview />} />
 
