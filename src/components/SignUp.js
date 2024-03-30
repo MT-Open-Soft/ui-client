@@ -58,6 +58,7 @@ function SignUp() {
       Swal.fire({
         icon: 'success',
         title: 'Signup Successful!',
+        toast: true,
       })
       .then(function(){
         document.getElementById("overlay").style.display = "none";
@@ -72,6 +73,7 @@ function SignUp() {
           icon: 'error',
           title: 'User Already Exists',
           text: 'User with this email already exists. Please try again with a different email address.',
+          toast: true,
         }).then(function(){
           document.getElementById("overlay").style.display = "none";
         });
