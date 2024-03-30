@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { FaStar } from "react-icons/fa";
 import Player from './Player';
+import Swal from 'sweetalert2';
 
 
 const MovieDetail = ({ movie }) => {
@@ -11,7 +12,13 @@ const MovieDetail = ({ movie }) => {
 
   const handlePlayVideo = () => {
     if (movie.premium && !movie.isPurchased) {
-      alert('This content is premium. Please upgrade your pack to view.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Premium Content',
+        text: 'This content is premium. Please upgrade your pack to view.',
+        html: '<a href="/plans" class="text-blue-500 hover:underline">Upgrade now</a>',
+        toast: true
+      });
       return;
     }
     setIsPlayerVisible(true); // Show player

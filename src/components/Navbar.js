@@ -5,12 +5,16 @@ import { FaUser } from "react-icons/fa";
 import SignUp from "./SignUp.js";
 import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+
+const apiURL = "http://localhost:8080/api/v1/search/suggestions";
+
 
 const apiURL = "http://localhost:8080/api/v1/search/suggestions";
  
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -85,6 +89,18 @@ function Navbar() {
   };
 
   const handleSelectResult = (result) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You must be logged in to view this content.",
+        toast: true,
+        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>',
+      });
+      return;
+    }
+    navigate(`/movie/${result._id}`);
     setSearchQuery(result.title);
     setSearchResults([]);
   };
@@ -245,7 +261,7 @@ function Navbar() {
                 <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 max-h-70 overflow-y-auto">
                   {searchResults.map((result) => (
                     <button
-                      key={result.id}
+                      key={result._id}
                       className="block pl-2 px-4 py-2 w-full text-left"
                       onClick={() => handleSelectResult(result)}
                     ></button>
