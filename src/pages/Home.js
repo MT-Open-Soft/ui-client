@@ -16,7 +16,10 @@ function Home() {
       <ActionMovies/>
       <ComedyMovies />
       <RomanceMovies />
-      <Language/>  
+      <Language/>
+      
+      
+
     </div>
   );
 }
