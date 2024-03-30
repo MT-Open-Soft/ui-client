@@ -73,8 +73,9 @@ function GenreMovies() {
     <div className='flex mt-4 justify-evenly pb-10'>
   <div className="grid grid-cols-5 mt-5 justify-center gap-12">
     {movies.map((card) => (
-      <div key={card.id}>
+      <div >
         <Card
+          id={card._id}
           image={card.poster ? card.poster : 'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg'}
           title={card.title}
           rating={card.imdbRating}

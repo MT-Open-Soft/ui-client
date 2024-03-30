@@ -70,7 +70,7 @@ function RomanceMovies() {
           </button>
           {visibleMovies.map((card) => (
            <Card
-           key={card.id}
+           id={card._id}
            image={card.poster}
            title={card.title}
            rating={card.imdbRating}

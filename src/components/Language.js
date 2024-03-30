@@ -1,83 +1,129 @@
-import React,{useState}  from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import LanguageMovies from "./LanguageMovies";
+import myDownloadedImage from "./pic.jpg";
 import { FreeMode, Pagination, Navigation } from "swiper/modules";
-import { Link } from 'react-router-dom';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { BsPlayFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const ActiveSlider = () => {
-  // URL of the background image for all cards
-  const backgroundImageUrl = "https://us.123rf.com/450wm/seamartini/seamartini2301/seamartini230100013/196682319-grunge-movie-film-strip-isolated-filmstrip-frame-on-vector-transparent-background-old-photo-or.jpg?ver=6"
-  
+  // Use the imported image for all cards
+  const backgroundImageUrl = myDownloadedImage;
 
-  // JSON object containing service data
-  const ServiceData = [
-    {
-      title: "Hindi",
-      // content: "Watch In Hindi",
-      icon: () => <div style={{ color: '#0B4EAD', fontWeight: 'bold' }}>Watch In</div>
-    },
-    {
-      title: "English",
-      // content: "Watch In English",
-      icon: () => <div style={{ color: '#0B4EAD', fontWeight: 'bold' }}>Watch In</div>
-    },
-    {
-      title: "Tamil",
-      // content: "Watch In Tamil",
-      icon: () => <div style={{ color: '#0B4EAD', fontWeight: 'bold' }}>Watch In</div>
-    },
-    {
-      title: "Telugu",
-      // content: "Watch In Telugu",
-      icon: () => <div style={{ color: '#0B4EAD', fontWeight: 'bold' }}>Watch In</div>
-    },
-    {
-      title: "Spanish",
-      // content: "Watch In Spanish",
-      icon: () => <div style={{ color: '#0B4EAD', fontWeight: 'bold' }}>Watch In</div>
-    },
-    // Add more service objects as needed
+  // Get the aspect ratio of the image
+  const imageAspectRatio = 1080 / 1920; // Height / Width
+
+  // Calculate the height of the box based on the aspect ratio and width
+  const boxHeight = 360 * imageAspectRatio; // Increase the box height here
+
+  // Language names
+  const languages = [
+    "hindi",
+    "english",
+    "telugu",
+    "tamil",
+    "malyalam",
+    "spanish",
+    "italian",
+    "bengali",
+    "marathi",
+    "gujrati"
   ];
 
+  // JSON object containing service data
+  const ServiceData = languages.map(language => ({
+    icon: () => (
+      <Link to={`/lang/${language}`}>
+      <div className="text-orange font-bold absolute left-0 top-1/2 transform -translate-y-1/2 pl-4">
+       
+        Watch in <br/><span style={{ color: "orange", textTransform:"capitalize" }}>{language}</span>
+        
+      </div>
+      </Link>
+    ),
+    backgroundImageUrl: backgroundImageUrl
+  }));
+
+  // Function to slide to the next card
+  const goNext = () => {
+    if (swiper.current && swiper.current.swiper) {
+      swiper.current.swiper.slideNext();
+    }
+  };
+
+  // Function to slide to the previous card
+  const goPrev = () => {
+    if (swiper.current && swiper.current.swiper) {
+      swiper.current.swiper.slidePrev();
+    }
+  };
+
+  const swiper = React.useRef(null);
 
   return (
-    <div className="flex items-center justify-center flex-col h-screen bg-[#152238] text-white">
+    <div className="relative  bg-[#152238] text-white mt-4">
+      <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
+        Watch at your own &nbsp; <span className="font-bold text-yellow-500"> Language</span>
+      </h1>
 
-      <p className="text-white mb-10">
-        Language.
-      </p>
-
-      <Swiper
-        breakpoints={{
-          0: { slidesPerView: 1, spaceBetween: 10 },
-          640: { slidesPerView: 2, spaceBetween: 10 },
-          768: { slidesPerView: 3, spaceBetween: 10 },
-          1024: { slidesPerView: 4, spaceBetween: 10 },
-        }}
-        freeMode={true}
-        pagination={{ clickable: true }}
-        modules={[FreeMode, Pagination, Navigation]}
-        className="max-w-[90%] lg:max-w-[80%]"
-      >
-        {ServiceData.map((item) => (
-          <SwiperSlide key={item.title}>
-            <Link to={`/${item.title}`} >
-            <div className="flex flex-col items-center justify-center gap-6 mb-20 group relative rounded-xl p-4 h-[180px] w-[140px] lg:h-[200px] lg:w-[240px] overflow-hidden cursor-pointer" style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.1), -5px 0 15px rgba(0, 0, 0, 0.1)' }}>
-              <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50" />
-              <div className="relative flex flex-col items-center gap-3">
-                <item.icon />
-                <h1 className="text-lg lg:text-xl" style={{ color: '#0B4EAD', fontWeight: 'bold' }}>{item.title}</h1>
-                <p className="lg:text-[14px]">{item.content}</p>
+      <div className="relative max-w-[90%] lg:max-w-[80%] overflow-hidden mx-auto ">
+        <Swiper
+          ref={swiper}
+          breakpoints={{
+            0: { slidesPerView: 1, spaceBetween: 0 }, // Adjusted spaceBetween for smaller screens
+            640: { slidesPerView: 3, spaceBetween: 0 }, // Adjusted spaceBetween for medium screens
+            768: { slidesPerView: 5, spaceBetween: 0 }, // Adjusted spaceBetween for large screens
+            1024: { slidesPerView: 5, spaceBetween: 0 }, // Adjusted spaceBetween for extra large screens
+          }}
+          freeMode={true}
+          pagination={{ clickable: true }}
+          modules={[FreeMode, Pagination, Navigation]}
+          loop={true}
+        >
+          {ServiceData.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className="flex flex-col items-center justify-center mb-20 group relative lg:h-[300px] lg:w-[180px] overflow-hidden cursor-pointer transform transition duration-300 ease-in-out"
+                style={{
+                  backgroundImage: `url(${item.backgroundImageUrl})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  // boxShadow:
+                  //   "0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.1), -5px 0 15px rgba(0, 0, 0, 0.1)",
+                  width: "200px",
+                  height: `${boxHeight}px`,
+                  borderRadius: "0",
+                  transition: "filter 0.3s ease-in-out, transform 0.3s ease-in-out"
+                }}
+              >
+                <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50 transition-opacity" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <BsPlayFill className="text-white text-4xl" />
+                </div>
+                <div className="absolute inset-0 group-hover:filter-blur-lg group-hover:transform-scale-110" />
+                {item.icon()}
               </div>
-            </div>
-            </Link>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <button
+        className="absolute top-1/2 transform -translate-y-1/2 left-5 text-white z-10"
+        onClick={goPrev}
+      >
+        <MdKeyboardArrowLeft size={44} />
+      </button>
+      <button
+        className="absolute top-1/2 transform -translate-y-1/2 right-5 text-white z-10"
+        onClick={goNext}
+      >
+        <MdKeyboardArrowRight size={44} />
+      </button>
     </div>
   );
 };

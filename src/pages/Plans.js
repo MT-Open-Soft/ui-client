@@ -18,24 +18,29 @@ const loadScript = (src) => {
 };
 
 const Cards = () => {
-  const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] =
-    useState(false);
+  const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] = useState(false);
   const [subscriptionName, setSubscriptionName] = useState("");
+  let token = localStorage.getItem("token");
+  console.log("Token:", token);
   const handleButtonClick = async (amount, subscriptionName) => {
     console.log("Selected Subscription ID:", amount);
     console.log("Selected Subscription Item Name:", subscriptionName);
+    // let token = localStorage.getItem("token");
+    console.log("Token:", localStorage.getItem("token"));
     if (amount != 0) {
+      let token = localStorage.getItem("token");
+      console.log("Token:", token);
+
       const response = await axios.post(
         "http://localhost:8080/api/v1/subscribe/createorder",
+        {amount: amount, item_description: subscriptionName, item_name: "Test"},
         {
-          amount: amount,
-          item_name: "Test User",
-          item_description: subscriptionName,
-          username: "Test User",
-          emailid: "abc5@test.com",
+          headers:{"Authorization": `Bearer ${token}`},
+          
+          
         }
       );
-
+      console.log(response.data);
       console.log(response.data);
       console.log(response.data);
       if (
@@ -62,6 +67,7 @@ const Cards = () => {
             image: "https://dummyimage.com/600x400/000/fff",
             order_id: response.data.order_id,
             handler: function (response) {
+              console.log(response)
               console.log("Payment Succeeded");
               console.log(response.razorpay_payment_id);
               console.log(response.razorpay_order_id);
@@ -91,13 +97,13 @@ const Cards = () => {
           });
           razorpayObject.open();
         }
-      }
+      } 
     } else {
       alert("You are subscribed to free plan");
     }
 
     setSubscriptionName(subscriptionName);
-    // setIsPaymentSuccessModalOpen(true);
+    //  setIsPaymentSuccessModalOpen(true);
   };
 
   return (

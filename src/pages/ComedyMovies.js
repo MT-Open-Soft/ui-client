@@ -69,14 +69,16 @@ function ComedyMovies() {
             <SlArrowLeftCircle />
           </button>
           {visibleMovies.map((card) => (
-           <Card
-           key={card.id}
-           image={card.poster}
-           title={card.title}
-           rating={card.imdbRating}
-           year={card.releaseYear}
-           status={card.premium}
-         />
+
+            <Card
+              id={card._id}
+              image={card.poster ? card.poster: "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg"}
+              title={card.title}
+              rating={card.imdbRating}
+              year={card.releaseYear}
+              status={card.premium}
+            />
+
           ))}
           <button
             onClick={handleNext}

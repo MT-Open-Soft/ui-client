@@ -73,7 +73,7 @@ function LanguageMovies() {
           {movies.map((card) => (
             <div>
               <Card
-              key={card.id}
+              id={card._id}
               image={card.poster ? card.poster : 'https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg'}
               title={card.title}
               rating={card.imdbRating}
