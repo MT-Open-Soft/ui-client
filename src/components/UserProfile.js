@@ -4,6 +4,13 @@ import { FaEnvelope } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
+import MuiAlert from "@material-ui/lab/Alert";
+ 
+function Alert(props) {
+    return <MuiAlert elevation={6}
+        variant="filled" {...props} />;
+}
+Alert();
 
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
@@ -181,11 +188,12 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
       position: 'relative',
       width: '100%',
       height: '100%',
-      backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(bg.webp)",
+      backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(bg.jfif)",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       zIndex: 1
     }}>
+      <Alert severity="success" style={{}} >Sample Success Message</Alert>
       <div className="bg-[#091121] p-5 rounded-lg shadow-md mb-5 mt-16 w-[500px] h-auto z-50 box-border border-2 border-yellow-600">
         <img
           src={userDisplay.src}
@@ -310,6 +318,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           )}
           
         </form>
+        
       </div>
     </div>
   );
