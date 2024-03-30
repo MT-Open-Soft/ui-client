@@ -5,11 +5,16 @@ import CardLang from './CardLang.js';
 import Card from '../pages/Card.js';
 import { SlArrowRightCircle,SlArrowLeftCircle } from 'react-icons/sl';
 const apiURL ="http://localhost:8080/api/v1/movies";
-
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center py-10">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
 function LanguageMovies() {
     const location = useLocation();
     const pathname = location.pathname;
-    const language = pathname.substring(6); 
+    const language = pathname.substring(6);
   console.log(language)
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,7 +29,9 @@ function LanguageMovies() {
           setLoading(false);
         } catch (error) {
           console.error('Error fetching movies:', error);
-          setLoading(false);
+          setTimeout(() => {
+            setLoading(false);
+          }, 3000);
         }
       };
   
@@ -56,9 +63,9 @@ function LanguageMovies() {
   return (
     
 
-    <>
+    <div>
     {movies.length > 0 ? (
-      <div className="bg-[#152238] justify-center">
+      <div className="bg-[#152238] justify-center ">
           <div className="h-screen/4 flex flex-col justify-end pb-16" style={{
       backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
       backgroundSize: 'cover',
@@ -87,9 +94,9 @@ function LanguageMovies() {
         </div>
       </div>
        ) : (
-        <h1 className='bg-[#152238] text-white'>Loading...</h1>
+        <h1 className='bg-[#152238] text-white'><LoadingSpinner /></h1>
       )}
-    </>
+    </div>
   );
 
   //return <Carousel slides={movies} />;

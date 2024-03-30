@@ -6,7 +6,7 @@ import SignUp from "./SignUp.js";
 import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
 const apiURL = "http://localhost:8080/api/v1/search/suggestions";
-
+ 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -81,6 +81,17 @@ function Navbar() {
   };
 
   const path = useLocation().pathname.substring(1);
+  const redirectToSearchResults = () => {
+    navigate(`/search-results/${searchQuery}`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      navigate(`/search-results/${searchQuery}`);
+      setSearchQuery("");
+      setSearchResults([]);
+    }
+  };
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 py-4 lg:px-12 shadow border-solid border-t-2 border-blue-300">
@@ -181,6 +192,7 @@ function Navbar() {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
               />
 
               <button
@@ -212,11 +224,11 @@ function Navbar() {
                   >
                     <div class="grid grid-cols-4 items-start text-white  ">
                       <div
-                        className="md:shrink-0 md:mr-0 col-span-1"
+                        className="col-span-1"
                         style={{ display: "inline-block" }}
                       >
                         <img
-                          className="object-cover rounded-md"
+                          className="object-cover rounded-md ml-5 justify-right"
                           src={
                             result.poster
                               ? result.poster
@@ -246,9 +258,12 @@ function Navbar() {
                       </div>
                     </div>
                   </button>
-                ))}
+                ))}<button type="button"
+                className="block mx-auto py-1 px-2 mb-4 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] w-auto max-w-xs text-sm"
+                onClick={redirectToSearchResults}>Search Results</button>
               </div>
             )}
+            
           </div>
         )}
 

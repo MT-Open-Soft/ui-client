@@ -5,7 +5,12 @@ import CardLang from './CardLang.js';
 import Card from '../pages/Card.js';
 import { SlArrowRightCircle,SlArrowLeftCircle } from 'react-icons/sl';
 const apiURL ="http://localhost:8080/api/v1/movies";
-
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center py-10">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
 function GenreMovies() {
     const location = useLocation();
     const pathname = location.pathname;
@@ -27,7 +32,9 @@ function GenreMovies() {
           setLoading(false);
         } catch (error) {
           console.error('Error fetching movies:', error);
-          setLoading(false);
+          setTimeout(() => {
+            setLoading(false);
+          }, 3000);
         }
       };
   
@@ -89,7 +96,7 @@ function GenreMovies() {
 
       </div>
        ) : (
-        <h1 className='bg-[#152238] text-white'>Loading...</h1>
+        <h1 className='bg-[#152238] text-white'><LoadingSpinner /></h1>
       )}
     </>
   );

@@ -4,7 +4,12 @@ import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 //import Carousel from "./Carousel";
 import axios from 'axios';
 const apiURL="http://localhost:8080/api/v1/movies"
-
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
 function ActionMovies() {
     const [movies, setData] = useState([]);
 
@@ -53,7 +58,7 @@ function ActionMovies() {
   return (
     
 
-    <div>
+    <div className="pb-10">
     {/* {handleSearch} */}
     {movies.length > 0 ? (
       <div className="bg-[#152238]">
@@ -88,7 +93,7 @@ function ActionMovies() {
         </div>
       </div>
        ) : (
-        <h1>Loading...</h1>
+        <LoadingSpinner />
       )}
     </div>
   );
