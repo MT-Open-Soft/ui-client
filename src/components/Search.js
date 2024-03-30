@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 const apiURL ="http://localhost:8080/api/v1/search/suggestions";
+
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,6 +37,18 @@ const Search = () => {
   };
 
   const handleSelectResult = (result) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You must be logged in to view this content.',
+        toast: true,
+        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
+      });
+      return;
+    }
+    navigate(`/movie/${result._id}`);
     setSearchQuery(result.title);
     setSearchResults([]);
   };

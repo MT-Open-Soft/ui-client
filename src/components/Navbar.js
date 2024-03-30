@@ -1,21 +1,52 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom for navigation
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import SignUp from "./SignUp.js";
 import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
-const apiURL = "http://localhost:8080/api/v1/search/suggestions";
- 
+
+import Swal from "sweetalert2";
+
+const apiURL = "http://localhost:8080/api/v1/search/suggestions"; 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  // const handleLogin =(name) => {
+  //   setIsLoggedIn(true);
+  //   setUserName(name);
+  // };
+
+  const handleLogout =() => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    document.getElementById("overlay").style.display = "block";
+    Swal.fire({
+      icon: 'success',
+      title: 'Logout Successful!',
+      toast: true,
+      allowOutsideClick: false,
+    })
+    .then(function(){
+      document.getElementById("overlay").style.display = "none";
+      window.location = "http://localhost:3000/";
+    });
+  };
 
   const navigate = useNavigate();
 
   const handleClickProfile = () => {
-    // Redirect to the desired page
     navigate("/profile");
   };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -42,12 +73,31 @@ function Navbar() {
     }
   };
 
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
+
   const handleInputChange = (e) => {
     const query = e.target.value;
     handleSearch(query);
   };
 
   const handleSelectResult = (result) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You must be logged in to view this content.",
+        toast: true,
+        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>',
+      });
+      return;
+    }
+    navigate(`/movie/${result._id}`);
     setSearchQuery(result.title);
     setSearchResults([]);
   };
@@ -61,10 +111,10 @@ function Navbar() {
     document.body.style.overflow = "hidden";
   };
 
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
-    document.body.style.overflow = "auto";
-  };
+  // const closeLoginModal = () => {
+  //   setIsLoginModalOpen(false);
+  //   document.body.style.overflow = "auto";
+  // };
 
   const openSignupModal = () => {
     setIsSignupModalOpen(true);
@@ -75,6 +125,7 @@ function Navbar() {
     setIsSignupModalOpen(false);
     document.body.style.overflow = "auto"; 
   };
+
   const handleClearSearch = () => {
     setSearchQuery("");
     setSearchResults([]);
@@ -95,6 +146,9 @@ function Navbar() {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 py-4 lg:px-12 shadow border-solid border-t-2 border-blue-300">
+      <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+        display: "none"
+      }}></div>
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
         <div className="flex items-center flex-shrink-0">
           <a href="/">
@@ -140,25 +194,25 @@ function Navbar() {
                "Animation", "History", "Music", "War", "Short", "Musical", "Sport",
                "Western", "Film-Noir", "News", "Talk-Show"
              ].map(genre => (
-               <li key={genre} className="w-full">
-                 <Link to={`/${genre.toLowerCase()}`} className="block py-2 px-6 hover:bg-gray-600 text-white whitespace-no-wrap">{genre}</Link>
-               </li>
-             ))}
-           </ul>
+                   <li key={genre} className="w-full">
+                     <Link to={"/" + genre.toLowerCase()} className="block py-2 px-6 hover:bg-gray-600 text-white whitespace-no-wrap">{genre}</Link>
+                   </li>
+                 ))}
+               </ul>
          </div>
 
 
 
-          <a
-            href="plans"
+          <Link
+            to={`/plans`}
             onClick={() => {
               toggleMenu();
               setIsSearchVisible(true);
             }}
             className="block mt-4 lg:inline-block lg:mt-0 navbar-link hover:bg-gray-900 hover:text-white px-4 py-2 rounded text-lg"
           >
-            Pricing plans
-          </a>
+            Pricing
+          </Link>
         </div>
 
         {path === "" ? (
@@ -207,7 +261,7 @@ function Navbar() {
                 <div className="py-1 absolute right-0 mt-2 w-full  rounded-lg z-100 max-h-70 overflow-y-auto">
                   {searchResults.map((result) => (
                     <button
-                      key={result.id}
+                      key={result._id}
                       className="block pl-2 px-4 py-2 w-full text-left"
                       onClick={() => handleSelectResult(result)}
                     ></button>
@@ -268,17 +322,22 @@ function Navbar() {
         )}
 
         <div>
-          {isLoggedIn ? (
-            <>
-              <button
-                onClick={handleClickProfile()}
-                className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                <FaUser className="w-5 h-5 mr-2" />
-                Profile
-              </button>
-            </>
-          ) : (
+        {isLoggedIn ? (
+          <div className="flex items-center ml-4">
+            <button
+              onClick={handleClickProfile}
+              className="flex items-center p-2 rounded-2xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              <FaUser className="w-3 h-3 rounded-lg" />
+            </button>
+            <button
+              onClick={handleLogout}
+              className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
             <div className="flex">
               <a
                 href="/signup"
@@ -291,6 +350,7 @@ function Navbar() {
                 href="/login"
                 onClick={() => {
                   openLoginModal();
+                  console.log(isLoginModalOpen)
                 }}
                 className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
               >
@@ -302,7 +362,7 @@ function Navbar() {
       </div>
 
       {isLoginModalOpen && (
-        <SignIn closeLoginModal={() => setIsLoginModalOpen(false)} />
+        <SignIn  closeLoginModal={() => setIsLoginModalOpen(false)} />
       )}
       {isSignupModalOpen && (
         <SignUp closeSignupModal={() => setIsSignupModalOpen(false)} />
