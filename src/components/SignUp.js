@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function SignUp() {
   const [username, setUsername] = useState('');
@@ -39,6 +40,11 @@ function SignUp() {
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+      Swal.fire({
+        icon: 'success',
+        title: 'Signup Successful!',
+        text: 'You have successfully signed up.',
+      });
       closeSignupModal();
     }
   };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -38,6 +39,11 @@ function SignIn() {
         }
 
         setIsLoggedIn(true);
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful!',
+          text: 'You are now logged in.',
+        });
         closeLoginModal();
       } catch (err) {
         const mssg = err.response.data.error.message;
