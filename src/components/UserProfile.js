@@ -5,6 +5,7 @@ import { FaUser } from 'react-icons/fa';
 import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { set } from 'date-fns';
 
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
@@ -189,6 +190,10 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
         }
       }
 
+    const handleRedirect = () => {
+      setIsEditing(false);
+    }
+
   return (
     <div className="relative flex flex-col items-center min-h-screen bg-[#152238]" style={{
       position: 'relative',
@@ -221,12 +226,12 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
             {isEditing ? (<></>) 
             : (
               <div>
-                <div className='flex flex-row mx-auto justify-around'>
+                <div className='flex justify-center mb-4'>
                   <div>
                     <button
                       type="button"
                       onClick={() => setIsEditing(true)}
-                      className="bg-[#152238] text-white px-4 py-2 rounded mt-4 mx-5"
+                      className="bg-[#152238] text-white px-4 py-2 rounded mt-4 mx-5 text-sm"
                     >
                     Edit Password
                     </button>
@@ -235,7 +240,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                     <button
                       type="button"
                       onClick={handleDeleteAccount}
-                      className="bg-red-500 text-white px-4 py-2 rounded mt-4 mx-5"
+                      className="bg-red-500 text-white px-4 py-2 rounded mt-4 mx-5 text-sm"
                     >
                     Delete Account
                     </button>
@@ -318,9 +323,22 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
               {isError && <div className='text-red-500 text-xs italic'>{error}</div>}
               {isError && <div className='text-red-500 text-xs italic'>{updatePasswordError}</div>}
               {deleteError && <div className='text-red-500 text-xs italic'>{error}</div>}
-              <button id='submit' disabled={!passwordMatch && true} onClick={handleSubmit} className="bg-gray-800 text-slate-200 hover:bg-[#152238] hover:text-white px-4 py-2 rounded mt-4">
+              <div className='flex'>
+              <button 
+                id='submit' 
+                disabled={!passwordMatch && true} 
+                onClick={handleSubmit} 
+                className="bg-gray-800 text-slate-200 hover:bg-[#152238] hover:text-white px-4 py-2 rounded mt-4 text-sm">
                 Save Changes
               </button>
+              <button
+                type="button"
+                onClick={handleRedirect}
+                className="bg-red-500 text-white px-4 py-2 rounded mt-4 mx-5 text-sm"
+              >
+              Cancel
+              </button>
+              </div>
             </div>
           )}
           
