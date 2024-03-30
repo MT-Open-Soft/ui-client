@@ -54,32 +54,47 @@ function SignIn() {
 
         setIsLoggedIn(true);
         if(response.status===200){
+          document.getElementById("overlay").style.display = "block";
           Swal.fire({
             icon: 'success',
             title: 'Login Successful!',
-            text: 'You are now logged in.',
+            toast: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          })
+          .then(function(){
+            document.getElementById("overlay").style.display = "none";
+            window.location = "http://localhost:3000/";
           });
-          closeLoginModal();
         }
       } catch (err) {
         const mssg = err.response.status;
         setPassword('');
-        if(err.response.status===401){
+        if(err.response.status===400 || err.response.status===404){
+          document.getElementById("overlay").style.display = "block";
           Swal.fire({
             icon: 'error',
-            title: 'Invalid Password',
-            text: 'Please enter a valid password.',
-          });
-        }
-        else if(err.response.status===400){
-          Swal.fire({
-            icon: 'error',
-            title: 'User Not Found',
-            text: 'The username you entered was not found. Please try again.',
-          });
-        }
+            title: 'User Does Not Exist!',
+            text: 'User with this email does not exist. Please try again with a different email address.',
+            toast: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          }).then(function(){
+            document.getElementById("overlay").style.display = "none";
+          })
+      } else if(err.response.status===401){
+        document.getElementById("overlay").style.display = "block";
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Credentials!',
+          text: 'Incorrect password. Please try again with the correct password.',
+          toast: true,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        })
       }
     }
+  }
   };
 
   return (
@@ -90,6 +105,9 @@ function SignIn() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
+          <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+            display: "none"
+          }}></div>
           <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-6 mb-20 max-w-sm mx-auto mt-20 w-full relative">
             <button
               onClick={closeLoginModal}
