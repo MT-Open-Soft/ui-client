@@ -32,13 +32,11 @@ function ComedyMovies() {
   const [startIndex, setStartIndex] = useState(0);
   //
   const handleNext = () => {
-    const newIndex = (startIndex + 6) % movies.length;
-    setStartIndex(newIndex);
+    setStartIndex((prevIndex) => (prevIndex + 1) % movies.length);
   };
 
   const handlePrev = () => {
-    const newIndex = (startIndex - 6 + movies.length) % movies.length;
-    setStartIndex(newIndex);
+    setStartIndex((prevIndex) => (prevIndex - 1 + movies.length ) % (movies.length ));
   };
 
   const visibleMovies = [
@@ -76,7 +74,6 @@ function ComedyMovies() {
           >
             <button
               onClick={handlePrev}
-              disabled={startIndex === 0}
               className="text-white text-2xl"
             >
               <SlArrowLeftCircle />
@@ -97,7 +94,6 @@ function ComedyMovies() {
             ))}
             <button
               onClick={handleNext}
-              disabled={startIndex >= movies.length - 6}
               className="text-white text-2xl"
             >
               <SlArrowRightCircle />
