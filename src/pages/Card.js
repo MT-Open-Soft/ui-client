@@ -54,11 +54,11 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
         </div>
 
         <div className="px-2 ">
-          <div className="text-white text-bold text-lg mb-2">
-            {" "}
+          <div className="text-white text-bold text-lg mb-2">{title}
+            {/* {" "}
             {title.split(" ").length > 7
               ? title.split(" ").slice(0, 7).join(" ") + "  .."
-              : title}
+              : title} */}
           </div>
           {search === "no" && (
           <>
