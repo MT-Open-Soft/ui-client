@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function SignUp() {
   const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ function SignUp() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(true);
-
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const closeSignupModal = () => {
     setIsSignupModalOpen(false);
     // document.body.style.overflow = "auto"; // Allow scrolling on the background
@@ -29,18 +30,46 @@ function SignUp() {
       setEmailError('');
     }
 
+    if(!emailPattern.test(email)){
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+
     if (!password) {
       setPasswordError('This field is required');
     } else {
       setPasswordError('');
     }
 
-    if (username && email && password) {
+    const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!strongPasswordPattern.test(password)) {
+    setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character');
+    return; // Stop execution if password is not strong
+  }
+
+    if (username && email && password && emailPattern.test(email) && strongPasswordPattern.test(password)) 
+    try{{
       console.log(username,email,password)
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+      Swal.fire({
+        icon: 'success',
+        title: 'Signup Successful!',
+        text: 'You have successfully signed up.',
+      });
       closeSignupModal();
+    }}catch (err) {
+      const mssg = err.response.status;
+      setPassword('');
+      if(err.response.status===400){
+        Swal.fire({
+          icon: 'error',
+          title: 'User Already Exists',
+          text: 'The username you entered already exists. Please enter a different username.',
+        });
+      }
     }
   };
 

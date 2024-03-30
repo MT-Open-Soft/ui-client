@@ -61,6 +61,7 @@ function ActionMovies() {
         Movies In&nbsp; <span className="font-bold text-yellow-500">Action</span>
       </h1>
         <div className="flex space-x-8 overflow-x-auto mt-4 pb-4 justify-evenly items-center" style={{overflow: 'visible'}}>
+
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}
