@@ -36,16 +36,8 @@ const ActiveSlider = () => {
 
   // JSON object containing service data
   const ServiceData = languages.map(language => ({
-    icon: () => (
-      <Link to={`/lang/${language}`}>
-      <div className="text-orange font-bold absolute left-0 top-1/2 transform -translate-y-1/2 pl-4">
-       
-        Watch in <br/><span style={{ color: "orange", textTransform:"capitalize" }}>{language}</span>
-        
-      </div>
-      </Link>
-    ),
-    backgroundImageUrl: backgroundImageUrl
+    backgroundImageUrl: backgroundImageUrl,
+    language: language
   }));
 
   // Function to slide to the next card
@@ -67,7 +59,7 @@ const ActiveSlider = () => {
   return (
     <div className="relative  bg-[#152238] text-white mt-4">
       <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
-        Watch at your own &nbsp; <span className="font-bold text-yellow-500"> Language</span>
+        Watch in your own &nbsp; <span className="font-bold text-yellow-500"> Language</span>
       </h1>
 
       <div className="relative max-w-[90%] lg:max-w-[80%] overflow-hidden mx-auto ">
@@ -86,27 +78,33 @@ const ActiveSlider = () => {
         >
           {ServiceData.map((item, index) => (
             <SwiperSlide key={index}>
-              <div
-                className="flex flex-col items-center justify-center mb-20 group relative lg:h-[300px] lg:w-[180px] overflow-hidden cursor-pointer transform transition duration-300 ease-in-out"
-                style={{
-                  backgroundImage: `url(${item.backgroundImageUrl})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  // boxShadow:
-                  //   "0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.1), -5px 0 15px rgba(0, 0, 0, 0.1)",
-                  width: "200px",
-                  height: `${boxHeight}px`,
-                  borderRadius: "0",
-                  transition: "filter 0.3s ease-in-out, transform 0.3s ease-in-out"
-                }}
-              >
-                <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50 transition-opacity" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <BsPlayFill className="text-white text-4xl" />
+              <Link to={`/lang/${item.language}`}>
+                <div
+                  className="flex flex-col items-center justify-center mb-20 group relative lg:h-[300px] lg:w-[180px] overflow-hidden cursor-pointer transform transition duration-300 ease-in-out"
+                  style={{
+                    backgroundImage: `url(${item.backgroundImageUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    width: "200px",
+                    height: `${boxHeight}px`,
+                    borderRadius: "0",
+                    transition:
+                      "filter 0.3s ease-in-out, transform 0.3s ease-in-out"
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50 transition-opacity" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <BsPlayFill className="text-white text-4xl" />
+                  </div>
+                  <div className="absolute inset-0 group-hover:filter-blur-lg group-hover:transform-scale-110" />
+                  <div className="text-orange font-bold absolute left-0 top-1/2 transform -translate-y-1/2 pl-4">
+                    Watch in <br />
+                    <span style={{ color: "orange", textTransform: "capitalize" }}>
+                      {item.language}
+                    </span>
+                  </div>
                 </div>
-                <div className="absolute inset-0 group-hover:filter-blur-lg group-hover:transform-scale-110" />
-                {item.icon()}
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
