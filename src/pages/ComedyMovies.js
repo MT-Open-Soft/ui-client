@@ -56,11 +56,11 @@ function ComedyMovies() {
     <div>
     {/* {handleSearch} */}
     {movies.length > 0 ? (
-      <div className="bg-[#152238] ">
+      <div className="bg-[#152238]">
       <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
-        Movies In&nbsp; <span className="font-bold text-yellow-500"> Comedy</span>
+        Movies In&nbsp; <span className="font-bold text-yellow-500">Comedy</span>
       </h1>
-        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'hidden'}}>
+        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'visible'}}>
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}
@@ -69,14 +69,14 @@ function ComedyMovies() {
             <SlArrowLeftCircle />
           </button>
           {visibleMovies.map((card) => (
-            <Card
-              key={card.id}
-              image={card.poster ? card.poster: "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg"}
-              title={card.title}
-              rating={card.imdbRating}
-              year={card.releaseYear}
-              status={card.premium}
-            />
+           <Card
+           key={card.id}
+           image={card.poster}
+           title={card.title}
+           rating={card.imdbRating}
+           year={card.releaseYear}
+           status={card.premium}
+         />
           ))}
           <button
             onClick={handleNext}
@@ -97,4 +97,3 @@ function ComedyMovies() {
 }
 
 export default ComedyMovies;
-

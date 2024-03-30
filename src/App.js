@@ -16,8 +16,8 @@ import UserProfile from './components/UserProfile';
 import Catalog from './pages/Catalog';
 import Users from './pages/Users';
 import Modal from './components/Modal';
-
-
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import Pricing from './pages/Pricing';
 import VideoBitrate from './pages/VideoBitrate';
 import LanguageMovies from './components/LanguageMovies';
@@ -36,6 +36,8 @@ function App() {
     <Route path="/streaming" element={<MoviePreview />} />
     <Route path="/lang/:language" element={<LanguageMovies/>} />
     <Route path="/:genre" element={<GenreMovies/>} />
+    <Route path="/login" element={<SignIn/>}/>
+    <Route path="/signup" element={<SignUp/>}/>
 
     <Route path="/modal" element={<Modal />} />
     {/* <Route path="/dashboard" element={

@@ -10,16 +10,6 @@ const apiURL = "http://localhost:8080/api/v1/search/suggestions";
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    // Perform login logic
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    // Perform logout logic
-    setIsLoggedIn(false);
-  };
-
   const navigate = useNavigate();
 
   const handleClickProfile = () => {
@@ -400,14 +390,14 @@ function Navbar() {
           ) : (
             <div className="flex">
               <a
-                href="#"
+                href="/signup"
                 onClick={openSignupModal}
                 className="block text-md px-4 py-2 rounded text-blue-300 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
               >
                 Sign up
               </a>
               <a
-                href="#"
+                href="/login"
                 onClick={() => {
                   openLoginModal();
                 }}
