@@ -56,6 +56,9 @@ function SignUp() {
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('name', response.data.name);
+      localStorage.setItem('subscription', response.data.subscription);
+      localStorage.setItem('role', response.data.role);
 
       document.getElementById("overlay").style.display = "block";
       Swal.fire({
@@ -118,12 +121,12 @@ function SignUp() {
             <h2 className="text-2xl font-bold mb-6 pb-4">Sign Up</h2>
             <div className="mb-6 mt-10 text-white">
               <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
-                Username
+                Name
               </label>
               <input
                 className="appearance-auto  w-full text-white mb-3  focus:outline-none  bg-slate-800"
                 style={{ borderBottom: '1px solid #cbd5e0' }}
-                id="username"
+                id="name"
                 type="text"
                 autoComplete="off"
                 required

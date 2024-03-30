@@ -108,7 +108,6 @@ function ComedyMovies() {
             </button>
           </div>
         </div>
-      </div>
        ) : (
         <LoadingSpinner />
 

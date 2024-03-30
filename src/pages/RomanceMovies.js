@@ -103,7 +103,6 @@ function RomanceMovies() {
             </button>
           </div>
         </div>
-      </div>
        ) : (
         <LoadingSpinner />
 

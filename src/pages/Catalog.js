@@ -53,7 +53,7 @@ const Catalog = () => {
     setSortBy(option);
     setShowOptions(false);
   };
-  
+
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -81,42 +81,61 @@ const Catalog = () => {
 
   const handleLockToggle = async (item) => {
     try {
-      const updatedCatalogData = catalogData.map((movie) => {
-        if (movie._id === item._id) {
-          const updatedMovie = { ...movie, premium: !movie.premium };
-          return updatedMovie;
-        }
-        return movie;
-      });
+      const updatedCatalogData = await Promise.all(
+        catalogData.map(async (movie) => {
+          if (movie._id === item._id) {
+            var token = localStorage.getItem("token");
+            await axios.put(`http://localhost:8080/api/v1/admin/movies/${item._id}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
+            console.log("movie.premium: ", movie.premium);
+            const updatedMovie = { ...movie, premium: !movie.premium }; // Update premium status
+            return updatedMovie;
+          }
+          return movie;
+        })
+      );
       setCatalogData(updatedCatalogData);
-      
     } catch (error) {
       console.error("Error toggling premium status:", error);
     }
   };
+  
 
-  const handleDelete = (id) => {
-    const updatedCatalogData = catalogData.filter((item) => item._id !== id);
-    setCatalogData(updatedCatalogData);
+  const handleDelete = async (id) => {
+    try {
+      var token = localStorage.getItem("token");
+      console.log("token: ", token);
+      const response = await axios.delete(`http://localhost:8080/api/v1/admin/movies/${id}`, { 
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      if (response.status !== 200) {
+        console.error("Error deleting movie:", response.data.error);
+        alert("Error deleting movie");
+        return;
+      }
+      const updatedCatalogData = catalogData.filter((item) => item._id !== id);
+      setCatalogData(updatedCatalogData);
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+      alert("Error deleting movie");
+    }
   };
-
   return (
     <div className="bg-[#131720] text-white relative py-2">
       <div className="flex justify-between items-center px-6 py-4">
         <h1 className="text-3xl font-bold" style={{ fontFamily: "Rubik, sans-serif" }}>
           Catalog
         </h1>
-        
+
         <div className="relative">
           <span className="text-sm text-white mr-2">Sort By:</span>
           <button className="text-sm text-white hover:text-gray-300" onClick={toggleOptions}>
             {sortBy === "date"
               ? "Date"
               : sortBy === "rating"
-              ? "Rating"
-              : sortBy === "runtime"
-              ? "Runtime"
-              : "Year"}
+                ? "Rating"
+                : sortBy === "runtime"
+                  ? "Runtime"
+                  : "Year"}
           </button>
           {showOptions && (
             <div className="absolute mt-2 right-0">
@@ -161,26 +180,27 @@ const Catalog = () => {
         </div>
         {(searchQuery.trim() !== "" ? searchResults : catalogData).map((item) => (
           <div key={item.id} className="grid grid-cols-7 bg-[#151f30] rounded-lg p-4 my-4">
-            <div className="ml-4">{item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+            {item.type && (
+              <div className="ml-4">{item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+            )}
             <div className="col-span-2">{item.title}</div>
             <div className="flex items-center">
-              <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} /> {item.imdbRating} 
+              <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} /> {item.imdbRating}
             </div>
             <div>{item.releaseYear}</div>
             <div>{item.runtimeInMinutes} m</div>
             <div style={{ verticalAlign: "middle" }}>
               {item.premium ? (
-                <FaLock style={{color: "green", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{color: "red", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)}/>)}
-              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }} onClick={() => handleDelete(item._id)}/>
+                <FaLock style={{ color: "green", cursor: "pointer", display: "inline-block", }} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{ color: "red", cursor: "pointer", display: "inline-block", }} onClick={() => handleLockToggle(item)} />)}
+              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }} onClick={() => handleDelete(item._id)} />
             </div>
           </div>
         ))}
         <div className="flex justify-center mt-4">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
-            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${
-              currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-500"
-            }`}
+            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-500"
+              }`}
             disabled={currentPage === 1}
           >
             Previous
@@ -190,11 +210,10 @@ const Catalog = () => {
           </span>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${
-              currentPage === totalPages
+            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${currentPage === totalPages
                 ? "opacity-50 cursor-not-allowed"
                 : "hover:bg-blue-500"
-            }`}
+              }`}
             disabled={currentPage === totalPages}
           >
             Next

@@ -3,6 +3,8 @@ import Card from "./Card";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 //import Carousel from "./Carousel";
 import axios from 'axios';
+import { IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 const apiURL="http://localhost:8080/api/v1/movies"
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center">
@@ -10,8 +12,7 @@ const LoadingSpinner = () => (
     <div className="ml-3 text-white">Loading...</div>
   </div>
 );
-import { IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router-dom";
+
 
 
 function ActionMovies() {
@@ -104,7 +105,6 @@ function ActionMovies() {
             </button>
           </div>
         </div>
-      </div>
        ) : (
         <LoadingSpinner />
 

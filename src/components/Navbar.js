@@ -5,7 +5,7 @@ import { FaUser } from "react-icons/fa";
 import SignUp from "./SignUp.js";
 import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
-
+import logo from "../images/logo.png";
 import Swal from "sweetalert2";
 
 const apiURL = "http://localhost:8080/api/v1/search/suggestions"; 
@@ -26,7 +26,7 @@ function Navbar() {
   // };
 
   const handleLogout =() => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     setIsLoggedIn(false);
     document.getElementById("overlay").style.display = "block";
     Swal.fire({
@@ -152,7 +152,7 @@ function Navbar() {
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
         <div className="flex items-center flex-shrink-0">
           <a href="/">
-            <img src="../images/logo.png" alt="Your Logo" className="h-8 w-8" />
+            <img src={logo} alt="Your Logo" className="h-12 w-12" />
           </a>
         </div>
         <div className="block lg:hidden">
