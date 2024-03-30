@@ -2,17 +2,19 @@ import React, { useState,useEffect } from "react";
 import Card from "./Card";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 //import Carousel from "./Carousel";
+import { IoIosArrowForward } from "react-icons/io";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 const apiURL="http://localhost:8080/api/v1/movies"
 
 function ActionMovies() {
     const [movies, setData] = useState([]);
-
+    const genre="Action";
     useEffect(() => {
       const fetchMovies = async () => {
         try {
           const num_response=15;
-          const genre="Action";
+         
           const response = await axios.get(`http://localhost:8080/api/v1/movies?page=1&pageSize=${num_response}&genres=${genre}`);
           console.log(response.data)
           setData(response.data.movies); // Assuming the response has a 'movies' property containing the movie data
@@ -57,11 +59,16 @@ function ActionMovies() {
     {/* {handleSearch} */}
     {movies.length > 0 ? (
       <div className="bg-[#152238]">
-      <h1 className="text-white text-3xl py-8 flex mt-4 justify-right ml-20">
-        Movies In&nbsp; <span className="font-bold text-yellow-500">Action</span>
-      </h1>
-        <div className="flex space-x-8 overflow-x-auto mt-4 pb-4 justify-evenly items-center" style={{overflow: 'visible'}}>
-
+      <div className="flex items-center space-x-10 px-8 py-4 ml-5">
+            <h1 className="text-white text-3xl flex items-center">
+                Movies In&nbsp; <span className="font-bold text-yellow-500">Action</span>
+            </h1>
+            <Link to={`/${genre}`} className="text-white text-xl flex items-center pt-1">
+                See more
+                <span className=" text-2xl pt-1"><IoIosArrowForward className="text-white" /></span>
+           </Link>
+</div>
+        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'visible'}}>
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}

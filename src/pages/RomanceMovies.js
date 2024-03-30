@@ -1,18 +1,21 @@
 import React, { useState,useEffect } from "react";
 import Card from "./Card";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
+import { IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 //import Carousel from "./Carousel";
 import axios from 'axios';
 const apiURL="http://localhost:8080/api/v1/movies"
 
 function RomanceMovies() {
     const [movies, setData] = useState([]);
+    const genre="Romance";
 
     useEffect(() => {
       const fetchMovies = async () => {
         try {
           const num_response=15;
-          const genre="Romance";
+          
           const response = await axios.get(`http://localhost:8080/api/v1/movies?page=1&pageSize=${num_response}&genres=${genre}`);
           console.log(response.data)
           setData(response.data.movies); // Assuming the response has a 'movies' property containing the movie data
