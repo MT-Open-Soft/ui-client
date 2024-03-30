@@ -54,32 +54,40 @@ function SignIn() {
 
         setIsLoggedIn(true);
         if(response.status===200){
+        //   Swal({
+        //     title: "Wow!",
+        //     text: "Message!",
+        //     type: "success"
+        // }).then(function() {
+        //     window.location = "http://localhost:3000/";
+        // });
           Swal.fire({
             icon: 'success',
             title: 'Login Successful!',
             text: 'You are now logged in.',
+          })
+          .then(function(){
+                window.location = "http://localhost:3000/";
           });
-          closeLoginModal();
         }
       } catch (err) {
         const mssg = err.response.status;
         setPassword('');
-        if(err.response.status===401){
-          Swal.fire({
-            icon: 'error',
-            title: 'Invalid Password',
-            text: 'Please enter a valid password.',
-          });
-        }
-        else if(err.response.status===400){
+        if(err.response.status===400 || err.response.status===404){
           Swal.fire({
             icon: 'error',
             title: 'User Not Found',
             text: 'The username you entered was not found. Please try again.',
           });
-        }
+      } else if(err.response.status===401){
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Credentials',
+          text: 'The password you entered was incorrect. Please try again.',
+        });
       }
     }
+  }
   };
 
   return (

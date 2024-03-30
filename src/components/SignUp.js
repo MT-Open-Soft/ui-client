@@ -16,7 +16,7 @@ function SignUp() {
     // document.body.style.overflow = "auto"; // Allow scrolling on the background
     window.location.href = '/';
   };
-
+  
   const handleSignUp = async () => {
     if (!username) {
       setUsernameError('This field is required');
@@ -58,8 +58,10 @@ function SignUp() {
         icon: 'success',
         title: 'Signup Successful!',
         text: 'You have successfully signed up.',
-      });
-      closeSignupModal();
+      })
+      .then(function(){
+        window.location = "http://localhost:3000/";
+  });
     }}catch (err) {
       const mssg = err.response.status;
       setPassword('');
@@ -67,7 +69,8 @@ function SignUp() {
         Swal.fire({
           icon: 'error',
           title: 'User Already Exists',
-          text: 'The username you entered already exists. Please enter a different username.',
+          text: 'User with this email already exists. Please try again with a different email address.',
+
         });
       }
     }
