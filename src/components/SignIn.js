@@ -46,10 +46,6 @@ function SignIn() {
         alert(mssg);
       }
     }
-
-    localStorage.setItem('password', password);
-    localStorage.setItem('email', email);
-
   };
 
   return (
