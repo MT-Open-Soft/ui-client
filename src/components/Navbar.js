@@ -11,8 +11,6 @@ const apiURL = "http://localhost:8080/api/v1/search/suggestions";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
-
   
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,13 +27,16 @@ function Navbar() {
   const handleLogout =() => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    document.getElementById("overlay").style.display = "block";
     Swal.fire({
       icon: 'success',
       title: 'Logout Successful!',
-      text: 'You are now logged out.',
+      toast: true,
+      allowOutsideClick: false,
     })
     .then(function(){
-          window.location = "http://localhost:3000/";
+      document.getElementById("overlay").style.display = "none";
+      window.location = "http://localhost:3000/";
     });
   };
 
@@ -118,6 +119,9 @@ function Navbar() {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 py-4 lg:px-12 shadow border-solid border-t-2 border-blue-300">
+      <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+        display: "none"
+      }}></div>
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
         <div className="flex items-center flex-shrink-0">
           <a href="/">
@@ -288,13 +292,12 @@ function Navbar() {
 
         <div>
         {isLoggedIn ? (
-          <div className="flex items-center">
+          <div className="flex items-center ml-4">
             <button
               onClick={handleClickProfile}
               className="flex items-center p-2 rounded-2xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              <FaUser className="w-5 h-5 rounded-lg" />
-              {userName}
+              <FaUser className="w-3 h-3 rounded-lg" />
             </button>
             <button
               onClick={handleLogout}

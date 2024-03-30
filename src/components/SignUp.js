@@ -49,28 +49,31 @@ function SignUp() {
   }
 
     if (username && email && password && emailPattern.test(email) && strongPasswordPattern.test(password)) 
-    try{{
+    try{
       console.log(username,email,password)
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+      document.getElementById("overlay").style.display = "block";
       Swal.fire({
         icon: 'success',
         title: 'Signup Successful!',
-        text: 'You have successfully signed up.',
       })
       .then(function(){
+        document.getElementById("overlay").style.display = "none";
         window.location = "http://localhost:3000/";
-  });
-    }}catch (err) {
+    });
+    }catch (err) {
       const mssg = err.response.status;
       setPassword('');
       if(err.response.status===400){
+        document.getElementById("overlay").style.display = "block";
         Swal.fire({
           icon: 'error',
           title: 'User Already Exists',
           text: 'User with this email already exists. Please try again with a different email address.',
-
+        }).then(function(){
+          document.getElementById("overlay").style.display = "none";
         });
       }
     }
@@ -84,6 +87,9 @@ function SignUp() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
+          <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+            display: "none"
+          }}></div>
           <div className="bg-slate-800 text-white shadow-md rounded px-8 pt-6 pb-6 mb-20 max-w-md mx-auto mt-20 w-full relative">
             <button
               onClick={closeSignupModal}
