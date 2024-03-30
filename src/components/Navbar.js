@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom for navigation
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
@@ -9,14 +9,47 @@ import Swal from "sweetalert2";
 
 const apiURL = "http://localhost:8080/api/v1/search/suggestions";
 
+
+const apiURL = "http://localhost:8080/api/v1/search/suggestions";
+ 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  // const handleLogin =(name) => {
+  //   setIsLoggedIn(true);
+  //   setUserName(name);
+  // };
+
+  const handleLogout =() => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    document.getElementById("overlay").style.display = "block";
+    Swal.fire({
+      icon: 'success',
+      title: 'Logout Successful!',
+      toast: true,
+      allowOutsideClick: false,
+    })
+    .then(function(){
+      document.getElementById("overlay").style.display = "none";
+      window.location = "http://localhost:3000/";
+    });
+  };
+
   const navigate = useNavigate();
 
   const handleClickProfile = () => {
-    // Redirect to the desired page
     navigate("/profile");
   };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -42,6 +75,13 @@ function Navbar() {
       setSearchResults([]);
     }
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
 
   const handleInputChange = (e) => {
     const query = e.target.value;
@@ -74,29 +114,41 @@ function Navbar() {
     document.body.style.overflow = "hidden";
   };
 
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
-    document.body.style.overflow = "auto";
-  };
+  // const closeLoginModal = () => {
+  //   setIsLoginModalOpen(false);
+  //   document.body.style.overflow = "auto";
+  // };
 
   const openSignupModal = () => {
     setIsSignupModalOpen(true);
-    document.body.style.overflow = "hidden"; 
+    document.body.style.overflow = "hidden"; // Prevent scrolling on the background
   };
 
-  const closeSignupModal = () => {
-    setIsSignupModalOpen(false);
-    document.body.style.overflow = "auto"; 
-  };
+  // 
+  
   const handleClearSearch = () => {
     setSearchQuery("");
     setSearchResults([]);
   };
 
   const path = useLocation().pathname.substring(1);
+  const redirectToSearchResults = () => {
+    navigate(`/search-results/${searchQuery}`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      navigate(`/search-results/${searchQuery}`);
+      setSearchQuery("");
+      setSearchResults([]);
+    }
+  };
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 py-4 lg:px-12 shadow border-solid border-t-2 border-blue-300">
+      <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+        display: "none"
+      }}></div>
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
         <div className="flex items-center flex-shrink-0">
           <a href="/">
@@ -142,11 +194,11 @@ function Navbar() {
                "Animation", "History", "Music", "War", "Short", "Musical", "Sport",
                "Western", "Film-Noir", "News", "Talk-Show"
              ].map(genre => (
-               <li key={genre} className="w-full">
-                 <Link to={`/${genre.toLowerCase()}`} className="block py-2 px-6 hover:bg-gray-600 text-white whitespace-no-wrap">{genre}</Link>
-               </li>
-             ))}
-           </ul>
+                   <li key={genre} className="w-full">
+                     <Link to={"/" + genre.toLowerCase()} className="block py-2 px-6 hover:bg-gray-600 text-white whitespace-no-wrap">{genre}</Link>
+                   </li>
+                 ))}
+               </ul>
          </div>
 
 
@@ -159,7 +211,7 @@ function Navbar() {
             }}
             className="block mt-4 lg:inline-block lg:mt-0 navbar-link hover:bg-gray-900 hover:text-white px-4 py-2 rounded text-lg"
           >
-            Pricing plans
+            Pricing
           </a>
         </div>
 
@@ -194,6 +246,7 @@ function Navbar() {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
               />
 
               <button
@@ -225,11 +278,11 @@ function Navbar() {
                   >
                     <div class="grid grid-cols-4 items-start text-white  ">
                       <div
-                        className="md:shrink-0 md:mr-0 col-span-1"
+                        className="col-span-1"
                         style={{ display: "inline-block" }}
                       >
                         <img
-                          className="object-cover rounded-md"
+                          className="object-cover rounded-md ml-5 justify-right"
                           src={
                             result.poster
                               ? result.poster
@@ -259,24 +312,32 @@ function Navbar() {
                       </div>
                     </div>
                   </button>
-                ))}
+                ))}<button type="button"
+                className="block mx-auto py-1 px-2 mb-4 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] w-auto max-w-xs text-sm"
+                onClick={redirectToSearchResults}>Search Results</button>
               </div>
             )}
+            
           </div>
         )}
 
         <div>
-          {isLoggedIn ? (
-            <>
-              <button
-                onClick={handleClickProfile()}
-                className="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                <FaUser className="w-5 h-5 mr-2" />
-                Profile
-              </button>
-            </>
-          ) : (
+        {isLoggedIn ? (
+          <div className="flex items-center ml-4">
+            <button
+              onClick={handleClickProfile}
+              className="flex items-center p-2 rounded-2xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              <FaUser className="w-3 h-3 rounded-lg" />
+            </button>
+            <button
+              onClick={handleLogout}
+              className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
             <div className="flex">
               <a
                 href="/signup"
@@ -289,6 +350,7 @@ function Navbar() {
                 href="/login"
                 onClick={() => {
                   openLoginModal();
+                  console.log(isLoginModalOpen)
                 }}
                 className="block text-md px-4 ml-2 py-2 rounded text-blue-300 font-bold hover:text-white mt-4 hover:bg-blue-300 lg:mt-0"
               >
@@ -300,7 +362,7 @@ function Navbar() {
       </div>
 
       {isLoginModalOpen && (
-        <SignIn closeLoginModal={() => setIsLoginModalOpen(false)} />
+        <SignIn  closeLoginModal={() => setIsLoginModalOpen(false)} />
       )}
       {isSignupModalOpen && (
         <SignUp closeSignupModal={() => setIsSignupModalOpen(false)} />

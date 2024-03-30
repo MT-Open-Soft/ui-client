@@ -4,13 +4,7 @@ import { FaEnvelope } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
-// import MuiAlert from "@material-ui/lab/Alert";
- 
-// function Alert(props) {
-//     return <MuiAlert elevation={6}
-//         variant="filled" {...props} />;
-// }
-// Alert();
+import Swal from 'sweetalert2';
 
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
@@ -84,7 +78,6 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
-  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
   const handleToggleOldPassword = () => {
         setOldShowPassword((prevOldShowPassword) => !prevOldShowPassword);
@@ -172,14 +165,27 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           })
           .catch((e) => {
             console.error(e)
-            setDeleteError(true);
             setError(e.response.data.error.message);
+            Swal.fire({
+              icon: 'success',
+              title: 'Cannot Delete Account!',
+              text: e.response.data.error.message,
+              toast: true,
+              allowEscapeKey: false,
+              allowOutsideClick: false,
+            })
           });
           
         if(result) {
-          setDeleteSuccess(false);
           localStorage.removeItem('token');
-          window.location.href = '/';
+          Swal.fire({
+            icon: 'success',
+            title: 'Account Deleted Successfully!',
+            toast: true,
+          })
+          .then(function(){
+                window.location = "http://localhost:3000/";
+          });
         }
       }
 
@@ -193,7 +199,9 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
       backgroundPosition: 'center',
       zIndex: 1
     }}>
-      {/* <Alert severity="success" style={{}} >Sample Success Message</Alert> */}
+      <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+        display: "none"
+      }}></div>
       <div className="bg-[#091121] p-5 rounded-lg shadow-md mb-5 mt-16 w-[500px] h-auto z-50 box-border border-2 border-yellow-600">
         <img
           src={userDisplay.src}
@@ -234,7 +242,6 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   </div>
                 </div> 
                 {success && <div className='text-green-500 text-xs italic text-center my-4'>Password changed successfully</div>}
-                  {deleteSuccess && <div className='text-green-500 text-xs italic text-center my-4'>Account deleted successfully</div>}
               </div>
             )}
           </div>
