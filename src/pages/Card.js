@@ -32,7 +32,7 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
       >
-        <div className="w-210px h-388px rounded-2xl overflow-hidden shadow-lg relative group">
+        <div className="w-210px h-388px rounded-2xl overflow-hidden relative group">
           <img
             src={image}
             alt={title}
@@ -56,8 +56,8 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
         <div className="px-2 ">
           <div className="text-white text-bold text-lg mb-2">
             {" "}
-            {title.split(" ").length > 7
-              ? title.split(" ").slice(0, 7).join(" ") + "  .."
+            {title.split(" ").length > 3
+              ? title.split(" ").slice(0, 3).join(" ") + "  .."
               : title}
           </div>
           {search === "no" && (

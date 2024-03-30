@@ -58,7 +58,7 @@ const ActiveSlider = () => {
 
   return (
     <div className="relative  bg-[#152238] text-white mt-4">
-      <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
+      <h1 className="text-white text-3xl py-8 px-8 flex my-4 justify-right ml-20">
         Watch in your own &nbsp; <span className="font-bold text-yellow-500"> Language</span>
       </h1>
 
