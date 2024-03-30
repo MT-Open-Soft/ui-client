@@ -4,13 +4,26 @@ import { FaStar } from "react-icons/fa";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Card = ({ id, image, title, rating, year, status, directors, cast, search = 'no' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-
+  const token = localStorage.getItem('token');
+  
   const handleClick = () => {
-    navigate(`/movie/${id}`); // Navigate to movie detail page with the movie's ID
+    if(token){
+    navigate(`/movie/${id}`); 
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...You must be logged in to view this content',
+        toast: true,
+        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
+      });
+      return;
+    }
   };
 
   const renderModalContent = () => (

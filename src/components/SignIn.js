@@ -85,7 +85,7 @@ function SignIn() {
   return (
     <>
       {isLoginModalOpen && (
-        <div className="relative inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 h-[100vh]" style={{
+        <div className="relative inset-0 flex items-center justify-center bg-black bg-opacity-50 h-[100vh]" style={{
           backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
