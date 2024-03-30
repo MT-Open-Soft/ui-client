@@ -43,6 +43,12 @@ const Search = () => {
     setSearchResults([]);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      navigate(`/search-results/${searchQuery}`);
+    }
+  };
+
   return (
     <div className="h-screen/4 flex flex-col justify-end pb-16" style={{
       backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
@@ -58,6 +64,7 @@ const Search = () => {
             placeholder="Search..."
             value={searchQuery}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
           
             <button
@@ -71,13 +78,6 @@ const Search = () => {
         </div>
         {searchResults.length > 0 && (
           <div className="relative grid items-center w-md">
-            <button
-              type="button"
-              className="block mx-auto py-1 px-2 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] mt-2 w-auto max-w-xs"
-              onClick={redirectToSearchResults}
-            >
-              Search Results
-            </button>
             <div className="mt-2 w-full text-white rounded-lg shadow-md max-h-70 overflow-y-auto">
               <div className="bg-[#152238]">
                 {searchResults.map((result) => (
@@ -103,6 +103,13 @@ const Search = () => {
                 ))}
               </div>
             </div>
+            <button
+              type="button"
+              className="block mx-auto py-1 px-2 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] mt-2 w-auto max-w-xs"
+              onClick={redirectToSearchResults}
+            >
+              Search Results
+            </button>
           </div>
         )}
       </div>
