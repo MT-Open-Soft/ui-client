@@ -60,7 +60,7 @@ function ComedyMovies() {
       <h1 className="text-white text-3xl py-8 px-8 flex mt-4 justify-right ml-20">
         Movies In&nbsp; <span className="font-bold text-yellow-500">Comedy</span>
       </h1>
-        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center" style={{overflow: 'visible'}}>
+        <div className="flex space-x-4 overflow-x-auto mt-4 justify-evenly items-center pb-10" style={{overflow: 'visible'}}>
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}
