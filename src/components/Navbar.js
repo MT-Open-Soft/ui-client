@@ -119,148 +119,24 @@ function Navbar() {
         <div className="text-md font-bold text-white lg:flex-grow">
           {/* Genre Dropdown */}
           <div className="group inline-block relative">
-            <button className="text-white font-semibold py-2 px-4 rounded inline-flex items-center text-lg hover:bg-gray-900 hover:text-white w-32">
-              <span>Genre</span>
-            </button>
-            <ul className="absolute hidden text-gray-700 pt-1 group-hover:block w-32">
-              <li>
-                <Link
-                  to="/drama"
-                  className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Drama
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/comedy"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Comedy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/romance"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Romance
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/crime"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Crime
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/action"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Action
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/adventure"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Adventure
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/documentary"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-3 block whitespace-no-wrap"
-                >
-                  Documentary
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/horror"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Horror
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/Biography"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Biography
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/family"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Family
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/mystery"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Mystery
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/fantasy"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Fantasy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/scifi"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Sci-Fi
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/animation"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Animation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/history"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  History
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/music"
-                  className="bg-gray-200 hover:bg-gray-400 py-2 px-6 block whitespace-no-wrap"
-                >
-                  Music
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/war"
-                  className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-6  block whitespace-no-wrap"
-                >
-                  War
-                </Link>
-              </li>
-            </ul>
-          </div>
+           <button className="text-white font-semibold py-2 px-4 rounded inline-flex items-center text-lg hover:bg-gray-900 hover:text-white w-32 justify-center">     
+               <span>Genres</span>
+           </button>
+           <ul className="absolute hidden text-gray-700 pt-1 group-hover:block bg-gray-800 bg-opacity-90 rounded-lg shadow-md max-h-[300px] overflow-y-auto grid grid-cols-2 left-1/2 transform -translate-x-1/2 z-50">              {[
+               "Drama", "Comedy", "Romance", "Crime", "Action",
+               "Adventure", "Documentary", "Horror", "Biography",
+               "Family", "Mystery", "Fantasy", "Sci-Fi",
+               "Animation", "History", "Music", "War", "Short", "Musical", "Sport",
+               "Western", "Film-Noir", "News", "Talk-Show"
+             ].map(genre => (
+               <li key={genre} className="w-full">
+                 <Link to={`/${genre.toLowerCase()}`} className="block py-2 px-6 hover:bg-gray-600 text-white whitespace-no-wrap">{genre}</Link>
+               </li>
+             ))}
+           </ul>
+         </div>
+
+
 
           <a
             href="plans"

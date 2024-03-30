@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
-
+import { useNavigate } from "react-router-dom";
 const apiURL ="http://localhost:8080/api/v1/search/suggestions";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
+  const navigate = useNavigate();
   const handleSearch = (query) => {
     setSearchQuery(query);
 
@@ -25,6 +25,9 @@ const Search = () => {
     }
   };
 
+  const redirectToSearchResults = () => {
+    navigate(`/search-results/${searchQuery}`); // Adjust the path as necessary based on your routing setup
+  };
   const handleInputChange = (e) => {
     const query = e.target.value;
     handleSearch(query);
@@ -71,6 +74,7 @@ const Search = () => {
             <button
               type="button"
               className="block mx-auto py-1 px-2 text-white bg-[#1e3261] rounded-full shadow-md hover:bg-[#384b77] mt-2 w-auto max-w-xs"
+              onClick={redirectToSearchResults}
             >
               Search Results
             </button>

@@ -31,7 +31,7 @@ export default function Carousel({ movies }) {
           ))} */}
           {movies.map((card) => (
             <Card
-              key={card.id}
+              id={card.id}
               image={card.image}
               title={card.title}
               genre={card.genre}

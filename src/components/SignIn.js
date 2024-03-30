@@ -48,6 +48,7 @@ function SignIn() {
 
     localStorage.setItem('password', password);
     localStorage.setItem('email', email);
+
   };
 
   return (
