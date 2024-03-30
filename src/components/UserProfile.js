@@ -4,13 +4,13 @@ import { FaEnvelope } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
-import MuiAlert from "@material-ui/lab/Alert";
+// import MuiAlert from "@material-ui/lab/Alert";
  
-function Alert(props) {
-    return <MuiAlert elevation={6}
-        variant="filled" {...props} />;
-}
-Alert();
+// function Alert(props) {
+//     return <MuiAlert elevation={6}
+//         variant="filled" {...props} />;
+// }
+// Alert();
 
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
@@ -193,7 +193,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
       backgroundPosition: 'center',
       zIndex: 1
     }}>
-      <Alert severity="success" style={{}} >Sample Success Message</Alert>
+      {/* <Alert severity="success" style={{}} >Sample Success Message</Alert> */}
       <div className="bg-[#091121] p-5 rounded-lg shadow-md mb-5 mt-16 w-[500px] h-auto z-50 box-border border-2 border-yellow-600">
         <img
           src={userDisplay.src}
