@@ -7,11 +7,7 @@ import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
 import Swal from "sweetalert2";
 
-const apiURL = "http://localhost:8080/api/v1/search/suggestions";
-
-
-const apiURL = "http://localhost:8080/api/v1/search/suggestions";
- 
+const apiURL = "http://localhost:8080/api/v1/search/suggestions"; 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
