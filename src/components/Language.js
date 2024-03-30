@@ -26,12 +26,12 @@ const ActiveSlider = () => {
     "english",
     "telugu",
     "tamil",
-    "malyalam",
+    "malayalam",
     "spanish",
     "italian",
     "bengali",
     "marathi",
-    "gujrati"
+    "gujarati"
   ];
 
   // JSON object containing service data
