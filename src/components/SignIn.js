@@ -43,8 +43,7 @@ function SignIn({ closeLoginModal }) {
     
     
 
-    localStorage.setItem('password', password);
-    localStorage.setItem('email', email);
+    
 
   };
 

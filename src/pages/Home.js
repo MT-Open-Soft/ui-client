@@ -14,9 +14,10 @@ function Home() {
       <Search/>
       <ActiveSlider/>
       <ActionMovies/>
+      <Language/>
       <ComedyMovies />
       <RomanceMovies />
-      <Language/>
+      
       
       
     </div>

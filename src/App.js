@@ -16,8 +16,8 @@ import UserProfile from './components/UserProfile';
 import Catalog from './pages/Catalog';
 import Users from './pages/Users';
 import Modal from './components/Modal';
-
-
+import SearchResults from './pages/SearchResults';
+import Preview from './pages/MoviePreview';
 import Pricing from './pages/Pricing';
 import VideoBitrate from './pages/VideoBitrate';
 import LanguageMovies from './components/LanguageMovies';
@@ -36,7 +36,7 @@ function App() {
     <Route path="/streaming" element={<MoviePreview />} />
     <Route path="/lang/:language" element={<LanguageMovies/>} />
     <Route path="/:genre" element={<GenreMovies/>} />
-
+    <Route path="/search-results/:query" element={<SearchResults />} />
     <Route path="/modal" element={<Modal />} />
     {/* <Route path="/dashboard" element={
           <>
@@ -51,6 +51,8 @@ function App() {
      <Route path="/Pricing" element={<Pricing />}/>
      
      <Route path="/vidbit" element={<VideoBitrate/>}/>
+     <Route path="/movie/:id" element={<Preview />} />
+
    </Routes>
    <Footer/>
    </BrowserRouter>
