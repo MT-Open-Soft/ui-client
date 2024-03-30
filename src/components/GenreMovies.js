@@ -59,14 +59,16 @@ function GenreMovies() {
     if (currentPage < totalpages) {
       fetchNextPage();
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
   };
 
   const handlePrev = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
   };
 
   return (
-    <div className='py-10 bg-[#152238]'>
+    <div className='pb-10 bg-[#152238]'>
       {pages.length > 0 ? (
         <div className="bg-[#152238] justify-center ">
           <div className="h-screen/4 flex flex-col justify-end pb-16" style={{

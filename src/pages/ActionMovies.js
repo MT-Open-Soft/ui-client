@@ -38,6 +38,7 @@ function ActionMovies() {
   const handleNext = () => {
     const newIndex = (startIndex + 6) % movies.length;
     setStartIndex(newIndex);
+    
   };
 
   const handlePrev = () => {
