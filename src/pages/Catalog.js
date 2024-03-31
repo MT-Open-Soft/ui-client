@@ -128,16 +128,7 @@ const Catalog = () => {
         </h1>
 
         <div className="relative">
-          <span className="text-sm text-white mr-2">Sort By:</span>
-          <button className="text-sm text-white hover:text-gray-300" onClick={toggleOptions}>
-            {sortBy === "date"
-              ? "Date"
-              : sortBy === "rating"
-                ? "Rating"
-                : sortBy === "runtime"
-                  ? "Runtime"
-                  : "Year"}
-          </button>
+          
           {showOptions && (
             <div className="absolute mt-2 right-0">
               <button className="block px-4 py-2 text-white bg-[#131720] hover:bg-gray-600 w-full text-sm text-left" onClick={() => handleSortBy("date")}>
@@ -158,7 +149,7 @@ const Catalog = () => {
             </div>
           )}
         </div>
-        <div className="relative">
+        {/* <div className="relative">
           <input
             type="text"
             className="bg-[#151f30] text-white border-none pl-8 pr-4 py-2 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -167,9 +158,8 @@ const Catalog = () => {
             onChange={handleSearch}
           />
           <GoSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        </div>
+        </div> */}
       </div>
-      <hr className="h-[1px] w-5/6 mx-auto my-8 bg-white border-0 dark:bg-gray-700" />
       <div className="container mx-auto bg-[#131720]">
         <div className="grid grid-cols-7 text-xs p-4 mb-4">
           <div className="ml-4">TYPE</div>

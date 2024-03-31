@@ -65,7 +65,12 @@ function SignIn() {
           })
           .then(function(){
             document.getElementById("overlay").style.display = "none";
+            if(response.data.role === 'admin'){
+              window.location = "http://localhost:3000/admin";
+
+            } else {
             window.location = "http://localhost:3000/";
+            }
           });
         }
       } catch (err) {

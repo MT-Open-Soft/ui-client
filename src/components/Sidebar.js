@@ -11,7 +11,7 @@ const Sidebar = () => {
   const adminName = localStorage.getItem('name');
 
   return (
-    <div className="h-full w-64 bg-gray-900 text-white" style={{ padding: '10px', borderRight: '1px solid rgba(100,100,100,0.2)' }}>
+    <div className="w-64 bg-gray-900 text-white" style={{ padding: '10px', borderRight: '1px solid rgba(100,100,100,0.2)',overflowY: 'auto' }}>
       {/* Admin Header */}
       <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(200,200,200,0.1)', padding: '10px' }}>
         <div className="flex items-center mb-4">

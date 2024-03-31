@@ -1,6 +1,6 @@
 import React from 'react';
 import fullLogo from "../images/full-logo.png";
-
+import { Link } from 'react-router-dom';
 function Footer() {
   return (
     <>
@@ -16,15 +16,16 @@ function Footer() {
               
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li>
-                  <a href="#" className="hover:underline">
-                    My Profile
-                  </a>
+                  <Link to="/plans" className="hover:underline">
+                    Pricing
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline">
-                    Pricing Plans
-                  </a>
+                  <Link to='/profile' className="hover:underline">
+                    Profile
+                  </Link>
                 </li>
+              
               </ul>
             </div>
 
@@ -32,14 +33,31 @@ function Footer() {
 
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li>
-                  <a href="#" className="hover:underline">
-                    TV Shows
-                  </a>
+                  <Link to='/lang/hindi' className="hover:underline">
+                    Movies in Hindi
+                  </Link>
                 </li>
+               
                 <li>
-                  <a href="#" className="hover:underline">
-                    Movies
-                  </a>
+                  <Link to='/lang/english' className="hover:underline">
+                    Movies in English
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className="flex flex-col items-center">
+
+              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                <li>
+                  <Link to='/comedy' className="hover:underline">
+                    Comedy Movies
+                  </Link>
+                </li>
+               
+                <li>
+                  <Link to='/documentary' className="hover:underline">
+                    Top Documentaries
+                  </Link>
                 </li>
               </ul>
             </div>

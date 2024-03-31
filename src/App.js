@@ -57,10 +57,10 @@ function App() {
       <Route path="/users" element={
         
           <div className="flex h-screen">
-            <div className="flex-none w-64 h-full bg-gray-800"> {/* Adjust width (w-64) and background color (bg-gray-800) as needed */}
+            <div className="flex-none w-64 bg-gray-900"> {/* Adjust width (w-64) and background color (bg-gray-800) as needed */}
               <Sidebar />
             </div>
-            <div className="flex-grow bg-gray-100"> {/* Adjust background color (bg-gray-100) as needed */}
+            <div className="flex-grow bg-gray-900"> {/* Adjust background color (bg-gray-100) as needed */}
               <Users />
             </div>
           </div>

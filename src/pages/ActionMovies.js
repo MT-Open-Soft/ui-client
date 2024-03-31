@@ -62,10 +62,10 @@ function ActionMovies() {
       {movies.length > 0 ? (
         <div className="bg-[#152238]">
           <div className="flex items-center space-x-10 px-8 py-4 ml-5 justify-between">
-            <h1 className="text-white text-3xl flex items-center ml-4">
-              Movies In&nbsp;{" "}
-              <span className="font-bold text-yellow-500">Action</span>
-            </h1>
+          <h1 className="text-white text-3xl flex items-center px-8 pd:pl-x">
+          Movies In&nbsp;{" "}
+          <span className="font-bold text-yellow-500">Action</span>
+        </h1>
             <Link
               to={`/${genre}`}
               className="text-white text-xl flex items-center pt-1"
