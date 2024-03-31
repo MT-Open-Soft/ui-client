@@ -68,7 +68,6 @@ function App() {
       
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/users" element={<Users />} />
-        <Route path="/pricing" element={<Pricing />} />
         <Route path='/player' element={<Player />} />
         <Route path="/movie/:id" element={<Preview />} />
 
