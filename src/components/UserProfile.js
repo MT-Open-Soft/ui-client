@@ -6,7 +6,7 @@ import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { set } from 'date-fns';
-
+import baseURL from './Config.js'
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
   switch (user_plan?.toLowerCase() || 'default') {
@@ -29,7 +29,7 @@ const SubscriptionBadge = ({ user_plan }) => {
 
 const ProfilePage = ({ userPassword, onPasswordChange }) => {
   var token = localStorage.getItem('token');
-  const apiURL = "http://localhost:8080/api/v1/user";
+  const apiURL = baseURL+"/user";
   const [userData, setUserData] = useState(null);
   const userDisplay = {
     src: '/default-avatar.png',
@@ -192,7 +192,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
             toast: true,
           })
           .then(function(){
-                window.location = "http://localhost:3000/";
+                window.location.href = "/";
           });
         }
       }

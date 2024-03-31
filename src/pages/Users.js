@@ -5,7 +5,7 @@ import { GoSearch } from "react-icons/go";
 // import { IoIosLock } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import axios from "axios";
-
+import baseURL from "../components/Config";
 const Catalog = () => {
   const [sortBy, setSortBy] = useState("date"); // Default sorting option
   const [showOptions, setShowOptions] = useState(false); // State to track if options should be shown
@@ -33,7 +33,7 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/admin/users", {
+    axios.get(baseURL+"/admin/users", {
       headers: {
         "Authorization": `Bearer ${token}`
       }

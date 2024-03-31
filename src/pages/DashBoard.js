@@ -4,7 +4,7 @@ import { LuEye } from "react-icons/lu";
 import { FaRegPlusSquare } from 'react-icons/fa';
 import { IoIosPeople } from 'react-icons/io';
 import { RiMovie2Fill } from "react-icons/ri";
-
+import baseURL from "../components/Config";
 const Dashboard = () => {
   const [latestMovies, setLatestMovies] = useState([]);
   const [latestUsers, setLatestUsers] = useState([]);
@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Fetch latest movies
-    axios.get('http://localhost:8080/api/v1/movies?page=1&pageSize=5')
+    axios.get(baseURL+'/movies?page=1&pageSize=5')
       .then(response => {
         setLatestMovies(response.data.movies);
       })
@@ -23,7 +23,7 @@ const Dashboard = () => {
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
-    axios.get('http://localhost:8080/api/v1/admin/users', config)
+    axios.get(baseURL+'/admin/users', config)
     
       .then(response => {
         setLatestUsers(response.data.slice(0, 5)); // Assuming the API returns an array and we take only the first 5
@@ -33,7 +33,7 @@ const Dashboard = () => {
     // Fetch subscription stats
     const subscriptions = ['GOLD', 'SILVER', 'FREE'];
     subscriptions.forEach(subscription => {
-      axios.get(`http://localhost:8080/api/v1/admin/users?subscription=${subscription}`, config)
+      axios.get(`${baseURL}/admin/users?subscription=${subscription}`, config)
         .then(response => {
           setSubscriptionStats(prevStats => ({
             ...prevStats,

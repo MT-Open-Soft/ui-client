@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-
-const apiURL ="http://localhost:8080/api/v1/search/suggestions";
+import baseURL from './Config.js'
+const apiURL =baseURL+"/search/suggestions";
 
 
 const Search = () => {

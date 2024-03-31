@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Card from '../pages/Card.js';
 import { SlArrowRightCircle, SlArrowLeftCircle } from 'react-icons/sl';
-
-const apiURL = "http://localhost:8080/api/v1/movies";
+import baseURL from './Config.js'
+const apiURL =baseURL+"/movies";
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center py-10">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>

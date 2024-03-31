@@ -11,7 +11,7 @@ import { CgPlayButtonO } from "react-icons/cg";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { FaStar } from "react-icons/fa";
-
+import baseURL from "../components/Config";
 const ActiveSlider = () => {
   const [serviceData, setServiceData] = useState([]);
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const ActiveSlider = () => {
     const fetchMovies = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/movies/toprated?type=movie`
+          `${baseURL}/movies/toprated?type=movie`
         );
         const movies = response.data.map((movie) => ({
           _id: movie._id,

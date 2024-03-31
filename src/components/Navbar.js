@@ -7,8 +7,8 @@ import SignIn from "./SignIn.js";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
 import logo from "../images/logo.png";
 import Swal from "sweetalert2";
-
-const apiURL = "http://localhost:8080/api/v1/search/suggestions"; 
+import baseURL from './Config.js'
+const apiURL = baseURL+"/search/suggestions"; 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -37,7 +37,7 @@ function Navbar() {
     })
     .then(function(){
       document.getElementById("overlay").style.display = "none";
-      window.location = "http://localhost:3000/";
+      window.location.href = "/";
     });
   };
 

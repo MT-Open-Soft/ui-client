@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BsArrowRightCircle, BsArrowLeftCircle } from 'react-icons/bs';
 import Card from "./Card";
-
 export default function Carousel({ movies }) {
     const [current, setCurrent] = useState(0);
 

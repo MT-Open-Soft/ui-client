@@ -4,7 +4,7 @@ import { GoSearch } from "react-icons/go";
 import { CiStar } from "react-icons/ci";
 import { FaLock, FaLockOpen } from "react-icons/fa";
 import axios from "axios";
-
+import baseURL from "../components/Config";
 const Catalog = () => {
   const [sortBy, setSortBy] = useState("year"); // Set default sorting by year
   const [showOptions, setShowOptions] = useState(false);
@@ -17,7 +17,7 @@ const Catalog = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/movies?page=${currentPage}&pageSize=${pageSize}`
+          `${baseURL}/movies?page=${currentPage}&pageSize=${pageSize}`
         );
         if (Array.isArray(response.data.movies)) {
           setCatalogData(response.data.movies);
@@ -85,7 +85,7 @@ const Catalog = () => {
         catalogData.map(async (movie) => {
           if (movie._id === item._id) {
             var token = localStorage.getItem("token");
-            await axios.put(`http://localhost:8080/api/v1/admin/movies/${item._id}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
+            await axios.put(`${baseURL}/admin/movies/${item._id}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
             console.log("movie.premium: ", movie.premium);
             const updatedMovie = { ...movie, premium: !movie.premium }; // Update premium status
             return updatedMovie;
@@ -105,7 +105,7 @@ const Catalog = () => {
     try {
       var token = localStorage.getItem("token");
       console.log("token: ", token);
-      const response = await axios.delete(`http://localhost:8080/api/v1/admin/movies/${id}`, { 
+      const response = await axios.delete(`${baseURL}/admin/movies/${id}`, { 
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (response.status !== 200) {

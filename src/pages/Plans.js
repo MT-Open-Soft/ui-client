@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from "react";
 import { GoCheck, GoX } from "react-icons/go";
 import axios from "axios";
 import Modal from "../components/Modal";
-
+import baseURL from "../components/Config";
 const loadScript = (src) => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -39,7 +39,7 @@ const Cards = () => {
       console.log("Token:", token);
 
       const response = await axios.post(
-        "http://localhost:8080/api/v1/subscribe/createorder",
+        baseURL+"/subscribe/createorder",
         {amount: amount, item_description: subscriptionName, item_name: "Test"},
         {
           headers:{"Authorization": `Bearer ${token}`},
@@ -64,7 +64,7 @@ const Cards = () => {
         }
 
         if (res) {
-          alert("Razorpay SDK loaded");
+          // alert("Razorpay SDK loaded");
           const razorpayOptions = {
             key: response.data.key_id,
             amount: response.data.amount,

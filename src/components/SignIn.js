@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import baseURL from './Config.js'
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +43,7 @@ function SignIn() {
     if (email && password && emailPattern.test(email)) {
 
       try {
-        const response = await axios.post('http://localhost:8080/api/v1/auth/signin', { email, password });
+        const response = await axios.post(baseURL+'/auth/signin', { email, password });
         if (response.status === 200) {
           console.log(response);
           localStorage.setItem('token', response.data.token);
@@ -66,10 +66,10 @@ function SignIn() {
           .then(function(){
             document.getElementById("overlay").style.display = "none";
             if(response.data.role === 'admin'){
-              window.location = "http://localhost:3000/admin";
+              window.location.href = "/admin";
 
             } else {
-            window.location = "http://localhost:3000/";
+            window.location.href = "/";
             }
           });
         }

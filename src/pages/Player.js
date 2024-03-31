@@ -6,7 +6,7 @@ import {
 import "@vidstack/react/player/styles/default/theme.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import './Player.css';
-
+import "../components/Config"
 function Player({onClose,title}) {
   const videoNames = ['test-video', 'harry_potter', 'spiderman'];
 
@@ -14,10 +14,11 @@ function Player({onClose,title}) {
     const randomIndex = Math.floor(Math.random() * videoNames.length);
     return videoNames[randomIndex];
   };
+  const playerURL="https://opensoft24-fyh8dyagdhcthnhc.z02.azurefd.net/opensoft"
 
   const subscription = localStorage.getItem('subscription'); 
   const videoName = getRandomVideoName(); 
-  const srcUrl = `https://opensoft24-fyh8dyagdhcthnhc.z02.azurefd.net/opensoft/${videoName}/${subscription}_playlist.m3u8`;
+  const srcUrl = `${playerURL}/${videoName}/${subscription}_playlist.m3u8`;
 
     return (
       <div className="modal_overlay">

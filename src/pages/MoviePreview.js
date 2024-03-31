@@ -4,7 +4,7 @@ import MovieDetail from './YoutubePlayer';
 import { useParams } from 'react-router-dom';
 import Player from './Player';
 import Swal from 'sweetalert2';
-
+import baseURL from "../components/Config";
 const Preview = () => {
   const [movie, setMovie] = useState([]);
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ const Preview = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/movies/${id}`, {
+        const response = await axios.get(`${baseURL}/movies/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

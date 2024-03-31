@@ -5,7 +5,8 @@ import { IoIosArrowForward } from "react-icons/io";
 //import Carousel from "./Carousel";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const apiURL = "http://localhost:8080/api/v1/movies";
+import baseURL from "../components/Config";
+const apiURL = baseURL+"/movies";
 
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center">
@@ -23,7 +24,7 @@ function ComedyMovies() {
         const num_response = 15;
 
         const response = await axios.get(
-          `http://localhost:8080/api/v1/movies?page=1&pageSize=${num_response}&genres=${genre}`
+          `${baseURL}/movies?page=1&pageSize=${num_response}&genres=${genre}`
         );
         console.log(response.data);
         setData(response.data.movies); // Assuming the response has a 'movies' property containing the movie data

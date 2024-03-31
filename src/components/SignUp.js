@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import baseURL from './Config.js'
 function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -53,7 +53,7 @@ function SignUp() {
     try{
 
       console.log(username,email,password)
-      const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
+      const response = await axios.post(baseURL+'/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('name', response.data.name);
@@ -69,7 +69,7 @@ function SignUp() {
       })
       .then(function(){
         document.getElementById("overlay").style.display = "none";
-        window.location = "http://localhost:3000/";
+        window.location.href = "/";
     });
     }catch (err) {
       const mssg = err.response.status;

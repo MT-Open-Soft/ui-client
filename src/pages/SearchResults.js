@@ -3,7 +3,7 @@ import axios from 'axios';
 import Card from './Card';
 import { useParams } from 'react-router-dom';
 import { SlArrowLeftCircle, SlArrowRightCircle } from 'react-icons/sl';
-
+import baseURL from "../components/Config";
 const SearchResultsPage = () => {
     const [results, setResults] = useState([]);
     const { query } = useParams();
@@ -17,7 +17,7 @@ const SearchResultsPage = () => {
     });
 
     const fetchResults = useCallback(() => {
-        const apiURL = `http://localhost:8080/api/v1/search?query=${query}`;
+        const apiURL = `${baseURL}/search?query=${query}`;
         axios.get(apiURL)
             .then((res) => {
                 setResults(res.data);

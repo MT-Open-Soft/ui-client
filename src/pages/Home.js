@@ -8,10 +8,11 @@ import Language from "../components/Language";
 import ActionMovies from "./ActionMovies";
 import ComedyMovies from "./ComedyMovies";
 import RomanceMovies from "./RomanceMovies";
+import baseURL from "../components/Config";
 function Home() {
 
   var token = localStorage.getItem('token');
-  const apiURL = "http://localhost:8080/api/v1/user";  
+  const apiURL = baseURL+"/user";  
  
   useEffect(() => {
     const getUserData = async () => {
@@ -42,8 +43,8 @@ function Home() {
   return (
     <div className="bg-[#152238]">
       <Search/>
-      <ActiveSlider/>
-      <ActionMovies/>
+      <ActiveSlider />
+      <ActionMovies />
       <ComedyMovies />
       <RomanceMovies />
 
