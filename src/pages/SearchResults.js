@@ -49,6 +49,7 @@ const SearchResultsPage = () => {
         const startIndex = scrollIndexes[highlight];
         const endIndex = startIndex + visibleCount;
         const visibleMovies = filteredMovies.slice(startIndex, endIndex);
+        
 
         const handlePrev = () => {
             setScrollIndexes(prevIndexes => ({
@@ -65,12 +66,14 @@ const SearchResultsPage = () => {
         };
 
         return (
-            <div className="bg-[#131720] mt-8">
+            <div className="bg-[#131720] mt-8 h-[100vh]" >
                 <h2 className="text-white text-2xl font-bold mb-4">Movies Based on {highlight.charAt(0).toUpperCase() + highlight.slice(1)}</h2>
                 <div className="flex space-x-4 overflow-x-auto justify-start items-center">
+                {filteredMovies.length > 5 && (
                     <button onClick={handlePrev} disabled={startIndex === 0} className="text-white">
                         <SlArrowLeftCircle />
                     </button>
+                )}
                     {visibleMovies.map((movie) => (
                         <Card
                             id={movie._id}
@@ -81,9 +84,11 @@ const SearchResultsPage = () => {
                             search="yes"
                         />
                     ))}
+                    {filteredMovies.length > 5 && (
                     <button onClick={handleNext} disabled={endIndex >= filteredMovies.length} className="text-white">
                         <SlArrowRightCircle />
                     </button>
+                )}
                 </div>
             </div>
         );

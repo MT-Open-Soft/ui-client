@@ -43,7 +43,7 @@ const MovieDetail = ({ movie }) => {
   return (
     <div className={`relative bg-black text-white flex flex-col min-h-screen justify-end`}
       style={{
-        backgroundImage: `url('${movie.thumbnail}')`,
+        backgroundImage: movie.thumbnail ? `url('${movie.thumbnail}')` : "url('https://image.tmdb.org/t/p/w1280/hLFoDZVgZFwxUz7SVJqYSo38QX8.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}>

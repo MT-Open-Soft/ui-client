@@ -37,12 +37,14 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
       >
         <div className="w-210px h-388px rounded-2xl overflow-hidden relative group">
           <img
-            src={image || "https://image.tmdb.org/t/p/w1280/hLFoDZVgZFwxUz7SVJqYSo38QX8.jpg"}
+            src={image || "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg"
+          }
             alt={title}
             className="w-full h-3/4 rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm pb-2"
           />
 
           <div className="transition-all transform duration-500 translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 absolute inset-0 flex items-center justify-center">
+            
             <div className="p-2">
               <IoPlayCircleOutline className="text-white text-6xl" />
             </div>
@@ -61,7 +63,7 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
           <div className="text-white text-bold text-lg mb-2">
             {" "}
             {title.split(" ").length > 4
-              ? title.split(" ").slice(0, 4).join(" ") + "  .."
+              ? title.split(" ").slice(0, 3).join(" ") + "  .."
               : title}
           </div>
           {search === "no" && (
