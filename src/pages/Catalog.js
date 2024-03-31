@@ -81,25 +81,45 @@ const Catalog = () => {
 
   const handleLockToggle = async (item) => {
     try {
-      const updatedCatalogData = catalogData.map((movie) => {
-        if (movie._id === item._id) {
-          const updatedMovie = { ...movie, premium: !movie.premium };
-          return updatedMovie;
-        }
-        return movie;
-      });
+      const updatedCatalogData = await Promise.all(
+        catalogData.map(async (movie) => {
+          if (movie._id === item._id) {
+            var token = localStorage.getItem("token");
+            await axios.put(`http://localhost:8080/api/v1/admin/movies/${item._id}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
+            console.log("movie.premium: ", movie.premium);
+            const updatedMovie = { ...movie, premium: !movie.premium }; // Update premium status
+            return updatedMovie;
+          }
+          return movie;
+        })
+      );
       setCatalogData(updatedCatalogData);
 
     } catch (error) {
       console.error("Error toggling premium status:", error);
     }
   };
+  
 
-  const handleDelete = (id) => {
-    const updatedCatalogData = catalogData.filter((item) => item._id !== id);
-    setCatalogData(updatedCatalogData);
+  const handleDelete = async (id) => {
+    try {
+      var token = localStorage.getItem("token");
+      console.log("token: ", token);
+      const response = await axios.delete(`http://localhost:8080/api/v1/admin/movies/${id}`, { 
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      if (response.status !== 200) {
+        console.error("Error deleting movie:", response.data.error);
+        alert("Error deleting movie");
+        return;
+      }
+      const updatedCatalogData = catalogData.filter((item) => item._id !== id);
+      setCatalogData(updatedCatalogData);
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+      alert("Error deleting movie");
+    }
   };
-
   return (
     <div className="bg-[#131720] text-white relative py-2">
       <div className="flex justify-between items-center px-6 py-4">
@@ -161,7 +181,9 @@ const Catalog = () => {
         </div>
         {(searchQuery.trim() !== "" ? searchResults : catalogData).map((item) => (
           <div key={item.id} className="grid grid-cols-7 bg-[#151f30] rounded-lg p-4 my-4">
-            <div className="ml-4">{item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+            {item.type && (
+              <div className="ml-4">{item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+            )}
             <div className="col-span-2">{item.title}</div>
             <div className="flex items-center">
               <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} /> {item.imdbRating}

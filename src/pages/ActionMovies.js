@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 //import Carousel from "./Carousel";
+import axios from 'axios';
 import { IoIosArrowForward } from "react-icons/io";
-import axios from "axios";
 import { Link } from "react-router-dom";
-const apiURL = "http://localhost:8080/api/v1/movies";
+const apiURL="http://localhost:8080/api/v1/movies"
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
+
+
 
 function ActionMovies() {
   const [movies, setData] = useState([]);
@@ -31,13 +39,12 @@ function ActionMovies() {
   const [startIndex, setStartIndex] = useState(0);
   //
   const handleNext = () => {
-    const newIndex = (startIndex + 6) % movies.length;
-    setStartIndex(newIndex);
+
+    setStartIndex((prevIndex) => (prevIndex + 1) % movies.length);
   };
 
   const handlePrev = () => {
-    const newIndex = (startIndex - 6 + movies.length) % movies.length;
-    setStartIndex(newIndex);
+    setStartIndex((prevIndex) => (prevIndex - 1 + movies.length ) % (movies.length ));
   };
 
   const visibleMovies = [
@@ -49,12 +56,13 @@ function ActionMovies() {
   ];
 
   return (
+
     <div>
       {/* {handleSearch} */}
       {movies.length > 0 ? (
         <div className="bg-[#152238]">
           <div className="flex items-center space-x-10 px-8 py-4 ml-5 justify-between">
-            <h1 className="text-white text-3xl flex items-center">
+            <h1 className="text-white text-3xl flex items-center ml-4">
               Movies In&nbsp;{" "}
               <span className="font-bold text-yellow-500">Action</span>
             </h1>
@@ -75,14 +83,13 @@ function ActionMovies() {
           >
             <button
               onClick={handlePrev}
-              disabled={startIndex === 0}
               className="text-white text-2xl"
             >
               <SlArrowLeftCircle />
             </button>
             {visibleMovies.map((card) => (
               <Card
-                key={card.id}
+                id={card._id}
                 image={card.poster}
                 title={card.title}
                 rating={card.imdbRating}
@@ -92,15 +99,15 @@ function ActionMovies() {
             ))}
             <button
               onClick={handleNext}
-              disabled={startIndex >= movies.length - 6}
               className="text-white text-2xl"
             >
               <SlArrowRightCircle />
             </button>
           </div>
         </div>
-      ) : (
-        <h1>Loading...</h1>
+       ) : (
+        <LoadingSpinner />
+
       )}
     </div>
   );

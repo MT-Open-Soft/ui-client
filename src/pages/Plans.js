@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { GoCheck, GoX } from "react-icons/go";
 import axios from "axios";
 import Modal from "../components/Modal";
@@ -20,7 +20,14 @@ const loadScript = (src) => {
 const Cards = () => {
   const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] = useState(false);
   const [subscriptionName, setSubscriptionName] = useState("");
+  const [plan,setPlan]=useState('FREE')
   let token = localStorage.getItem("token");
+  useEffect(() =>  {
+    const subscription=localStorage.getItem('subscription');
+    setPlan(subscription);
+    console.log("Subscription:",subscription);
+  
+  }, []);
   console.log("Token:", token);
   const handleButtonClick = async (amount, subscriptionName) => {
     console.log("Selected Subscription ID:", amount);
@@ -189,12 +196,18 @@ const Cards = () => {
               <p className="text-white mt-4 ml-2">/month</p>{" "}
               {/* Add ml-2 to create space */}
             </div>
+            {(plan==='FREE')  || (plan=='SILVER')? 
+
             <button
               onClick={() => handleButtonClick(19999, "GOLD")}
               className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[2px] my-[25px]"
             >
               SELECT PLAN
-            </button>
+            </button>:(<button className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[2px] mt-2"
+             disabled
+             >
+                SUBSCRIBED
+                </button>)}
           </div>
         </div>
 
@@ -226,14 +239,18 @@ const Cards = () => {
                 {/* Add ml-2 to create space */}
               </div>
 
-              <button
+              {(plan==='FREE')  || (plan=='GOLD')? <button
                 onClick={() => handleButtonClick(9999, "SILVER")}
                 className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[2px] mt-2"
               >
                 {" "}
                 {/* Adjust mt-4 for margin-top */}
                 SELECT PLAN
-              </button>
+              </button>:(<button className="w-3/4 h-[50px] bg-black text-white p-1 rounded-lg transition-colors duration-300 ease-in-out hover:bg-white hover:text-slate-800 ml-[2px] mt-2"
+             disabled
+             >
+                SUBSCRIBED
+                </button>)}
             </div>
           </div>
           <Modal

@@ -1,13 +1,9 @@
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
 import React from "react";
-//import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
-// import Movies from './pages/Movies';
 import Plans from './pages/Plans';
-import Subs from './pages/Subs';
-// import './App.css';
 import Footer from './components/Footer';
 import MoviePreview from './pages/MoviePreview';
 import Search from './components/Search';
@@ -20,13 +16,12 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import SearchResults from './pages/SearchResults';
 import Preview from './pages/MoviePreview';
-import Pricing from './pages/Pricing';
-import VideoBitrate from './pages/VideoBitrate';
 import LanguageMovies from './components/LanguageMovies';
 import GenreMovies from './components/GenreMovies';
 import Player from './pages/Player';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/DashBoard.js';
+
 
 function App() {
   return (
@@ -34,9 +29,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/movies" element={<Movies />} />   */}
         <Route path="/plans" element={<Plans />} />
-        <Route path="/subs" element={<Subs />} />
         <Route path="/video" element={<Video />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/streaming" element={<MoviePreview />} />
@@ -44,9 +37,7 @@ function App() {
         <Route path="/:genre" element={<GenreMovies />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-
         <Route path="/search-results/:query" element={<SearchResults />} />
-
         <Route path="/modal" element={<Modal />} />
         <Route path="/admin" element={
           <div className="flex h-screen bg-gray-100">
@@ -75,14 +66,12 @@ function App() {
           </div>
         } />
       
-          
-   
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/users" element={<Users />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path='/player' element={<Player />} />
-        <Route path="/vidbit" element={<VideoBitrate />} />
         <Route path="/movie/:id" element={<Preview />} />
+
 
       </Routes>
       <Footer />

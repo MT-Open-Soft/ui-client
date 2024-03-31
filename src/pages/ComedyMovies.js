@@ -7,6 +7,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 const apiURL = "http://localhost:8080/api/v1/movies";
 
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+    <div className="ml-3 text-white">Loading...</div>
+  </div>
+);
 function ComedyMovies() {
   const [movies, setData] = useState([]);
   const genre = "Comedy";
@@ -32,13 +38,12 @@ function ComedyMovies() {
   const [startIndex, setStartIndex] = useState(0);
   //
   const handleNext = () => {
-    const newIndex = (startIndex + 6) % movies.length;
-    setStartIndex(newIndex);
+
+    setStartIndex((prevIndex) => (prevIndex + 1) % movies.length);
   };
 
   const handlePrev = () => {
-    const newIndex = (startIndex - 6 + movies.length) % movies.length;
-    setStartIndex(newIndex);
+    setStartIndex((prevIndex) => (prevIndex - 1 + movies.length ) % (movies.length ));
   };
 
   const visibleMovies = [
@@ -50,6 +55,7 @@ function ComedyMovies() {
   ];
 
   return (
+
     <div>
       {/* {handleSearch} */}
       {movies.length > 0 ? (
@@ -76,7 +82,6 @@ function ComedyMovies() {
           >
             <button
               onClick={handlePrev}
-              disabled={startIndex === 0}
               className="text-white text-2xl"
             >
               <SlArrowLeftCircle />
@@ -97,15 +102,15 @@ function ComedyMovies() {
             ))}
             <button
               onClick={handleNext}
-              disabled={startIndex >= movies.length - 6}
               className="text-white text-2xl"
             >
               <SlArrowRightCircle />
             </button>
           </div>
         </div>
-      ) : (
-        <h1>Loading...</h1>
+       ) : (
+        <LoadingSpinner />
+
       )}
     </div>
   );

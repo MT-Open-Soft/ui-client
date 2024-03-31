@@ -4,13 +4,8 @@ import { FaEnvelope } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
-// import MuiAlert from "@material-ui/lab/Alert";
- 
-// function Alert(props) {
-//     return <MuiAlert elevation={6}
-//         variant="filled" {...props} />;
-// }
-// Alert();
+import Swal from 'sweetalert2';
+import { set } from 'date-fns';
 
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
@@ -84,7 +79,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
-  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
 
   const handleToggleOldPassword = () => {
         setOldShowPassword((prevOldShowPassword) => !prevOldShowPassword);
@@ -128,7 +123,8 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           setEmptyFieldError(false);
         }
       }
-    
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
       const handleSubmit = async(e) => {
         e.preventDefault();
         if(!oldPassword || !newPassword || !confirmNewPassword) {
@@ -136,6 +132,11 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           console.log('Please fill in all fields');
           return;
         }
+        else if (!strongPasswordPattern.test(newPassword)) {
+            setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character');
+            return; // Stop execution if password is not strong
+          }
+        
         console.log("token",token)
     
         const result = await axios
@@ -172,16 +173,33 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           })
           .catch((e) => {
             console.error(e)
-            setDeleteError(true);
             setError(e.response.data.error.message);
+            Swal.fire({
+              icon: 'success',
+              title: 'Cannot Delete Account!',
+              text: e.response.data.error.message,
+              toast: true,
+              allowEscapeKey: false,
+              allowOutsideClick: false,
+            })
           });
           
         if(result) {
-          setDeleteSuccess(false);
           localStorage.removeItem('token');
-          window.location.href = '/';
+          Swal.fire({
+            icon: 'success',
+            title: 'Account Deleted Successfully!',
+            toast: true,
+          })
+          .then(function(){
+                window.location = "http://localhost:3000/";
+          });
         }
       }
+
+    const handleRedirect = () => {
+      setIsEditing(false);
+    }
 
   return (
     <div className="relative flex flex-col items-center min-h-screen bg-[#152238]" style={{
@@ -193,7 +211,9 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
       backgroundPosition: 'center',
       zIndex: 1
     }}>
-      {/* <Alert severity="success" style={{}} >Sample Success Message</Alert> */}
+      <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
+        display: "none"
+      }}></div>
       <div className="bg-[#091121] p-5 rounded-lg shadow-md mb-5 mt-16 w-[500px] h-auto z-50 box-border border-2 border-yellow-600">
         <img
           src={userDisplay.src}
@@ -213,12 +233,12 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
             {isEditing ? (<></>) 
             : (
               <div>
-                <div className='flex flex-row mx-auto justify-around'>
+                <div className='flex justify-center mb-4'>
                   <div>
                     <button
                       type="button"
                       onClick={() => setIsEditing(true)}
-                      className="bg-[#152238] text-white px-4 py-2 rounded mt-4 mx-5"
+                      className="bg-[#152238] text-white px-4 py-2 rounded mt-4 mx-5 text-sm"
                     >
                     Edit Password
                     </button>
@@ -227,14 +247,13 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                     <button
                       type="button"
                       onClick={handleDeleteAccount}
-                      className="bg-red-500 text-white px-4 py-2 rounded mt-4 mx-5"
+                      className="bg-red-500 text-white px-4 py-2 rounded mt-4 mx-5 text-sm"
                     >
                     Delete Account
                     </button>
                   </div>
                 </div> 
                 {success && <div className='text-green-500 text-xs italic text-center my-4'>Password changed successfully</div>}
-                  {deleteSuccess && <div className='text-green-500 text-xs italic text-center my-4'>Account deleted successfully</div>}
               </div>
             )}
           </div>
@@ -253,6 +272,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   required
                   onChange={handleOldPasswordChange}
                 />
+
                 <button
                     type="button"
                     onClick={() => {
@@ -274,6 +294,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   alert="Please enter your new password"
                   onChange={handleNewPasswordChange}
                 />
+
                 <button
                     type="button"
                     onClick={() => {
@@ -283,7 +304,10 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   >
                     {showNewPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
+
               </div>
+              {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
+
               <div className='flex'>
                 <input
                   id="confirm_new_password"
@@ -311,9 +335,22 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
               {isError && <div className='text-red-500 text-xs italic'>{error}</div>}
               {isError && <div className='text-red-500 text-xs italic'>{updatePasswordError}</div>}
               {deleteError && <div className='text-red-500 text-xs italic'>{error}</div>}
-              <button id='submit' disabled={!passwordMatch && true} onClick={handleSubmit} className="bg-gray-800 text-slate-200 hover:bg-[#152238] hover:text-white px-4 py-2 rounded mt-4">
+              <div className='flex'>
+              <button 
+                id='submit' 
+                disabled={!passwordMatch && true} 
+                onClick={handleSubmit} 
+                className="bg-gray-800 text-slate-200 hover:bg-[#152238] hover:text-white px-4 py-2 rounded mt-4 text-sm">
                 Save Changes
               </button>
+              <button
+                type="button"
+                onClick={handleRedirect}
+                className="bg-red-500 text-white px-4 py-2 rounded mt-4 mx-5 text-sm"
+              >
+              Cancel
+              </button>
+              </div>
             </div>
           )}
           
