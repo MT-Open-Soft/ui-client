@@ -94,6 +94,7 @@ const Catalog = () => {
         })
       );
       setCatalogData(updatedCatalogData);
+
     } catch (error) {
       console.error("Error toggling premium status:", error);
     }

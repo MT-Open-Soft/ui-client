@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // import { CgTrashEmpty } from "react-icons/cg";
 // import { IoPencil } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
@@ -10,6 +10,7 @@ const Catalog = () => {
   const [sortBy, setSortBy] = useState("date"); // Default sorting option
   const [showOptions, setShowOptions] = useState(false); // State to track if options should be shown
   const [catalogData, setCatalogData] = useState([]);
+  const token = localStorage.getItem('token');
 
   const handleSortBy = (option) => {
     if (option === "pricing plan") {
@@ -32,14 +33,14 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY2MDIxNjc3ZmY1NDNmMjgxYTNkMTlkMyIsIm5hbWUiOiJUZXN0IFVzZXIiLCJwYXNzd29yZCI6IiQyYiQwOCRNb3BtekdGbW8zNm52V0lkZzZXcUJPSnNaa3RtcXZkc08uc1cuaDVZbUFoaFNhSWJGNDNjdSIsImVtYWlsaWQiOiJhYmNAdGVzdC5jb20iLCJyb2xlIjoiYWRtaW4iLCJzdWJzY3JpcHRpb25pZCI6MCwiX192IjowfSwiaWF0IjoxNzExNTMzNzI4fQ.m7RDxgziAIJvuwLdXqBfsPFDI79Qnd8avA2JDehUvh0';
     axios.get("http://localhost:8080/api/v1/admin/users", {
       headers: {
-        "Authorization": `Bearer ${token}`}
+        "Authorization": `Bearer ${token}`
+      }
     })
       .then((response) => {
-        console.log("Response:", response.data); 
-        setCatalogData(response.data); 
+        console.log("Response:", response.data);
+        setCatalogData(response.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -124,12 +125,9 @@ const Catalog = () => {
   };
 
   return (
-    <div className="bg-[#212529] text-white relative">
+    <div className="bg-[#131720] text-white relative py-2">
       <div className="flex justify-between items-center px-6 py-4">
-        <h1
-          className="text-3xl font-bold"
-          style={{ fontFamily: "Rubik, sans-serif" }}
-        >
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "Rubik, sans-serif" }}>
           Users
         </h1>
         <div className="relative">
@@ -141,8 +139,8 @@ const Catalog = () => {
             {sortBy === "date"
               ? "Date"
               : sortBy === "pricing plan"
-              ? "Pricing plan"
-              : "Status"}
+                ? "Pricing plan"
+                : "Status"}
           </button>
           {showOptions && (
             <div className="absolute mt-2 right-0">

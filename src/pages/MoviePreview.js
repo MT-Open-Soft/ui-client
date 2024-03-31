@@ -10,20 +10,11 @@ const Preview = () => {
   const [error, setError] = useState('');
   const [playVideo, setPlayVideo] = useState(false);
   const { id } = useParams();
+  const token = localStorage.getItem('token');
+  const subscription = localStorage.getItem('subscription');
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'You must be logged in to view this content.',
-          toast: true
-        });
-        return;
-      }
-
       try {
         const response = await axios.get(`http://localhost:8080/api/v1/movies/${id}`, {
           headers: {
@@ -43,14 +34,22 @@ const Preview = () => {
       }
     };
     fetchMovie();
-  }, [id]);
+  }, [id,token]);
 
   if (error) {
     return <div>{error}</div>;
   }
   const handlePlayVideo = (shouldPlay) => {
-    // Check if movie is premium and not purchased
-    if (movie.premium && !movie.isPurchased) {
+    if(!token) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...You must be logged in to view this content',
+        toast: true,
+        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
+      });
+      return;
+    }
+    if (movie.premium && !subscription) {
       Swal.fire({
         icon: 'warning',
         title: 'Premium Content',
@@ -68,6 +67,7 @@ const Preview = () => {
       <Player
         onClose={() => setPlayVideo(false)}
         title={movie.title}
+        premium={movie.premium}
       />
     );
   }
@@ -79,3 +79,4 @@ const Preview = () => {
 };
 
 export default Preview;
+

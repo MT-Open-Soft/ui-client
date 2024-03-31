@@ -40,22 +40,9 @@ const ActiveSlider = () => {
 
     fetchMovies();
   }, []);
-  const token = localStorage.getItem('token');
 
   const handleNavigate = (id) => {
-    if (token) {
     navigate(`/movie/${id}`);
-    }
-    else
-    {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...You must be logged in to view this content',
-        toast: true,
-        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
-      });
-      return;
-    }
   };
 
   return (

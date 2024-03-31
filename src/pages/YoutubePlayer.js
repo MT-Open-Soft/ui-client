@@ -7,10 +7,20 @@ import Swal from 'sweetalert2';
 
 
 const MovieDetail = ({ movie }) => {
+  const token = localStorage.getItem('token');
 
   const [isPlayerVisible, setIsPlayerVisible] = useState(false);
 
   const handlePlayVideo = () => {
+    if (!token) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...You must be logged in to view this content',
+        toast: true,
+        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
+      });
+      return;
+    }
     if (movie.premium && !movie.isPurchased) {
       Swal.fire({
         icon: 'warning',
@@ -27,6 +37,7 @@ const MovieDetail = ({ movie }) => {
   const handleCloseVideo = () => {
     setIsPlayerVisible(false); // Hide player
   };
+
 
   return (
     <div className={`relative bg-black text-white flex flex-col min-h-screen justify-end`}

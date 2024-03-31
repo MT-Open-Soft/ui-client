@@ -12,18 +12,7 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
   const token = localStorage.getItem('token');
   
   const handleClick = () => {
-    if(token){
     navigate(`/movie/${id}`); 
-    }
-    else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...You must be logged in to view this content',
-        toast: true,
-        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
-      });
-      return;
-    }
   };
 
   const renderModalContent = () => (
@@ -47,7 +36,7 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
       >
         <div className="w-210px h-388px rounded-2xl overflow-hidden relative group">
           <img
-            src={image}
+            src={image || "https://image.tmdb.org/t/p/w1280/hLFoDZVgZFwxUz7SVJqYSo38QX8.jpg"}
             alt={title}
             className="w-full h-3/4 rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm pb-2"
           />

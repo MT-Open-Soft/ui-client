@@ -58,6 +58,7 @@ function SignUp() {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('name', response.data.name);
       localStorage.setItem('subscription', response.data.subscription);
+
       localStorage.setItem('role', response.data.role);
 
       document.getElementById("overlay").style.display = "block";

@@ -8,6 +8,17 @@ import "@vidstack/react/player/styles/default/layouts/video.css";
 import './Player.css';
 
 function Player({onClose,title}) {
+  const videoNames = ['test-video', 'harry_potter', 'spiderman'];
+
+  const getRandomVideoName = () => {
+    const randomIndex = Math.floor(Math.random() * videoNames.length);
+    return videoNames[randomIndex];
+  };
+
+  const subscription = localStorage.getItem('subscription'); 
+  const videoName = getRandomVideoName(); 
+  const srcUrl = `https://opensoft24-fyh8dyagdhcthnhc.z02.azurefd.net/opensoft/${videoName}/${subscription}_playlist.m3u8`;
+
     return (
       <div className="modal_overlay">
         <div className="modal">
@@ -16,7 +27,7 @@ function Player({onClose,title}) {
             <div className="video">
               <MediaPlayer
                 title= {title}
-                src="https://opensoft24-fyh8dyagdhcthnhc.z02.azurefd.net/opensoft/spiderman/GOLD_playlist.m3u8"
+                src={srcUrl}
                 autoPlay={true}
               >
                 <MediaProvider />
