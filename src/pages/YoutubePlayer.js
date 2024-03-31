@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 
 const MovieDetail = ({ movie }) => {
   const token = localStorage.getItem('token');
+  const subscription = localStorage.getItem('subscription');
 
   const [isPlayerVisible, setIsPlayerVisible] = useState(false);
 
@@ -21,7 +22,7 @@ const MovieDetail = ({ movie }) => {
       });
       return;
     }
-    if (movie.premium && !movie.isPurchased) {
+    if (movie.premium && subscription === 'FREE') {
       Swal.fire({
         icon: 'warning',
         title: 'Premium Content',

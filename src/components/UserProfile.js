@@ -4,9 +4,11 @@ import { FaEnvelope } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { FaGem, FaStar, FaCircle } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { set } from 'date-fns';
 import baseURL from './Config.js'
+
 const SubscriptionBadge = ({ user_plan }) => {
   let icon = null;
   switch (user_plan?.toLowerCase() || 'default') {
@@ -82,6 +84,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
   const [passwordError, setPasswordError] = useState('');
 
   const handleToggleOldPassword = () => {
+
         setOldShowPassword((prevOldShowPassword) => !prevOldShowPassword);
       };
       const handleToggleNewPassword = () => {
@@ -95,6 +98,8 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
         setOldPassword(e.target.value);
         isEmptyField();        
       };
+
+      const navigate = useNavigate();
 
       const handleNewPasswordChange = (e) => {
         setNewPassword(e.target.value);
@@ -201,6 +206,10 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
       setIsEditing(false);
     }
 
+    const handleClose = () => {
+      navigate(`/`);
+    };
+
   return (
     <div className="relative flex flex-col items-center min-h-screen bg-[#152238]" style={{
       position: 'relative',
@@ -211,6 +220,11 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
       backgroundPosition: 'center',
       zIndex: 1
     }}>
+      <button 
+      onClick={handleClose} 
+      className="absolute top-5 right-5 text-white text-2xl">
+        X
+    </button>
       <div id="overlay" className="fixed top-0 left-0 w-[100%] h-[100%] bg-transparent z-50" style={{
         display: "none"
       }}></div>

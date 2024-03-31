@@ -13,6 +13,7 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
   
   const handleClick = () => {
     navigate(`/movie/${id}`); 
+    window.scrollTo(0, 0); 
   };
 
   const renderModalContent = () => (
@@ -59,8 +60,8 @@ const Card = ({ id, image, title, rating, year, status, directors, cast, search 
     
           <div className="text-white text-bold text-lg mb-2">
             {" "}
-            {title.split(" ").length > 3
-              ? title.split(" ").slice(0, 3).join(" ") + "  .."
+            {title.split(" ").length > 4
+              ? title.split(" ").slice(0, 4).join(" ") + "  .."
               : title}
           </div>
           {search === "no" && (

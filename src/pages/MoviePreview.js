@@ -49,7 +49,7 @@ const Preview = () => {
       });
       return;
     }
-    if (movie.premium && !subscription) {
+    if (movie.premium && subscription === 'FREE') {
       Swal.fire({
         icon: 'warning',
         title: 'Premium Content',
