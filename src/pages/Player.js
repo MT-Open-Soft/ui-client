@@ -8,7 +8,7 @@ import "@vidstack/react/player/styles/default/layouts/video.css";
 import './Player.css';
 import "../components/Config"
 function Player({onClose,title}) {
-  const videoNames = ['test-video', 'harry_potter', 'spiderman'];
+  const videoNames = ['harry_potter', 'spiderman'];
 
   const getRandomVideoName = () => {
     const randomIndex = Math.floor(Math.random() * videoNames.length);
