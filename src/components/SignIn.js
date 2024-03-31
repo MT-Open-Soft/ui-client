@@ -125,7 +125,7 @@ function SignIn() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <h2 className="text-2xl font-bold mb-6">FLIX TV</h2>
+            <h2 className="text-2xl font-bold mb-6">Login</h2>
 
             <div className="mb-6 mt-10 text-white">
               <label className="block text-white text-sm font-bold mb-2" htmlFor="email">

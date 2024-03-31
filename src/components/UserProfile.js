@@ -79,6 +79,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
 
   const handleToggleOldPassword = () => {
         setOldShowPassword((prevOldShowPassword) => !prevOldShowPassword);
@@ -122,7 +123,8 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           setEmptyFieldError(false);
         }
       }
-    
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
       const handleSubmit = async(e) => {
         e.preventDefault();
         if(!oldPassword || !newPassword || !confirmNewPassword) {
@@ -130,6 +132,11 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
           console.log('Please fill in all fields');
           return;
         }
+        else if (!strongPasswordPattern.test(newPassword)) {
+            setPasswordError('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character');
+            return; // Stop execution if password is not strong
+          }
+        
         console.log("token",token)
     
         const result = await axios
@@ -265,6 +272,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   required
                   onChange={handleOldPasswordChange}
                 />
+
                 <button
                     type="button"
                     onClick={() => {
@@ -286,6 +294,7 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   alert="Please enter your new password"
                   onChange={handleNewPasswordChange}
                 />
+
                 <button
                     type="button"
                     onClick={() => {
@@ -295,7 +304,10 @@ const ProfilePage = ({ userPassword, onPasswordChange }) => {
                   >
                     {showNewPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
+
               </div>
+              {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
+
               <div className='flex'>
                 <input
                   id="confirm_new_password"
