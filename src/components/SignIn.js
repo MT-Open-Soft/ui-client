@@ -50,6 +50,8 @@ function SignIn() {
         if (response.status === 200) {
           console.log(response);
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('name', response.data.name);
+          localStorage.setItem('subscription', response.data.subscription);
         }
 
         setIsLoggedIn(true);

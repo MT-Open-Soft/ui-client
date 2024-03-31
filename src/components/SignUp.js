@@ -54,6 +54,8 @@ function SignUp() {
       const response = await axios.post('http://localhost:8080/api/v1/auth/signup', { "name": username, "email": email, "password": password });
       console.log(response)
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('name', response.data.name);
+      localStorage.setItem('subscription', response.data.subscription);
       Swal.fire({
         icon: 'success',
         title: 'Signup Successful!',

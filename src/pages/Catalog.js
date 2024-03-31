@@ -53,7 +53,7 @@ const Catalog = () => {
     setSortBy(option);
     setShowOptions(false);
   };
-  
+
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
@@ -89,7 +89,7 @@ const Catalog = () => {
         return movie;
       });
       setCatalogData(updatedCatalogData);
-      
+
     } catch (error) {
       console.error("Error toggling premium status:", error);
     }
@@ -106,17 +106,17 @@ const Catalog = () => {
         <h1 className="text-3xl font-bold" style={{ fontFamily: "Rubik, sans-serif" }}>
           Catalog
         </h1>
-        
+
         <div className="relative">
           <span className="text-sm text-white mr-2">Sort By:</span>
           <button className="text-sm text-white hover:text-gray-300" onClick={toggleOptions}>
             {sortBy === "date"
               ? "Date"
               : sortBy === "rating"
-              ? "Rating"
-              : sortBy === "runtime"
-              ? "Runtime"
-              : "Year"}
+                ? "Rating"
+                : sortBy === "runtime"
+                  ? "Runtime"
+                  : "Year"}
           </button>
           {showOptions && (
             <div className="absolute mt-2 right-0">
@@ -164,23 +164,22 @@ const Catalog = () => {
             <div className="ml-4">{item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
             <div className="col-span-2">{item.title}</div>
             <div className="flex items-center">
-              <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} /> {item.imdbRating} 
+              <CiStar style={{ color: "#2f80ed", marginRight: "10px" }} /> {item.imdbRating}
             </div>
             <div>{item.releaseYear}</div>
             <div>{item.runtimeInMinutes} m</div>
             <div style={{ verticalAlign: "middle" }}>
               {item.premium ? (
-                <FaLock style={{color: "green", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{color: "red", cursor: "pointer", display: "inline-block",}} onClick={() => handleLockToggle(item)}/>)}
-              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }} onClick={() => handleDelete(item._id)}/>
+                <FaLock style={{ color: "green", cursor: "pointer", display: "inline-block", }} onClick={() => handleLockToggle(item)} />) : (<FaLockOpen style={{ color: "red", cursor: "pointer", display: "inline-block", }} onClick={() => handleLockToggle(item)} />)}
+              <CgTrashEmpty style={{ color: "red", cursor: "pointer", display: "inline-block", marginLeft: "25px", }} onClick={() => handleDelete(item._id)} />
             </div>
           </div>
         ))}
         <div className="flex justify-center mt-4">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
-            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${
-              currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-500"
-            }`}
+            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-500"
+              }`}
             disabled={currentPage === 1}
           >
             Previous
@@ -190,11 +189,10 @@ const Catalog = () => {
           </span>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${
-              currentPage === totalPages
+            className={`mx-1 px-3 py-1 rounded-full bg-[#374151] text-white ${currentPage === totalPages
                 ? "opacity-50 cursor-not-allowed"
                 : "hover:bg-blue-500"
-            }`}
+              }`}
             disabled={currentPage === totalPages}
           >
             Next

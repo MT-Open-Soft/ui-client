@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { CgDropOpacity, CgClose } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
 
 const apiURL ="http://localhost:8080/api/v1/search/suggestions";
 
@@ -37,17 +36,6 @@ const Search = () => {
   };
 
   const handleSelectResult = (result) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'You must be logged in to view this content.',
-        toast: true,
-        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>'
-      });
-      return;
-    }
     navigate(`/movie/${result._id}`);
     setSearchQuery(result.title);
     setSearchResults([]);
@@ -62,7 +50,7 @@ const Search = () => {
     <div className="h-screen/4 flex flex-col justify-end pb-16" style={{
       backgroundImage: " linear-gradient(to bottom, rgba(6, 12, 23, 1), rgba(12, 19, 31, 0.7), rgba(16, 24, 39, 0.7), rgba(18, 29, 47, 0.85), rgba(21, 34, 56, 1)), url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg')",
       backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      backgroundPosition: 'center'
     }}>
       <div className="h-14" />
       <div className="w-full max-w-xl mx-auto relative">

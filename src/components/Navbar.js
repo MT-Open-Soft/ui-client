@@ -49,17 +49,6 @@ function Navbar() {
   };
 
   const handleSelectResult = (result) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You must be logged in to view this content.",
-        toast: true,
-        html: '<a href="/login" class="text-blue-500 hover:underline">Login now</a>',
-      });
-      return;
-    }
     navigate(`/movie/${result._id}`);
     setSearchQuery(result.title);
     setSearchResults([]);

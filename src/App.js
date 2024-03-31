@@ -25,46 +25,70 @@ import VideoBitrate from './pages/VideoBitrate';
 import LanguageMovies from './components/LanguageMovies';
 import GenreMovies from './components/GenreMovies';
 import Player from './pages/Player';
+import Sidebar from './components/Sidebar';
+import Dashboard from './pages/DashBoard.js';
 
 function App() {
   return (
-   <BrowserRouter>
-   <Navbar/>
-   <Routes>
-    <Route path="/" element={<Home />} />
-    {/* <Route path="/movies" element={<Movies />} />   */}
-    <Route path="/plans" element={<Plans />} />    
-    <Route path="/subs" element={<Subs />} />
-    <Route path="/video" element={<Video />}/>
-    <Route path="/profile" element={<UserProfile />}/>
-    <Route path="/streaming" element={<MoviePreview />} />
-    <Route path="/lang/:language" element={<LanguageMovies/>} />
-    <Route path="/:genre" element={<GenreMovies/>} />
-    <Route path="/login" element={<SignIn/>}/>
-    <Route path="/signup" element={<SignUp/>}/>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/movies" element={<Movies />} />   */}
+        <Route path="/plans" element={<Plans />} />
+        <Route path="/subs" element={<Subs />} />
+        <Route path="/video" element={<Video />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/streaming" element={<MoviePreview />} />
+        <Route path="/lang/:language" element={<LanguageMovies />} />
+        <Route path="/:genre" element={<GenreMovies />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
 
-    <Route path="/search-results/:query" element={<SearchResults />} />
+        <Route path="/search-results/:query" element={<SearchResults />} />
 
-    <Route path="/modal" element={<Modal />} />
-    {/* <Route path="/dashboard" element={
-          <>
+        <Route path="/modal" element={<Modal />} />
+        <Route path="/admin" element={
+          <div className="flex h-screen bg-gray-100">
             <Sidebar />
-            <Dashboard />
-          </>
-        } /> */}
-    {/* <Route path="/video" element={<Video />} */}
-{/* /> */}
-<Route path="/catalog" element={<Catalog />}/>
-<Route path="/users" element={<Users />}/>
-     <Route path="/pricing" element={<Pricing />}/>
-     <Route path='/player' element={<Player/>}/>
-     <Route path="/vidbit" element={<VideoBitrate/>}/>
-     <Route path="/movie/:id" element={<Preview />} />
+            <Dashboard/>
+            {/* Placeholder for child routes */}
+          </div>
+        }/>
+        <Route path="/catalog" element={
+          <div className="flex h-screen bg-gray-100">
+            <Sidebar />
+            <Catalog/>
+            {/* Placeholder for child routes */}
+          </div>
+        }/>
 
-   </Routes>
-   <Footer/>
-   </BrowserRouter>
+      <Route path="/users" element={
+        
+          <div className="flex h-screen">
+            <div className="flex-none w-64 h-full bg-gray-800"> {/* Adjust width (w-64) and background color (bg-gray-800) as needed */}
+              <Sidebar />
+            </div>
+            <div className="flex-grow bg-gray-100"> {/* Adjust background color (bg-gray-100) as needed */}
+              <Users />
+            </div>
+          </div>
+        } />
+      
+          
+   
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path='/player' element={<Player />} />
+        <Route path="/vidbit" element={<VideoBitrate />} />
+        <Route path="/movie/:id" element={<Preview />} />
+
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
 export default App;
+
